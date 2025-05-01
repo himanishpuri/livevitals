@@ -6,10 +6,10 @@ export default function Footer() {
 			<div className="container flex flex-col items-center justify-center gap-4 px-4 md:px-6">
 				<div className="flex items-center gap-2">
 					<Activity className="h-5 w-5 text-primary" />
-					<span className="text-lg font-semibold">HealthConnect</span>
+					<span className="text-lg font-semibold">LiveVitals</span>
 				</div>
 				<p className="text-center text-sm text-muted-foreground">
-					&copy; {new Date().getFullYear()} HealthConnect. All rights
+					&copy; {new Date().getFullYear()} LiveVitals. All rights
 					reserved.
 				</p>
 			</div>

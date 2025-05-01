@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-	title: "HealthConnect - Video Calling Health App",
+	title: "LiveVitals - Video Calling Health App",
 	description: "Connect with healthcare professionals through video calls",
 };
 

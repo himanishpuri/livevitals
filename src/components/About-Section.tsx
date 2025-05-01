@@ -15,7 +15,7 @@ export default function AboutSection({
 				<div className="flex flex-col items-center justify-center space-y-4 text-center">
 					<div className="space-y-2">
 						<h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-							Why Choose HealthConnect
+							Why Choose LiveVitals
 						</h2>
 						<p className="max-w-[900px] text-muted-foreground md:text-xl">
 							We&apos;re revolutionizing healthcare delivery through
@@ -62,12 +62,12 @@ export default function AboutSection({
 						<div className="space-y-4">
 							<h3 className="text-2xl font-bold">Our Mission</h3>
 							<p className="text-muted-foreground">
-								At HealthConnect, we believe that quality healthcare
-								should be accessible to everyone, regardless of location
-								or circumstance. Our mission is to bridge the gap
-								between patients and healthcare providers through
-								innovative technology, making healthcare more
-								convenient, efficient, and personalized.
+								At LiveVitals, we believe that quality healthcare should
+								be accessible to everyone, regardless of location or
+								circumstance. Our mission is to bridge the gap between
+								patients and healthcare providers through innovative
+								technology, making healthcare more convenient,
+								efficient, and personalized.
 							</p>
 						</div>
 

@@ -13,7 +13,7 @@ export default function Hero() {
 				</div>
 				<h1 className="mb-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
 					Healthcare at your fingertips with{" "}
-					<span className="text-primary">HealthConnect</span>
+					<span className="text-primary">LiveVitals</span>
 				</h1>
 				<p className="mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
 					Connect with healthcare professionals through secure,
