@@ -7,6 +7,7 @@ import { Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -64,6 +65,7 @@ export default function Navbar() {
 							</Link>
 						))}
 					</div>
+					<ThemeToggle />
 					<Button size="sm">Get Started</Button>
 				</nav>
 
@@ -131,6 +133,10 @@ export default function Navbar() {
 							{link.label}
 						</Link>
 					))}
+					<div className="flex items-center">
+						<ThemeToggle />
+						<span className="ml-2 text-sm">Toggle theme</span>
+					</div>
 					<Button className="mt-4 w-full sm:w-auto">Get Started</Button>
 				</nav>
 			</div>
@@ -147,7 +153,7 @@ const pageAnimation = () => {
 				transform: "translateY(0)",
 			},
 			{
-				opacity: 0.5,
+				opacity: 0,
 				scale: 0.9,
 				transform: "translateY(-100px)",
 			},

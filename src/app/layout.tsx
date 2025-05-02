@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ViewTransitions } from "next-view-transitions";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,13 @@ export default function RootLayout({
 				suppressHydrationWarning
 			>
 				<body className={inter.className}>
-					<div className="flex min-h-screen flex-col">
-						<Navbar />
-						<div className="flex-1">{children}</div>
-						<Footer />
-					</div>
+					<ThemeProvider>
+						<div className="flex min-h-screen flex-col">
+							<Navbar />
+							<div className="flex-1">{children}</div>
+							<Footer />
+						</div>
+					</ThemeProvider>
 				</body>
 			</html>
 		</ViewTransitions>
