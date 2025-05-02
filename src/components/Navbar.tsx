@@ -100,9 +100,11 @@ export default function Navbar() {
 
 			{/* Mobile Navigation */}
 			{isOpen && (
-				<div
+				<button
 					className="fixed inset-0 top-16 z-30 bg-background/80 backdrop-blur-sm transition-all duration-300"
 					onClick={closeMenu}
+					onKeyDown={(e) => e.key === "Escape" && closeMenu()}
+					aria-label="Close menu overlay"
 				/>
 			)}
 			<div

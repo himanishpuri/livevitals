@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ViewTransitions } from "next-view-transitions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,17 +18,19 @@ export default function RootLayout({
 	readonly children: React.ReactNode;
 }) {
 	return (
-		<html
-			lang="en"
-			suppressHydrationWarning
-		>
-			<body className={inter.className}>
-				<div className="flex min-h-screen flex-col">
-					<Navbar />
-					<div className="flex-1">{children}</div>
-					<Footer />
-				</div>
-			</body>
-		</html>
+		<ViewTransitions>
+			<html
+				lang="en"
+				suppressHydrationWarning
+			>
+				<body className={inter.className}>
+					<div className="flex min-h-screen flex-col">
+						<Navbar />
+						<div className="flex-1">{children}</div>
+						<Footer />
+					</div>
+				</body>
+			</html>
+		</ViewTransitions>
 	);
 }
