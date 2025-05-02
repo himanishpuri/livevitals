@@ -1,11 +1,14 @@
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/About-Section";
+import PageWrapper from "@/components/PageWrapper";
 
 export default function Home() {
 	return (
-		<main className="flex min-h-screen flex-col items-center">
-			<Hero />
-			<AboutSection />
-		</main>
+		<PageWrapper>
+			<main className="flex min-h-screen flex-col items-center">
+				<Hero />
+				<AboutSection />
+			</main>
+		</PageWrapper>
 	);
 }

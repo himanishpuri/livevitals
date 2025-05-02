@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useTransitionRouter } from "next-view-transitions";
 import { Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -10,6 +11,7 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
+	const router = useTransitionRouter();
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
@@ -44,6 +46,13 @@ export default function Navbar() {
 							<Link
 								key={link.href}
 								href={link.href}
+								onClick={(e) => {
+									e.preventDefault();
+									closeMenu();
+									router.push(link.href, {
+										onTransitionReady: pageAnimation,
+									});
+								}}
 								className={cn(
 									"text-sm font-medium transition-colors hover:text-primary",
 									pathname === link.href
@@ -126,3 +135,43 @@ export default function Navbar() {
 		</header>
 	);
 }
+
+const pageAnimation = () => {
+	document.documentElement.animate(
+		[
+			{
+				opacity: 1,
+				scale: 1,
+				transform: "translateY(0)",
+			},
+			{
+				opacity: 0.5,
+				scale: 0.9,
+				transform: "translateY(-100px)",
+			},
+		],
+		{
+			duration: 1000,
+			easing: "cubic-bezier(0.76, 0, 0.24, 1)",
+			fill: "forwards",
+			pseudoElement: "::view-transition-old(root)",
+		},
+	);
+
+	document.documentElement.animate(
+		[
+			{
+				transform: "translateY(100%)",
+			},
+			{
+				transform: "translateY(0)",
+			},
+		],
+		{
+			duration: 1000,
+			easing: "cubic-bezier(0.76, 0, 0.24, 1)",
+			fill: "forwards",
+			pseudoElement: "::view-transition-new(root)",
+		},
+	);
+};
