@@ -20,9 +20,9 @@ import { DietDetailsModal } from "@/components/diet-selection/diet-details-modal
 
 export default function DietSelectionPage() {
 	const [selectedDietId, setSelectedDietId] = useState<string | null>(null);
-	const [activeDietDetail, setActiveDietDetail] = useState<string | null>(
-		null,
-	);
+	// const [activeDietDetail, setActiveDietDetail] = useState<string | null>(
+	// 	null,
+	// );
 
 	const handleSelectDiet = (dietId: string) => {
 		setSelectedDietId(dietId);
@@ -126,7 +126,7 @@ export default function DietSelectionPage() {
 											<Button
 												variant="ghost"
 												size="sm"
-												onClick={() => setActiveDietDetail(diet.id)}
+												// onClick={() => setActiveDietDetail(diet.id)}
 											>
 												<Info className="h-4 w-4 mr-1" /> Details
 											</Button>

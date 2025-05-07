@@ -64,6 +64,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 		setIsSaving(true);
 
 		// Simulate API call
+		console.log(values);
 		setTimeout(() => {
 			setIsSaving(false);
 			toast.success("Profile updated successfully");

@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Clock, Edit, Mail, MapPin, Phone, Target, User } from "lucide-react";
 import PageWrapper from "@/components/PageWrapper";
@@ -40,13 +41,16 @@ export default function ProfilePage() {
 								<CardHeader className="relative pb-0 pt-6">
 									<div className="absolute -top-12 w-full flex justify-center">
 										<div className="h-24 w-24 rounded-full border-4 border-background overflow-hidden">
-											<img
+											<Image
 												src={
 													userProfile.avatarUrl ||
 													"/placeholder.svg"
 												}
 												alt={userProfile.name}
-												className="h-full w-full object-cover"
+												fill
+												sizes="96px"
+												className="object-cover"
+												priority
 											/>
 										</div>
 									</div>
