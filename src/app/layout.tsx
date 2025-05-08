@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ViewTransitions } from "next-view-transitions";
+// import { ViewTransitions } from "next-view-transitions";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,7 +19,7 @@ export default function RootLayout({
 	readonly children: React.ReactNode;
 }) {
 	return (
-		<ViewTransitions>
+		// <ViewTransitions>
 			<html
 				lang="en"
 				suppressHydrationWarning
@@ -34,6 +34,6 @@ export default function RootLayout({
 					</ThemeProvider>
 				</body>
 			</html>
-		</ViewTransitions>
+		// </ViewTransitions>
 	);
 }
