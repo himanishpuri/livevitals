@@ -9,7 +9,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col justify-center items-center">
         <Hero />
         <AboutSection />
-        <SignupForm />
+        {/* <SignupForm /> */}
       </main>
     </PageWrapper>
   );
