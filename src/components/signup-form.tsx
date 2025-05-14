@@ -1,9 +1,9 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { CalendarIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,16 +15,23 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { useAuth, type UserType } from "@/context/auth-context";
+import { toast } from "sonner";
 
 export default function SignupForm() {
+  const router = useRouter();
+  const { signup } = useAuth();
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
     dateOfBirth: undefined as Date | undefined,
+    userType: "user" as UserType,
     agreeToTerms: false,
   });
 
@@ -34,11 +41,13 @@ export default function SignupForm() {
     password: "",
     confirmPassword: "",
     dateOfBirth: "",
+    userType: "",
     agreeToTerms: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -65,6 +74,20 @@ export default function SignupForm() {
       setErrors({
         ...errors,
         confirmPassword: "",
+      });
+    }
+  };
+
+  const handleUserTypeChange = (value: UserType) => {
+    setFormData({
+      ...formData,
+      userType: value,
+    });
+
+    if (errors.userType) {
+      setErrors({
+        ...errors,
+        userType: "",
       });
     }
   };
@@ -104,6 +127,7 @@ export default function SignupForm() {
       password: "",
       confirmPassword: "",
       dateOfBirth: "",
+      userType: "",
       agreeToTerms: "",
     };
 
@@ -152,14 +176,40 @@ export default function SignupForm() {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Here you would typically send the data to your server
-      console.log("Form submitted:", formData);
-      // For demo purposes, we'll just show an alert
-      alert("Account created successfully!");
+      setIsSubmitting(true);
+
+      try {
+        const success = await signup(
+          formData.fullName,
+          formData.email,
+          formData.password,
+          formData.userType
+        );
+
+        if (success) {
+          toast.success(
+            `Account created successfully as ${formData.userType}!`
+          );
+
+          // Redirect based on user type
+          if (formData.userType === "instructor") {
+            router.push("/instructors");
+          } else {
+            router.push("/dashboard");
+          }
+        } else {
+          toast.error("Failed to create account. Please try again.");
+        }
+      } catch (error) {
+        console.error("Signup error:", error);
+        toast.error("An unexpected error occurred. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -357,6 +407,31 @@ export default function SignupForm() {
         )}
       </div>
 
+      <div className="space-y-2">
+        <Label>Account Type</Label>
+        <RadioGroup
+          value={formData.userType}
+          onValueChange={(value) => handleUserTypeChange(value as UserType)}
+          className="flex flex-col space-y-1"
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="user" id="user" />
+            <Label htmlFor="user" className="cursor-pointer">
+              Regular User
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="instructor" id="instructor" />
+            <Label htmlFor="instructor" className="cursor-pointer">
+              Instructor
+            </Label>
+          </div>
+        </RadioGroup>
+        {errors.userType && (
+          <p className="text-red-500 text-sm mt-1">{errors.userType}</p>
+        )}
+      </div>
+
       <div className="flex items-start space-x-2 pt-2">
         <Checkbox
           id="terms"
@@ -387,8 +462,8 @@ export default function SignupForm() {
         </div>
       </div>
 
-      <Button type="submit" className="w-full mt-6">
-        Create Account
+      <Button type="submit" className="w-full mt-6" disabled={isSubmitting}>
+        {isSubmitting ? "Creating Account..." : "Create Account"}
       </Button>
 
       <div className="text-center mt-4">

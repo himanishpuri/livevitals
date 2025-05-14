@@ -1,26 +1,35 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
+import { useAuth, type UserType } from "@/context/auth-context";
+import { toast } from "sonner";
 
 export default function LoginForm() {
+  const router = useRouter();
+  const { login } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    userType: "user" as UserType,
     rememberMe: false,
   });
 
   const [errors, setErrors] = useState({
     email: "",
     password: "",
+    userType: "",
+    form: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -42,6 +51,20 @@ export default function LoginForm() {
     }
   };
 
+  const handleUserTypeChange = (value: UserType) => {
+    setFormData({
+      ...formData,
+      userType: value,
+    });
+
+    if (errors.userType) {
+      setErrors({
+        ...errors,
+        userType: "",
+      });
+    }
+  };
+
   const handleCheckboxChange = (checked: boolean) => {
     setFormData({
       ...formData,
@@ -53,6 +76,8 @@ export default function LoginForm() {
     const newErrors = {
       email: "",
       password: "",
+      userType: "",
+      form: "",
     };
 
     let isValid = true;
@@ -79,21 +104,35 @@ export default function LoginForm() {
 
     if (validateForm()) {
       setIsSubmitting(true);
+
       try {
-        // Here you would typically send the data to your server
-        console.log("Login form submitted:", formData);
+        const success = await login(
+          formData.email,
+          formData.password,
+          formData.userType
+        );
 
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        if (success) {
+          toast.success(`Logged in successfully as ${formData.userType}!`);
 
-        // For demo purposes, we'll just show an alert
-        alert("Login successful!");
-
-        // Redirect to dashboard or home page would happen here
-        // window.location.href = "/dashboard"
+          // Redirect based on user type
+          if (formData.userType === "instructor") {
+            router.push("/instructors");
+          } else {
+            router.push("/dashboard");
+          }
+        } else {
+          setErrors({
+            ...errors,
+            form: "Invalid email or password. Please try again.",
+          });
+        }
       } catch (error) {
         console.error("Login error:", error);
-        alert("Login failed. Please try again.");
+        setErrors({
+          ...errors,
+          form: "An unexpected error occurred. Please try again.",
+        });
       } finally {
         setIsSubmitting(false);
       }
@@ -105,6 +144,12 @@ export default function LoginForm() {
       onSubmit={handleSubmit}
       className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 space-y-4 border border-border"
     >
+      {errors.form && (
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 p-3 rounded-md text-sm">
+          {errors.form}
+        </div>
+      )}
+
       <div className="space-y-2">
         <Label htmlFor="email">Email Address</Label>
         <Input
@@ -158,6 +203,31 @@ export default function LoginForm() {
         </div>
         {errors.password && (
           <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+        )}
+      </div>
+
+      <div className="space-y-2">
+        <Label>Account Type</Label>
+        <RadioGroup
+          value={formData.userType}
+          onValueChange={(value) => handleUserTypeChange(value as UserType)}
+          className="flex flex-col space-y-1"
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="user" id="login-user" />
+            <Label htmlFor="login-user" className="cursor-pointer">
+              Regular User
+            </Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="instructor" id="login-instructor" />
+            <Label htmlFor="login-instructor" className="cursor-pointer">
+              Instructor
+            </Label>
+          </div>
+        </RadioGroup>
+        {errors.userType && (
+          <p className="text-red-500 text-sm mt-1">{errors.userType}</p>
         )}
       </div>
 
