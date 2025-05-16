@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { AuthButtons } from "@/components/auth/auth-buttons";
+import { NotificationDropdown } from "@/components/NotificationDropdown";
 
 export default function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -21,9 +23,10 @@ export default function Navbar() {
 	const closeMenu = () => {
 		setIsOpen(false);
 	};
-
 	const navLinks = [
 		{ href: "/", label: "Home" },
+		{ href: "/instructor-chat", label: "Find Instructors" },
+		{ href: "/schedule", label: "My Sessions" },
 		{ href: "/about", label: "About" },
 	];
 
@@ -64,9 +67,11 @@ export default function Navbar() {
 								{link.label}
 							</Link>
 						))}
-					</div>
+					</div>{" "}
 					<ThemeToggle />
-					<Button size="sm">Get Started</Button>
+					<NotificationDropdown />
+					{/* Auth buttons */}
+					<AuthButtons />
 				</nav>
 
 				{/* Mobile Menu Button */}
@@ -132,12 +137,14 @@ export default function Navbar() {
 						>
 							{link.label}
 						</Link>
-					))}
+					))}{" "}
 					<div className="flex items-center">
 						<ThemeToggle />
 						<span className="ml-2 text-sm">Toggle theme</span>
 					</div>
-					<Button className="mt-4 w-full sm:w-auto">Get Started</Button>
+					<div className="mt-4">
+						<AuthButtons />
+					</div>
 				</nav>
 			</div>
 		</header>

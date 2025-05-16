@@ -1,10 +1,13 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Activity, Target, Utensils, Weight } from "lucide-react";
 import { HealthDataContext } from "@/context/health-data-context";
+import { useAuth } from "@/context/auth-context";
+import { useRouter } from "next/navigation";
 import PageWrapper from "@/components/PageWrapper";
+import { Toaster, toast } from "sonner";
 import {
 	Card,
 	CardContent,
@@ -20,6 +23,9 @@ import { MacronutrientDistributionChart } from "@/components/dashboard/macronutr
 
 export default function DashboardPage() {
 	const { healthData } = useContext(HealthDataContext);
+	const { user, isAuthenticated } = useAuth();
+	const router = useRouter();
+
 	const {
 		currentWeight,
 		currentHeight,
@@ -33,10 +39,30 @@ export default function DashboardPage() {
 		animate: { y: 0, opacity: 1 },
 	};
 
+	useEffect(() => {
+		// Redirect if not authenticated
+		if (!isAuthenticated) {
+			router.push("/login");
+		}
+	}, [isAuthenticated, router]);
+
+	// Show welcome message when first authenticated
+	useEffect(() => {
+		if (isAuthenticated && user) {
+			toast.success(`Welcome to your dashboard, ${user.name}!`);
+		}
+	}, [isAuthenticated, user]);
+
+	if (!isAuthenticated) {
+		return null; // Don't render anything while redirecting
+	}
 	return (
 		<PageWrapper>
+			<Toaster />
 			<div className="container mx-auto p-8">
-				<h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+				<h1 className="text-3xl font-bold mb-6">
+					{user ? `${user.name}'s Dashboard` : "Dashboard"}
+				</h1>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
 					<motion.div

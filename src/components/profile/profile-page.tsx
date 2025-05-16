@@ -3,7 +3,16 @@
 import { useContext } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Clock, Edit, Mail, MapPin, Phone, Target, User } from "lucide-react";
+import {
+	Activity,
+	Clock,
+	Edit,
+	Mail,
+	MapPin,
+	Phone,
+	Target,
+	User,
+} from "lucide-react";
 import PageWrapper from "@/components/PageWrapper";
 import { HealthDataContext } from "@/context/health-data-context";
 import { Button } from "@/components/ui/button";
@@ -20,6 +29,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProfileInfoCard } from "@/components/profile/profile-info-card";
 import { HealthGoalsCard } from "@/components/profile/health-goals-card";
 import { ProfileEditForm } from "@/components/profile/profile-edit-form";
+import { FitnessStatsCard } from "@/components/profile/fitness-stats-card";
 
 export default function ProfilePage() {
 	const { healthData } = useContext(HealthDataContext);
@@ -163,7 +173,8 @@ export default function ProfilePage() {
 
 					<div className="md:col-span-2">
 						<Tabs defaultValue="info">
-							<TabsList className="grid w-full grid-cols-3">
+							{" "}
+							<TabsList className="grid w-full grid-cols-4">
 								<TabsTrigger value="info">
 									<User className="w-4 h-4 mr-2" />
 									Profile Info
@@ -172,19 +183,21 @@ export default function ProfilePage() {
 									<Target className="w-4 h-4 mr-2" />
 									Health Goals
 								</TabsTrigger>
+								<TabsTrigger value="fitness">
+									<Activity className="w-4 h-4 mr-2" />
+									Fitness Stats
+								</TabsTrigger>
 								<TabsTrigger value="edit">
 									<Edit className="w-4 h-4 mr-2" />
 									Edit Profile
 								</TabsTrigger>
 							</TabsList>
-
 							<TabsContent
 								value="info"
 								className="mt-6"
 							>
 								<ProfileInfoCard profile={userProfile} />
-							</TabsContent>
-
+							</TabsContent>{" "}
 							<TabsContent
 								value="goals"
 								className="mt-6"
@@ -194,7 +207,12 @@ export default function ProfilePage() {
 									currentStats={healthData}
 								/>
 							</TabsContent>
-
+							<TabsContent
+								value="fitness"
+								className="mt-6"
+							>
+								<FitnessStatsCard />
+							</TabsContent>
 							<TabsContent
 								value="edit"
 								className="mt-6"

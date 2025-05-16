@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ViewTransitions } from "next-view-transitions";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AuthProvider } from "@/context/auth-context";
+import { NotificationProvider } from "@/context/notification-context";
+import { ToastProvider } from "@/components/ui/toast-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,12 +28,18 @@ export default function RootLayout({
 				suppressHydrationWarning
 			>
 				<body className={inter.className}>
+					{" "}
 					<ThemeProvider>
-						<div className="flex min-h-screen flex-col">
-							<Navbar />
-							<div className="flex-1">{children}</div>
-							<Footer />
-						</div>
+						<AuthProvider>
+							<NotificationProvider>
+								<div className="flex min-h-screen flex-col">
+									<Navbar />
+									<div className="flex-1">{children}</div>
+									<Footer />
+								</div>
+								<ToastProvider />
+							</NotificationProvider>
+						</AuthProvider>
 					</ThemeProvider>
 				</body>
 			</html>

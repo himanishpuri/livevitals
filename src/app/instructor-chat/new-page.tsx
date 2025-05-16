@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import useSocket from "@/hooks/useSocket";
 import { InstructorList } from "@/components/instructor-chat/instructor-list";
 import { Toaster, toast } from "sonner";
-import { useAuth } from "@/context/auth-context";
 
 const InstructorChatPage = () => {
 	const { instructors, isConnected } = useSocket();

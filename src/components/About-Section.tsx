@@ -14,13 +14,14 @@ export default function AboutSection({
 			<div className="container px-4 md:px-6 mx-auto">
 				<div className="flex flex-col items-center justify-center space-y-4 text-center">
 					<div className="space-y-2">
+						{" "}
 						<h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
 							Why Choose LiveVitals
 						</h2>
 						<p className="max-w-[900px] text-muted-foreground md:text-xl">
-							We&apos;re revolutionizing healthcare delivery through
-							secure video consultations and innovative digital health
-							solutions.
+							We&apos;re transforming fitness coaching through secure
+							video consultations with expert instructors and innovative
+							digital health tracking.
 						</p>
 					</div>
 				</div>
@@ -37,22 +38,23 @@ export default function AboutSection({
 					</div>
 					<div className="flex flex-col items-center space-y-4 text-center">
 						<div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+							{" "}
 							<Shield className="h-8 w-8 text-primary" />
 						</div>
 						<h3 className="text-xl font-bold">Secure & Private</h3>
 						<p className="text-muted-foreground">
-							End-to-end encryption and HIPAA-compliant platform to
-							protect your health information.
+							End-to-end encryption protects your video calls and
+							personal fitness information.
 						</p>
 					</div>
 					<div className="flex flex-col items-center space-y-4 text-center">
 						<div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
 							<Clock className="h-8 w-8 text-primary" />
 						</div>
-						<h3 className="text-xl font-bold">24/7 Availability</h3>
+						<h3 className="text-xl font-bold">24/7 Availability</h3>{" "}
 						<p className="text-muted-foreground">
-							Access healthcare professionals around the clock, whenever
-							you need them.
+							See which instructors are online now and start a video
+							consultation when it&apos;s convenient for you.
 						</p>
 					</div>
 				</div>
@@ -60,14 +62,15 @@ export default function AboutSection({
 				{showFullContent && (
 					<div className="mt-12 space-y-8">
 						<div className="space-y-4">
+							{" "}
 							<h3 className="text-2xl font-bold">Our Mission</h3>
 							<p className="text-muted-foreground">
-								At LiveVitals, we believe that quality healthcare should
-								be accessible to everyone, regardless of location or
-								circumstance. Our mission is to bridge the gap between
-								patients and healthcare providers through innovative
-								technology, making healthcare more convenient,
-								efficient, and personalized.
+								At LiveVitals, we believe that quality fitness
+								instruction should be accessible to everyone, regardless
+								of location or schedule. Our mission is to connect
+								fitness enthusiasts with expert instructors through
+								innovative technology, making fitness guidance more
+								convenient, effective, and personalized.
 							</p>
 						</div>
 
