@@ -9,20 +9,39 @@ import Image from "next/image";
 import { useAuth } from "@/context/auth-context";
 import { ScheduleSessionDialog } from "@/components/instructor-chat/schedule-session-dialog";
 import { ChatComponent } from "@/components/instructor-chat/chat-component";
+import {
+	Video,
+	Phone,
+	MicOff,
+	Mic,
+	VideoOff,
+	MessageSquare,
+	Clock,
+	Star,
+	ArrowLeft,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { motion, AnimatePresence } from "framer-motion";
 
 const InstructorVideoChat = () => {
 	const router = useRouter();
 	const params = useParams();
-	const searchParams = useSearchParams();
 	const { socket } = useSocket();
-	const { user, isAuthenticated } = useAuth();
+	const { isAuthenticated } = useAuth();
 
 	// Check if this is an instructor answering a call
-	const callerParam = searchParams.get("caller");
-	const isInstructorAnswering = user?.role === "instructor" && callerParam;
 
 	// Instructor ID from URL
-	const instructorId = params.id as string;
+	const instructorId = params?.id as string;
 	const instructor = instructors.find((ins) => ins.id === instructorId);
 
 	// Video chat refs
@@ -37,6 +56,10 @@ const InstructorVideoChat = () => {
 	const [isCalling, setIsCalling] = useState(false);
 	const [isConnected, setIsConnected] = useState(false);
 	const [copySuccess, setCopySuccess] = useState(false);
+	const [activeTab, setActiveTab] = useState("video");
+	const [audioEnabled, setAudioEnabled] = useState(true);
+	const [videoEnabled, setVideoEnabled] = useState(true);
+	const [authChecked, setAuthChecked] = useState(false);
 
 	const generateId = () => crypto.randomUUID();
 
@@ -88,6 +111,26 @@ const InstructorVideoChat = () => {
 
 		setIsCalling(false);
 		setIsConnected(false);
+	};
+
+	const toggleAudio = () => {
+		if (localStreamRef.current) {
+			const audioTracks = localStreamRef.current.getAudioTracks();
+			audioTracks.forEach((track) => {
+				track.enabled = !audioEnabled;
+			});
+			setAudioEnabled(!audioEnabled);
+		}
+	};
+
+	const toggleVideo = () => {
+		if (localStreamRef.current) {
+			const videoTracks = localStreamRef.current.getVideoTracks();
+			videoTracks.forEach((track) => {
+				track.enabled = !videoEnabled;
+			});
+			setVideoEnabled(!videoEnabled);
+		}
 	};
 
 	const copyId = () => {
@@ -192,218 +235,366 @@ const InstructorVideoChat = () => {
 		}
 	}, [instructor, router]);
 
+	// Check authentication
+	useEffect(() => {
+		if (isAuthenticated === undefined) return;
+
+		if (!isAuthenticated) {
+			toast.error("Please sign in to join a video consultation");
+			setTimeout(() => router.push("/login"), 2000);
+		}
+		setAuthChecked(true);
+	}, [isAuthenticated, router]);
+
 	if (!instructor) {
 		return (
-			<div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-6 flex items-center justify-center">
+			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
 				<div className="text-center">
-					<p className="text-lg text-gray-600">Instructor not found</p>
-					<p className="text-gray-500 mt-2">
+					<p className="text-lg">Instructor not found</p>
+					<p className="text-muted-foreground mt-2">
 						Redirecting to instructor list...
 					</p>
 				</div>
 			</div>
 		);
 	}
-	// Check authentication
-	useEffect(() => {
-		if (!isAuthenticated) {
-			toast.error("Please sign in to join a video consultation");
-			setTimeout(() => router.push("/login"), 2000);
-		}
-	}, [isAuthenticated, router]);
+
+	if (!authChecked) {
+		return (
+			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
+				<Toaster />
+				<div className="text-center">
+					<p className="text-lg">Checking authentication...</p>
+					<p className="text-muted-foreground mt-2">Please wait...</p>
+				</div>
+			</div>
+		);
+	}
 
 	if (!isAuthenticated) {
 		return (
-			<div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-6 flex items-center justify-center">
+			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
 				<Toaster />
 				<div className="text-center">
-					<p className="text-lg text-gray-600">Authentication required</p>
-					<p className="text-gray-500 mt-2">Redirecting to login...</p>
+					<p className="text-lg">Authentication required</p>
+					<p className="text-muted-foreground mt-2">
+						Redirecting to login...
+					</p>
 				</div>
 			</div>
 		);
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-6">
+		<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
 			<Toaster />
-			<div className="max-w-5xl mx-auto">
-				<div className="flex items-center gap-4 mb-6">
-					<button
+			<div className="max-w-6xl mx-auto">
+				<div className="flex items-center gap-4 mb-8">
+					<Button
+						variant="ghost"
+						size="icon"
 						onClick={() => router.push("/instructor-chat")}
-						className="text-blue-600 hover:text-blue-800"
+						className="h-10 w-10"
 					>
-						← Back to instructors
-					</button>
+						<ArrowLeft className="h-5 w-5" />
+					</Button>
 
-					<h1 className="text-2xl font-bold text-blue-800">
-						Video Chat with {instructor.name}
+					<h1 className="text-2xl font-bold">
+						Session with {instructor.name}
 					</h1>
+
+					<Badge
+						variant={instructor.availability ? "default" : "outline"}
+						className="ml-auto"
+					>
+						{instructor.availability ? "Available" : "Offline"}
+					</Badge>
 				</div>
 
-				<div className="flex flex-col lg:flex-row gap-8">
-					{/* Your video */}
-					<div className="flex-1 bg-white rounded-xl shadow-md p-6 flex flex-col">
-						<h2 className="text-xl font-semibold text-gray-800 mb-2">
-							Your Camera
-						</h2>
+				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+					{/* Left column - Instructor info */}
+					<div className="lg:col-span-1">
+						<Card className="mb-6">
+							<CardHeader className="pb-2">
+								<CardTitle>Instructor Profile</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<div className="flex flex-col items-center text-center mb-4">
+									<div className="w-24 h-24 rounded-full overflow-hidden relative border-2 border-background shadow-sm mb-4">
+										<Image
+											src={
+												instructor.profileImage ||
+												"/placeholder.svg"
+											}
+											alt={instructor.name}
+											width={96}
+											height={96}
+											className="object-cover"
+											onError={(e) => {
+												// Fallback for image loading errors
+												const target = e.target as HTMLImageElement;
+												target.src =
+													"https://via.placeholder.com/100?text=" +
+													instructor.name.charAt(0);
+											}}
+										/>
+									</div>
 
-						<div className="relative rounded-lg overflow-hidden bg-gray-100 aspect-video mb-4">
-							<video
-								className="w-full h-full object-cover scale-x-[-1]"
-								playsInline
-								ref={myVideoRef}
-								autoPlay
-								muted
-							/>
-						</div>
+									<h2 className="text-xl font-semibold">
+										{instructor.name}
+									</h2>
+									<p className="text-primary text-sm font-medium mb-2">
+										{instructor.specialty}
+									</p>
 
-						<div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg mb-4">
-							<span className="text-sm text-gray-600">Your ID: </span>
-							<code className="bg-white px-2 py-1 rounded flex-1 text-blue-800 text-sm font-mono overflow-hidden text-ellipsis">
-								{myPeerId}
-							</code>
-							<button
-								onClick={copyId}
-								className="text-xs bg-blue-600 hover:bg-blue-700 text-white py-1 px-2 rounded transition-all"
-							>
-								{copySuccess ? "Copied!" : "Copy"}
-							</button>
-						</div>
-					</div>
-
-					{/* Instructor video */}
-					<div className="flex-1 bg-white rounded-xl shadow-md p-6 flex flex-col">
-						<div className="flex items-center justify-between mb-2">
-							<h2 className="text-xl font-semibold text-gray-800">
-								{instructor.name}
-							</h2>
-							<span
-								className={`inline-block px-2 py-1 rounded-full text-xs ${
-									instructor.availability
-										? "bg-green-100 text-green-800"
-										: "bg-gray-100 text-gray-800"
-								}`}
-							>
-								{instructor.availability ? "Available" : "Offline"}
-							</span>
-						</div>
-						<div className="relative rounded-lg overflow-hidden bg-gray-100 aspect-video mb-4">
-							{isConnected ? (
-								<video
-									className="w-full h-full object-cover"
-									playsInline
-									ref={instructorVideoRef}
-									autoPlay
-								/>
-							) : (
-								<div className="absolute inset-0 flex items-center justify-center">
-									<div className="text-center">
-										<div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-3 border-2 border-white shadow-sm">
-											<Image
-												src={instructor.profileImage}
-												alt={instructor.name}
-												width={80}
-												height={80}
-												className="object-cover"
-												onError={(e) => {
-													// Fallback for image loading errors
-													const target =
-														e.target as HTMLImageElement;
-													target.src =
-														"https://via.placeholder.com/100?text=" +
-														instructor.name.charAt(0);
-												}}
+									<div className="flex items-center gap-1 mb-4">
+										{[1, 2, 3, 4, 5].map((star) => (
+											<Star
+												key={star}
+												className="h-4 w-4 fill-yellow-400 text-yellow-400"
 											/>
-										</div>
-										{!isCalling ? (
-											<p className="text-gray-500">
-												{instructor.specialty}
-											</p>
-										) : (
-											<p className="text-blue-600">Calling...</p>
-										)}
+										))}
 									</div>
 								</div>
-							)}
-						</div>
-						<div className="flex gap-2 mt-2">
-							{isConnected ? (
-								<button
-									onClick={endCall}
-									className="w-full px-4 py-2 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white transition-all"
+
+								<div className="space-y-4">
+									<div>
+										<h3 className="text-sm font-medium text-muted-foreground mb-1">
+											About
+										</h3>
+										<p className="text-sm">{instructor.biography}</p>
+									</div>
+
+									<div className="flex items-center justify-between pt-4 border-t">
+										<div className="flex items-center gap-1">
+											<Clock className="h-4 w-4 text-muted-foreground" />
+											<span className="text-sm">30 min session</span>
+										</div>
+
+										<ScheduleSessionDialog instructor={instructor} />
+									</div>
+								</div>
+							</CardContent>
+						</Card>
+
+						<Card>
+							<CardHeader className="pb-2">
+								<CardTitle>Your ID</CardTitle>
+								<CardDescription>
+									For troubleshooting connection issues
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<div className="flex items-center gap-2 p-3 bg-muted/50 rounded-lg">
+									<code className="bg-transparent px-2 py-1 rounded flex-1 text-xs font-mono overflow-hidden text-ellipsis">
+										{myPeerId}
+									</code>
+									<Button
+										onClick={copyId}
+										variant="outline"
+										size="sm"
+										className="text-xs h-8"
+									>
+										{copySuccess ? "Copied!" : "Copy"}
+									</Button>
+								</div>
+							</CardContent>
+						</Card>
+					</div>
+
+					{/* Right column - Video and chat */}
+					<div className="lg:col-span-2">
+						<Tabs
+							value={activeTab}
+							onValueChange={setActiveTab}
+							className="mb-6"
+						>
+							<TabsList className="grid w-full grid-cols-2">
+								<TabsTrigger
+									value="video"
+									className="flex items-center gap-2"
 								>
-									End Call
-								</button>
+									<Video className="h-4 w-4" />
+									<span>Video Call</span>
+								</TabsTrigger>
+								<TabsTrigger
+									value="chat"
+									className="flex items-center gap-2"
+								>
+									<MessageSquare className="h-4 w-4" />
+									<span>Text Chat</span>
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
+
+						<AnimatePresence mode="wait">
+							{activeTab === "video" ? (
+								<motion.div
+									key="video"
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									transition={{ duration: 0.2 }}
+								>
+									<Card className="mb-6">
+										<CardContent className="p-0 overflow-hidden">
+											<div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+												{isConnected ? (
+													<>
+														{/* Instructor video (large) */}
+														<video
+															className="w-full h-full object-cover"
+															playsInline
+															ref={instructorVideoRef}
+															autoPlay
+														/>
+
+														{/* Your video (small overlay) */}
+														<div className="absolute bottom-4 right-4 w-1/4 aspect-video rounded-lg overflow-hidden border-2 border-background shadow-lg">
+															<video
+																className="w-full h-full object-cover scale-x-[-1]"
+																playsInline
+																ref={myVideoRef}
+																autoPlay
+																muted
+															/>
+														</div>
+													</>
+												) : (
+													<div className="absolute inset-0 flex items-center justify-center">
+														<div className="text-center">
+															<div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-2 border-background shadow-lg">
+																<Image
+																	src={
+																		instructor.profileImage ||
+																		"/placeholder.svg"
+																	}
+																	alt={instructor.name}
+																	width={96}
+																	height={96}
+																	className="object-cover"
+																	onError={(e) => {
+																		const target =
+																			e.target as HTMLImageElement;
+																		target.src =
+																			"https://via.placeholder.com/100?text=" +
+																			instructor.name.charAt(
+																				0,
+																			);
+																	}}
+																/>
+															</div>
+															{!isCalling ? (
+																<p className="text-xl font-medium mb-2">
+																	{instructor.name}
+																</p>
+															) : (
+																<p className="text-xl font-medium mb-2 text-primary animate-pulse">
+																	Calling...
+																</p>
+															)}
+															<p className="text-muted-foreground">
+																{instructor.specialty}
+															</p>
+														</div>
+													</div>
+												)}
+											</div>
+
+											{/* Video controls */}
+											<div className="flex items-center justify-center gap-4 p-4">
+												<Button
+													variant="outline"
+													size="icon"
+													className="h-12 w-12 rounded-full"
+													onClick={toggleAudio}
+												>
+													{audioEnabled ? (
+														<Mic className="h-5 w-5" />
+													) : (
+														<MicOff className="h-5 w-5 text-destructive" />
+													)}
+												</Button>
+
+												{isConnected ? (
+													<Button
+														variant="destructive"
+														size="icon"
+														className="h-14 w-14 rounded-full"
+														onClick={endCall}
+													>
+														<Phone className="h-6 w-6 rotate-135" />
+													</Button>
+												) : (
+													<Button
+														variant="default"
+														size="icon"
+														className="h-14 w-14 rounded-full"
+														onClick={initializeCall}
+														disabled={
+															isCalling ||
+															!instructor.availability
+														}
+													>
+														<Phone className="h-6 w-6" />
+													</Button>
+												)}
+
+												<Button
+													variant="outline"
+													size="icon"
+													className="h-12 w-12 rounded-full"
+													onClick={toggleVideo}
+												>
+													{videoEnabled ? (
+														<Video className="h-5 w-5" />
+													) : (
+														<VideoOff className="h-5 w-5 text-destructive" />
+													)}
+												</Button>
+											</div>
+										</CardContent>
+									</Card>
+
+									{/* Your video preview */}
+									<Card>
+										<CardHeader className="pb-2">
+											<CardTitle>Your Camera</CardTitle>
+											<CardDescription>
+												Preview how you appear to others
+											</CardDescription>
+										</CardHeader>
+										<CardContent>
+											<div className="rounded-lg overflow-hidden bg-black aspect-video">
+												<video
+													className="w-full h-full object-cover scale-x-[-1]"
+													playsInline
+													ref={myVideoRef}
+													autoPlay
+													muted
+												/>
+											</div>
+										</CardContent>
+									</Card>
+								</motion.div>
 							) : (
-								<button
-									onClick={initializeCall}
-									disabled={isCalling || !instructor.availability}
-									className={`w-full px-4 py-2 rounded-lg font-medium transition-all ${
-										!instructor.availability
-											? "bg-gray-300 text-gray-600 cursor-not-allowed"
-											: isCalling
-											? "bg-blue-400 text-white"
-											: "bg-blue-600 hover:bg-blue-700 text-white"
-									}`}
+								<motion.div
+									key="chat"
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									transition={{ duration: 0.2 }}
+									className="h-[600px]"
 								>
-									{isCalling ? "Connecting..." : "Start Call"}
-								</button>
+									<ChatComponent
+										instructorId={instructorId}
+										instructorName={instructor.name}
+										instructorImage={instructor.profileImage}
+									/>
+								</motion.div>
 							)}
-						</div>{" "}
-						<div className="mt-4">
-							<h3 className="font-medium mb-1">About</h3>
-							<p className="text-sm text-gray-600">
-								{instructor.biography}
-							</p>
-						</div>
-						<div className="mt-6 border-t pt-4">
-							<div className="flex items-center justify-between">
-								<h3 className="font-medium">Can't talk now?</h3>
-								<ScheduleSessionDialog instructor={instructor} />
-							</div>
-							<p className="text-sm text-gray-600 mt-1">
-								Schedule a future session with {instructor.name}
-							</p>
-						</div>
+						</AnimatePresence>
 					</div>
-				</div>
-				{/* Chat and Schedule Section */}
-				<div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-					{/* Text Chat */}
-					<div className="bg-white rounded-xl shadow-md p-6">
-						<h2 className="text-xl font-semibold text-gray-800 mb-4">
-							Message {instructor.name}
-						</h2>
-						<div className="h-96">
-							<ChatComponent
-								instructorId={instructorId}
-								instructorName={instructor.name}
-								instructorImage={instructor.profileImage}
-							/>
-						</div>
-					</div>
-
-					{/* Scheduled Sessions Section */}
-					<div className="bg-white rounded-xl shadow-md p-6">
-						<h2 className="text-xl font-semibold text-gray-800 mb-4">
-							Your Scheduled Sessions
-						</h2>
-						<div className="text-center py-6 text-gray-500">
-							<p>No upcoming sessions scheduled</p>
-							<p className="text-sm mt-2">
-								Schedule a session with {instructor.name} to get started
-							</p>
-						</div>
-					</div>
-				</div>
-
-				{/* Chat Component */}
-				<div className="mt-8 bg-white rounded-xl shadow-md p-6">
-					<h2 className="text-xl font-semibold text-gray-800 mb-4">
-						Chat
-					</h2>
-					<ChatComponent instructorId={instructorId} />
 				</div>
 			</div>
 		</div>

@@ -1,10 +1,15 @@
 "use client";
-import { Instructor } from "@/data/instructors";
+import type { Instructor } from "@/data/instructors";
+import type React from "react";
+
 import Link from "next/link";
 import Image from "next/image";
 import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+import { Video, Star, Clock, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface InstructorCardProps {
 	instructor: Instructor;
@@ -14,6 +19,7 @@ const InstructorCard = ({ instructor }: InstructorCardProps) => {
 	const { isAuthenticated } = useAuth();
 	const router = useRouter();
 	const isAvailable = instructor.availability === true;
+
 	const handleClick = (e: React.MouseEvent) => {
 		if (!isAuthenticated) {
 			e.preventDefault();
@@ -30,54 +36,105 @@ const InstructorCard = ({ instructor }: InstructorCardProps) => {
 	};
 
 	return (
-		<Link
-			href={`/instructor-chat/${instructor.id}`}
-			className={`block p-4 rounded-xl transition-all transform hover:scale-105 
-        ${isAvailable ? "bg-white shadow-md" : "bg-gray-100"}`}
-			onClick={handleClick}
+		<motion.div
+			initial={{ opacity: 0, y: 20 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.3 }}
+			whileHover={{ y: -5 }}
+			className={`rounded-xl overflow-hidden transition-all ${
+				isAvailable
+					? "bg-white dark:bg-card shadow-lg"
+					: "bg-muted/50 dark:bg-muted/20"
+			}`}
 		>
-			<div className="flex flex-col items-center">
-				<div className="relative mb-3">
+			<div className="p-6">
+				<div className="flex flex-col items-center text-center">
 					{/* Avatar with availability indicator */}
-					<div className="w-24 h-24 rounded-full overflow-hidden relative border-2 border-white shadow-sm">
-						<Image
-							src={instructor.profileImage}
-							alt={instructor.name}
-							width={96}
-							height={96}
-							className="object-cover"
-							onError={(e) => {
-								// Fallback for image loading errors
-								const target = e.target as HTMLImageElement;
-								target.src =
-									"https://via.placeholder.com/100?text=" +
-									instructor.name.charAt(0);
-							}}
+					<div className="relative mb-4">
+						<div className="w-28 h-28 rounded-full overflow-hidden relative border-4 border-background shadow-sm">
+							<Image
+								src={instructor.profileImage || "/placeholder.svg"}
+								alt={instructor.name}
+								width={112}
+								height={112}
+								className="object-cover"
+								onError={(e) => {
+									// Fallback for image loading errors
+									const target = e.target as HTMLImageElement;
+									target.src =
+										"https://via.placeholder.com/112?text=" +
+										instructor.name.charAt(0);
+								}}
+							/>
+						</div>
+
+						{/* Status indicator */}
+						<div
+							className={`absolute bottom-1 right-1 w-5 h-5 rounded-full border-2 border-background 
+								${isAvailable ? "bg-green-500" : "bg-gray-400"}`}
 						/>
 					</div>
 
-					{/* Status indicator */}
-					<div
-						className={`absolute bottom-1 right-1 w-4 h-4 rounded-full border-2 border-white 
-            ${isAvailable ? "bg-green-500" : "bg-gray-400"}`}
-					/>
-				</div>
+					<h3 className="text-xl font-semibold">{instructor.name}</h3>
+					<p className="text-primary font-medium text-sm mb-3">
+						{instructor.specialty}
+					</p>
 
-				<h3 className="font-medium text-center">{instructor.name}</h3>
-				<p className="text-sm text-gray-600 text-center">
-					{instructor.specialty}
-				</p>
-				<span
-					className={`mt-2 text-xs px-2 py-1 rounded-full inline-block ${
-						isAvailable
-							? "bg-green-100 text-green-800"
-							: "bg-gray-200 text-gray-600"
-					}`}
-				>
-					{isAvailable ? "Available" : "Offline"}
-				</span>
+					<div className="flex items-center gap-1 mb-4">
+						{[1, 2, 3, 4, 5].map((star) => (
+							<Star
+								key={star}
+								className="h-4 w-4 fill-yellow-400 text-yellow-400"
+							/>
+						))}
+					</div>
+
+					<p className="text-muted-foreground text-sm mb-5 line-clamp-2">
+						{instructor.biography}
+					</p>
+
+					<div className="flex items-center gap-2 mb-5">
+						<span
+							className={`px-3 py-1 rounded-full text-xs font-medium ${
+								isAvailable
+									? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+									: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400"
+							}`}
+						>
+							{isAvailable ? "Available Now" : "Offline"}
+						</span>
+
+						<span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+							<Clock className="inline-block h-3 w-3 mr-1" />
+							30 min
+						</span>
+					</div>
+
+					<Button
+						asChild
+						variant={isAvailable ? "default" : "outline"}
+						className="w-full"
+						disabled={!isAvailable}
+					>
+						<Link
+							href={`/instructor-chat/${instructor.id}`}
+							onClick={handleClick}
+						>
+							{isAvailable ? (
+								<>
+									<Video className="h-4 w-4 mr-2" /> Start Consultation
+								</>
+							) : (
+								<>
+									<Calendar className="h-4 w-4 mr-2" /> Schedule
+									Session
+								</>
+							)}
+						</Link>
+					</Button>
+				</div>
 			</div>
-		</Link>
+		</motion.div>
 	);
 };
 
@@ -87,7 +144,7 @@ interface InstructorListProps {
 
 export const InstructorList = ({ instructors }: InstructorListProps) => {
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+		<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 			{instructors.map((instructor) => (
 				<InstructorCard
 					key={instructor.id}

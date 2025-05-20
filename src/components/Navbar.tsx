@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AuthButtons } from "@/components/auth/auth-buttons";
 import { NotificationDropdown } from "@/components/NotificationDropdown";
+import { useAuth } from "@/context/auth-context";
 
 export default function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -23,12 +24,40 @@ export default function Navbar() {
 	const closeMenu = () => {
 		setIsOpen(false);
 	};
-	const navLinks = [
-		{ href: "/", label: "Home" },
-		{ href: "/instructor-chat", label: "Find Instructors" },
-		{ href: "/schedule", label: "My Sessions" },
-		{ href: "/about", label: "About" },
-	];
+
+	// Replace the navLinks array with this dynamic function that returns links based on auth status
+	const getNavLinks = (isAuth: boolean, userRole?: string) => {
+		// Links visible to all users
+		const publicLinks = [
+			{ href: "/", label: "Home" },
+			{ href: "/about", label: "About" },
+		];
+
+		// Links only visible to authenticated users
+		const authLinks = [
+			{ href: "/dashboard", label: "Dashboard" },
+			{ href: "/data-input", label: "Data Input" },
+			{ href: "/diet-selection", label: "Diet Plans" },
+			{ href: "/profile", label: "Profile" },
+			{ href: "/schedule", label: "My Sessions" },
+			{ href: "/instructor-chat", label: "Find Instructors" },
+		];
+
+		// Links only visible to instructors
+		const instructorLinks = [
+			{ href: "/instructor/dashboard", label: "Instructor Dashboard" },
+		];
+
+		if (!isAuth) return publicLinks;
+
+		return userRole === "instructor"
+			? [...publicLinks, ...instructorLinks]
+			: [...publicLinks, ...authLinks];
+	};
+
+	// Replace the existing navLinks array in the component with this
+	const { isAuthenticated, user } = useAuth();
+	const navLinks = getNavLinks(isAuthenticated, user?.role);
 
 	return (
 		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -127,7 +156,13 @@ export default function Navbar() {
 						<Link
 							key={link.href}
 							href={link.href}
-							onClick={closeMenu}
+							onClick={(e) => {
+								e.preventDefault();
+								closeMenu();
+								router.push(link.href, {
+									onTransitionReady: pageAnimation,
+								});
+							}}
 							className={cn(
 								"text-lg font-medium transition-colors hover:text-primary",
 								pathname === link.href
