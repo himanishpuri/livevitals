@@ -1,0 +1,19 @@
+name: Feature request
+description: Propose a new capability for LiveVitals.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is hard or impossible today, and for whom?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: The behaviour you want. Keep it to what the problem needs.
+    validations:
+      required: true
