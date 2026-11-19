@@ -18,6 +18,7 @@ import DayWorkoutCard from "@/components/workout-plan/day-workout-card";
 import ExerciseDetailsModal from "@/components/workout-plan/exercise-details-modal";
 import { mockWorkoutPlanData } from "@/data/mock-workout-plan";
 import type { Exercise } from "@/types/workout-plan";
+import useWorkoutProgress from "@/hooks/use-workout-progress";
 
 export default function WorkoutPlanPage() {
   const [currentWeekStart, setCurrentWeekStart] = useState<Date>(
@@ -27,6 +28,7 @@ export default function WorkoutPlanPage() {
     null
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const progress = useWorkoutProgress(mockWorkoutPlanData);
 
   const today = new Date();
   const weekEnd = endOfWeek(currentWeekStart, { weekStartsOn: 1 });
@@ -130,6 +132,7 @@ export default function WorkoutPlanPage() {
                     date={date}
                     workout={dayWorkout}
                     isToday={isToday}
+                    progress={progress}
                     onExerciseClick={handleExerciseClick}
                   />
                 );
