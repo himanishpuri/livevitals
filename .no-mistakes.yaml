@@ -1,11 +1,12 @@
 # no-mistakes push gate: `git push no-mistakes <branch>` reviews, lints and
 # tests the change in a disposable worktree before it reaches origin.
 # Docs: https://kunchenguid.github.io/no-mistakes/reference/repo-config/
-agent: claude
+agent: acp:vibe-acp
 
 commands:
   prepare: "npm ci && npm --prefix realtime ci"
-  lint: "npm run lint && npm run typecheck"
+  lint: "npm run lint && npm run typecheck && npm run format:check && npm run lint:dup"
+  format: "npm run format"
   # Fast local checks only; CI runs build, e2e and Docker.
   test: "npm test && npm --prefix realtime test && npm run test:jira"
 
@@ -18,6 +19,12 @@ protected_paths:
   - "package-lock.json"
   - "realtime/package-lock.json"
 
+document:
+  instructions: |
+    Only update documentation that this change makes stale. LICENSE,
+    CONTRIBUTING, SECURITY and CHANGELOG are maintained in their own issues,
+    so never add or edit them in an unrelated change.
+
 review:
   path_instructions:
     - path: "**"
@@ -27,6 +34,17 @@ review:
         src/components. Ask for a shared helper or component instead.
         Refactor and cleanup changes must not alter behaviour, routes, socket
         event names or accessible names used by e2e/ specs.
+        Flag hard-coded secrets, tokens or API keys.
+        Flag raw Tailwind palette colours (bg-red-500, text-blue-700 and the
+        like) outside src/components/ui; ask for theme tokens or Badge
+        variants instead.
+        Flag interactive elements (buttons, links, inputs) with no accessible
+        name.
+        Flag console.log calls in src/.
+        Flag new dependencies added for a few lines of code that the standard
+        library or an installed package already covers.
+        Flag client-side storage keys and socket event names written as string
+        literals in more than one place; ask for a shared constant.
     - path: "src/components/ui/**"
       instructions: |
         shadcn/ui generated components. Do not request refactors or style changes.
