@@ -32,29 +32,40 @@ export default function InstructorDashboard() {
 	>([]);
 
 	useEffect(() => {
-		if (socket && user?.role === "instructor") {
-			// Register as an online instructor
-			socket.emit("instructor_signin", user.id);
+		if (user?.role !== "instructor") return;
+		const instructorId = user.id;
 
-			// Listen for incoming call requests
-			socket.on("incoming_call", (data) => {
-				toast.info(`Incoming call from ${data.from}`);
-				setPendingCalls((prev) => [
-					...prev,
-					{ id: data.from, name: "User" },
-				]);
+		// Register as an online instructor. Identify first: calls are routed to
+		// the user room, and a reconnect leaves both unset on the server.
+		const goOnline = () => {
+			socket.emit("identify", {
+				userId: instructorId,
+				role: "instructor",
 			});
+			socket.emit("instructor_signin", instructorId);
+		};
+		goOnline();
 
-			// Listen for user count updates
-			socket.on("active_users_count", (count) => {
-				setActiveUsers(count);
-			});
+		// Listen for incoming call requests
+		const onIncomingCall = (data: { from: string }) => {
+			toast.info(`Incoming call from ${data.from}`);
+			setPendingCalls((prev) => [...prev, { id: data.from, name: "User" }]);
+		};
 
-			return () => {
-				socket.off("incoming_call");
-				socket.off("active_users_count");
-			};
-		}
+		// Listen for user count updates
+		const onActiveUsers = (count: number) => {
+			setActiveUsers(count);
+		};
+
+		socket.on("connect", goOnline);
+		socket.on("incoming_call", onIncomingCall);
+		socket.on("active_users_count", onActiveUsers);
+
+		return () => {
+			socket.off("connect", goOnline);
+			socket.off("incoming_call", onIncomingCall);
+			socket.off("active_users_count", onActiveUsers);
+		};
 	}, [socket, user]);
 
 	if (!isAuthenticated || !user || user.role !== "instructor") {
