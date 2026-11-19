@@ -174,7 +174,7 @@ test("sub-tasks are the only rows with an issue parent", () => {
 test("sprint table matches the backlog sums", () => {
   const expected = {
     S1: [22, 48], S2: [10, 26], S3: [14, 32], S4: [7, 16], S5: [14, 24],
-    S6: [15, 29], S7: [9, 27], S8: [5, 15], S9: [3, 5], S10: [9, 17],
+    S6: [15, 29], S7: [9, 27], S8: [5, 15], S9: [3, 5], S10: [10, 18],
   };
   const totals = sprintTotals(backlog);
   assert.equal(totals.length, 10);
@@ -186,7 +186,7 @@ test("sprint table matches the backlog sums", () => {
     .filter((issue) => issue.sprint && issue.type !== "Sub-task" && issue.status === "Done")
     .reduce((sum, issue) => sum + issue.storyPoints, 0);
   assert.equal(sprintsPoints, manual);
-  assert.equal(backlog.issues.length, 127);
+  assert.equal(backlog.issues.length, 128);
 });
 
 test("csv repeats multi-value headers and keeps columns aligned", () => {
