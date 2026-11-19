@@ -58,7 +58,7 @@ test("user chats with the instructor and their video call connects", async ({
 	await user.getByRole("button", { name: "Send message" }).click();
 	await expect(
 		instructor.getByRole("button", { name: "Notifications" }),
-	).toContainText("1");
+	).toHaveText("1");
 
 	// Video call: the instructor answers and both sides get a live remote track.
 	await user.getByRole("tab", { name: "Video Call" }).click();
