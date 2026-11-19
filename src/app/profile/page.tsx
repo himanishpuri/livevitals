@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import ProfilePage from "@/components/profile/profile-page";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function Profile() {
-	return <ProfilePage />;
+	return (
+		<ProtectedRoute>
+			<ProfilePage />
+		</ProtectedRoute>
+	);
 }

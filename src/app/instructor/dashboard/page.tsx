@@ -20,6 +20,7 @@ import {
 import { toast } from "sonner";
 import useSocket from "@/hooks/useSocket";
 import PageWrapper from "@/components/PageWrapper";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function InstructorDashboard() {
 	const { user, isAuthenticated, logout } = useAuth();
@@ -29,15 +30,6 @@ export default function InstructorDashboard() {
 	const [pendingCalls, setPendingCalls] = useState<
 		{ id: string; name: string }[]
 	>([]);
-
-	useEffect(() => {
-		// Redirect if not authenticated or not an instructor
-		if (!isAuthenticated) {
-			router.push("/login");
-		} else if (user?.role !== "instructor") {
-			router.push("/dashboard");
-		}
-	}, [isAuthenticated, user, router]);
 
 	useEffect(() => {
 		if (socket && user?.role === "instructor") {
@@ -90,7 +82,8 @@ export default function InstructorDashboard() {
 	};
 
 	return (
-		<PageWrapper className="min-h-screen bg-background p-6 text-foreground">
+		<ProtectedRoute requireRole="instructor">
+			<PageWrapper className="min-h-screen bg-background p-6 text-foreground">
 			<div className="max-w-7xl mx-auto">
 				<header className="flex items-center justify-between mb-8">
 					<h1 className="text-3xl font-bold">
@@ -265,6 +258,7 @@ export default function InstructorDashboard() {
 					</div>
 				</div>
 			</div>
-		</PageWrapper>
+			</PageWrapper>
+		</ProtectedRoute>
 	);
 }

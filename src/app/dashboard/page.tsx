@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import DashboardPage from "@/components/dashboard/dashboard-page";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function Dashboard() {
-	return <DashboardPage />;
+	return (
+		<ProtectedRoute>
+			<DashboardPage />
+		</ProtectedRoute>
+	);
 }
