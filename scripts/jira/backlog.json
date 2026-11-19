@@ -1,0 +1,2516 @@
+{
+  "rateInrPerHour": 500,
+  "versions": [
+    {
+      "ref": "v0.1.0",
+      "name": "v0.1.0",
+      "description": "Original course build",
+      "startDate": "2025-05-01",
+      "releaseDate": "2025-05-21"
+    },
+    {
+      "ref": "v1.0.0",
+      "name": "v1.0.0",
+      "description": "Platform overhaul",
+      "startDate": "2025-06-02",
+      "releaseDate": "2025-07-13"
+    }
+  ],
+  "components": [
+    "Frontend",
+    "Auth",
+    "Health Tracking",
+    "Realtime",
+    "DevOps",
+    "Testing",
+    "Docs"
+  ],
+  "sprints": [
+    {
+      "ref": "S1",
+      "name": "Sprint 1",
+      "startDate": "2025-05-01 09:00",
+      "endDate": "2025-05-07 18:00",
+      "timezone": "+05:30",
+      "goal": "Ship branded, animated, dark-mode landing site; land auth pages and health-tracking sections; green build"
+    },
+    {
+      "ref": "S2",
+      "name": "Sprint 2",
+      "startDate": "2025-05-08 09:00",
+      "endDate": "2025-05-14 18:00",
+      "timezone": "+05:30",
+      "goal": "Users sign up as instructor or regular user, see final navbar, and place a browser video call"
+    },
+    {
+      "ref": "S3",
+      "name": "Sprint 3",
+      "startDate": "2025-05-15 09:00",
+      "endDate": "2025-05-21 18:00",
+      "timezone": "+05:30",
+      "goal": "Instructor-client workflow end-to-end: roster, chat, scheduling, notifications, workout plan, UI polish"
+    },
+    {
+      "ref": "S4",
+      "name": "Sprint 4",
+      "startDate": "2025-06-02 09:00",
+      "endDate": "2025-06-08 18:00",
+      "timezone": "+05:30",
+      "goal": "Platform on Next 16 / React 19.3, latest deps and shadcn components"
+    },
+    {
+      "ref": "S5",
+      "name": "Sprint 5",
+      "startDate": "2025-06-09 09:00",
+      "endDate": "2025-06-15 18:00",
+      "timezone": "+05:30",
+      "goal": "Every screen on shadcn with theme tokens"
+    },
+    {
+      "ref": "S6",
+      "name": "Sprint 6",
+      "startDate": "2025-06-16 09:00",
+      "endDate": "2025-06-22 18:00",
+      "timezone": "+05:30",
+      "goal": "Native view transitions, unit tests, Jashan feature port, functional bug fixes"
+    },
+    {
+      "ref": "S7",
+      "name": "Sprint 7",
+      "startDate": "2025-06-23 09:00",
+      "endDate": "2025-06-29 18:00",
+      "timezone": "+05:30",
+      "goal": "Standalone realtime service: chat, presence, video calls"
+    },
+    {
+      "ref": "S8",
+      "name": "Sprint 8",
+      "startDate": "2025-06-30 09:00",
+      "endDate": "2025-07-06 18:00",
+      "timezone": "+05:30",
+      "goal": "E2E tests, Docker images, CI"
+    },
+    {
+      "ref": "S9",
+      "name": "Sprint 9",
+      "startDate": "2025-07-07 09:00",
+      "endDate": "2025-07-13 18:00",
+      "timezone": "+05:30",
+      "goal": "Branding, README, v1.0.0 release"
+    }
+  ],
+  "issues": [
+    {
+      "ref": "E1",
+      "type": "Epic",
+      "summary": "Foundation & Landing Page",
+      "description": "Next.js 15 + Tailwind scaffold, shadcn base, brand \"LiveVitals\", public landing (hero/about/footer/navbar)",
+      "status": "Done",
+      "created": "2025-04-29 10:00",
+      "resolved": "2025-05-01 18:00",
+      "due": "2025-05-02",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": []
+    },
+    {
+      "ref": "E2",
+      "type": "Epic",
+      "summary": "Theming & Motion UX",
+      "description": "Framer-motion page transitions, view transitions, dark mode",
+      "status": "Done",
+      "created": "2025-04-30 10:00",
+      "resolved": "2025-05-02 18:00",
+      "due": "2025-05-02",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": []
+    },
+    {
+      "ref": "E3",
+      "type": "Epic",
+      "summary": "Authentication & User Management",
+      "description": "Login, signup, forgot-password, terms/privacy, auth context, roles (regular/instructor), protected routes",
+      "status": "Done",
+      "created": "2025-05-04 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": "2025-05-14",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": []
+    },
+    {
+      "ref": "E4",
+      "type": "Epic",
+      "summary": "Health Tracking Core",
+      "description": "Dashboard charts, data input forms, diet plans, profile/goals, health-data context",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": "2025-05-16",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": []
+    },
+    {
+      "ref": "E5",
+      "type": "Epic",
+      "summary": "Instructor Communication Platform",
+      "description": "PeerJS video calling, instructor listing, instructor dashboard, chat, session scheduling, notifications",
+      "status": "Done",
+      "created": "2025-05-06 10:00",
+      "resolved": "2025-05-20 18:00",
+      "due": "2025-05-20",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": []
+    },
+    {
+      "ref": "E6",
+      "type": "Epic",
+      "summary": "Workout Plans",
+      "description": "Weekly workout-plan viewer with per-day cards and exercise details",
+      "status": "Done",
+      "created": "2025-05-13 10:00",
+      "resolved": "2025-05-19 18:00",
+      "due": "2025-05-19",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": []
+    },
+    {
+      "ref": "E7",
+      "type": "Epic",
+      "summary": "Navigation & UI Polish",
+      "description": "Data-driven navbar, app-wide layout structure, auth-forms rework, chat UI polish",
+      "status": "Done",
+      "created": "2025-05-06 10:00",
+      "resolved": "2025-05-20 18:00",
+      "due": "2025-05-20",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": []
+    },
+    {
+      "ref": "E8",
+      "type": "Epic",
+      "summary": "Quality & Release Readiness",
+      "description": "Build fixes, hygiene, latent defects carried to overhaul (open backlog)",
+      "status": "Done",
+      "created": "2025-04-30 10:00",
+      "resolved": "2025-06-24 17:30",
+      "due": "2025-05-21",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": []
+    },
+    {
+      "ref": "H1",
+      "type": "Task",
+      "summary": "Set up Next.js 15 + Tailwind v4 + ESLint project scaffold",
+      "description": "Set up Next.js 15 + Tailwind v4 + ESLint project scaffold.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/f35c147",
+      "status": "Done",
+      "created": "2025-04-29 10:00",
+      "resolved": "2025-05-01 18:00",
+      "due": null,
+      "parent": "E1",
+      "sprint": "S1",
+      "storyPoints": 3,
+      "estimateH": 12,
+      "spentH": 10,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "f35c147"
+      ]
+    },
+    {
+      "ref": "H2",
+      "type": "Task",
+      "summary": "Initialize shadcn/ui base (components.json, ui/button, cn util)",
+      "description": "Initialize shadcn/ui base (components.json, ui/button, cn util).\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/f35c147",
+      "status": "Done",
+      "created": "2025-04-29 10:00",
+      "resolved": "2025-05-01 18:00",
+      "due": null,
+      "parent": "E1",
+      "sprint": "S1",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 3,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "f35c147"
+      ]
+    },
+    {
+      "ref": "H3",
+      "type": "Story",
+      "summary": "As a visitor I can see landing page with hero, about, features, footer",
+      "description": "As a visitor I can see landing page with hero, about, features, footer.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/f35c147",
+      "status": "Done",
+      "created": "2025-04-29 10:00",
+      "resolved": "2025-05-01 18:00",
+      "due": null,
+      "parent": "E1",
+      "sprint": "S1",
+      "storyPoints": 5,
+      "estimateH": 8,
+      "spentH": 7,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "f35c147"
+      ]
+    },
+    {
+      "ref": "H4",
+      "type": "Task",
+      "summary": "Rename product/branding to LiveVitals across layout, navbar, hero, footer",
+      "description": "Rename product/branding to LiveVitals across layout, navbar, hero, footer.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/bbea37f",
+      "status": "Done",
+      "created": "2025-04-30 10:00",
+      "resolved": "2025-05-01 18:00",
+      "due": null,
+      "parent": "E1",
+      "sprint": "S1",
+      "storyPoints": 1,
+      "estimateH": 2,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "bbea37f"
+      ]
+    },
+    {
+      "ref": "H5",
+      "type": "Story",
+      "summary": "As a user I see page-enter animations on route change (PageWrapper)",
+      "description": "As a user I see page-enter animations on route change (PageWrapper).\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/7b28a68",
+      "status": "Done",
+      "created": "2025-04-30 10:00",
+      "resolved": "2025-05-02 18:00",
+      "due": null,
+      "parent": "E2",
+      "sprint": "S1",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "7b28a68"
+      ]
+    },
+    {
+      "ref": "H6",
+      "type": "Task",
+      "summary": "Wire next-view-transitions into root layout",
+      "description": "Wire next-view-transitions into root layout.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/13791e6",
+      "status": "Done",
+      "created": "2025-04-30 10:00",
+      "resolved": "2025-05-02 18:00",
+      "due": null,
+      "parent": "E2",
+      "sprint": "S1",
+      "storyPoints": 2,
+      "estimateH": 3,
+      "spentH": 2,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "13791e6"
+      ]
+    },
+    {
+      "ref": "H7",
+      "type": "Sub-task",
+      "summary": "Make mobile nav overlay a labelled button with Escape-key close",
+      "description": "Make mobile nav overlay a labelled button with Escape-key close.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/13791e6",
+      "status": "Done",
+      "created": "2025-04-30 10:00",
+      "resolved": "2025-05-02 18:00",
+      "due": null,
+      "parent": "H6",
+      "sprint": "S1",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "13791e6"
+      ]
+    },
+    {
+      "ref": "H8",
+      "type": "Story",
+      "summary": "As a user I can toggle dark mode and my preference persists",
+      "description": "As a user I can toggle dark mode and my preference persists.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/29ed836",
+      "status": "Done",
+      "created": "2025-04-30 10:00",
+      "resolved": "2025-05-02 18:00",
+      "due": null,
+      "parent": "E2",
+      "sprint": "S1",
+      "storyPoints": 3,
+      "estimateH": 6,
+      "spentH": 5,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "29ed836"
+      ]
+    },
+    {
+      "ref": "H9",
+      "type": "Sub-task",
+      "summary": "Build ThemeProvider (next-themes) + styled ThemeToggle button",
+      "description": "Build ThemeProvider (next-themes) + styled ThemeToggle button.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/29ed836",
+      "status": "Done",
+      "created": "2025-04-30 10:00",
+      "resolved": "2025-05-02 18:00",
+      "due": null,
+      "parent": "H8",
+      "sprint": "S1",
+      "storyPoints": 1,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "29ed836"
+      ]
+    },
+    {
+      "ref": "H10",
+      "type": "Task",
+      "summary": "Update README to UCT403 Software Design with UML header",
+      "description": "Update README to UCT403 Software Design with UML header.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/1996665",
+      "status": "Done",
+      "created": "2025-04-30 10:00",
+      "resolved": "2025-05-02 18:00",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S1",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 0.5,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "1996665"
+      ]
+    },
+    {
+      "ref": "H11",
+      "type": "Story",
+      "summary": "As a visitor I can sign in, sign up, or request a password reset",
+      "description": "As a visitor I can sign in, sign up, or request a password reset.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/cebf24e",
+      "status": "Done",
+      "created": "2025-05-04 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E3",
+      "sprint": "S1",
+      "storyPoints": 5,
+      "estimateH": 12,
+      "spentH": 10,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "cebf24e"
+      ]
+    },
+    {
+      "ref": "H12",
+      "type": "Sub-task",
+      "summary": "Login/signup/forgot forms with react-hook-form + zod",
+      "description": "Login/signup/forgot forms with react-hook-form + zod.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/cebf24e",
+      "status": "Done",
+      "created": "2025-05-04 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "H11",
+      "sprint": "S1",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 3,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "cebf24e"
+      ]
+    },
+    {
+      "ref": "H13",
+      "type": "Task",
+      "summary": "Add privacy-policy and terms pages with page shells",
+      "description": "Add privacy-policy and terms pages with page shells.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/cebf24e",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E3",
+      "sprint": "S1",
+      "storyPoints": 1,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "cebf24e"
+      ]
+    },
+    {
+      "ref": "H14",
+      "type": "Task",
+      "summary": "Add ui primitives: calendar, checkbox, input, label, popover",
+      "description": "Add ui primitives: calendar, checkbox, input, label, popover.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/cebf24e",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E3",
+      "sprint": "S1",
+      "storyPoints": 1,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "cebf24e"
+      ]
+    },
+    {
+      "ref": "H15",
+      "type": "Story",
+      "summary": "As a user I can view my health dashboard with weight, calories-goal, metrics and macronutrient charts",
+      "description": "As a user I can view my health dashboard with weight, calories-goal, metrics and macronutrient charts.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/6ab9779",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E4",
+      "sprint": "S1",
+      "storyPoints": 5,
+      "estimateH": 10,
+      "spentH": 9,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "6ab9779"
+      ]
+    },
+    {
+      "ref": "H16",
+      "type": "Story",
+      "summary": "As a user I can log weight/height, calorie intake and health notes",
+      "description": "As a user I can log weight/height, calorie intake and health notes.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/6ab9779",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E4",
+      "sprint": "S1",
+      "storyPoints": 5,
+      "estimateH": 10,
+      "spentH": 10,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "6ab9779"
+      ]
+    },
+    {
+      "ref": "H17",
+      "type": "Story",
+      "summary": "As a user I can browse diet plans and open a details dialog per plan",
+      "description": "As a user I can browse diet plans and open a details dialog per plan.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/6ab9779",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E4",
+      "sprint": "S1",
+      "storyPoints": 3,
+      "estimateH": 6,
+      "spentH": 6,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "6ab9779"
+      ]
+    },
+    {
+      "ref": "H18",
+      "type": "Story",
+      "summary": "As a user I can view and edit my profile and health goals",
+      "description": "As a user I can view and edit my profile and health goals.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/6ab9779",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E4",
+      "sprint": "S1",
+      "storyPoints": 3,
+      "estimateH": 6,
+      "spentH": 6,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "6ab9779"
+      ]
+    },
+    {
+      "ref": "H19",
+      "type": "Task",
+      "summary": "Add shared health-data context, diet/health types, initial data",
+      "description": "Add shared health-data context, diet/health types, initial data.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/6ab9779",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E4",
+      "sprint": "S1",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 3,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "6ab9779"
+      ]
+    },
+    {
+      "ref": "H20",
+      "type": "Task",
+      "summary": "Add chart/dashboard ui kit (card, chart, tabs, slider, progress, etc.) + recharts dep",
+      "description": "Add chart/dashboard ui kit (card, chart, tabs, slider, progress, etc.) + recharts dep.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/6ab9779",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E4",
+      "sprint": "S1",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "6ab9779"
+      ]
+    },
+    {
+      "ref": "H21",
+      "type": "Bug",
+      "summary": "Fix build errors: correct diet-selection and profile components, delete unused socket types + stray tmp.zip",
+      "description": "Fix build errors: correct diet-selection and profile components, delete unused socket types + stray tmp.zip.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/b1c3d08",
+      "status": "Done",
+      "created": "2025-05-06 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S1",
+      "storyPoints": 1,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "b1c3d08"
+      ]
+    },
+    {
+      "ref": "H22",
+      "type": "Task",
+      "summary": "Integrate remote branch work (merge origin/himanish)",
+      "description": "Integrate remote branch work (merge origin/himanish).\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/34f6feb",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-07 18:00",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S1",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "34f6feb"
+      ]
+    },
+    {
+      "ref": "H23",
+      "type": "Task",
+      "summary": "Refine auth forms and fix leftovers from integration (deps, radix-imports, package-lock)",
+      "description": "Refine auth forms and fix leftovers from integration (deps, radix-imports, package-lock).\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/bbf5903",
+      "status": "Done",
+      "created": "2025-05-05 10:00",
+      "resolved": "2025-05-08 18:00",
+      "due": null,
+      "parent": "E3",
+      "sprint": "S2",
+      "storyPoints": 2,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "bbf5903"
+      ]
+    },
+    {
+      "ref": "H24",
+      "type": "Task",
+      "summary": "Rewrite Navbar around a navLinks array; clean package-lock merge markers; landing/layout tweaks",
+      "description": "Rewrite Navbar around a navLinks array; clean package-lock merge markers; landing/layout tweaks.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/14c84ab",
+      "status": "Done",
+      "created": "2025-05-06 10:00",
+      "resolved": "2025-05-08 18:00",
+      "due": null,
+      "parent": "E7",
+      "sprint": "S2",
+      "storyPoints": 2,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "14c84ab"
+      ]
+    },
+    {
+      "ref": "H25",
+      "type": "Story",
+      "summary": "As a user I can start a 1:1 video consultation via PeerJS and share my peer ID",
+      "description": "As a user I can start a 1:1 video consultation via PeerJS and share my peer ID.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/72557a6",
+      "status": "Done",
+      "created": "2025-05-06 10:00",
+      "resolved": "2025-05-09 18:00",
+      "due": null,
+      "parent": "E5",
+      "sprint": "S2",
+      "storyPoints": 8,
+      "estimateH": 16,
+      "spentH": 14,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "72557a6"
+      ]
+    },
+    {
+      "ref": "H26",
+      "type": "Story",
+      "summary": "As a user I get the final navbar (auth-aware links, styling) across the app",
+      "description": "As a user I get the final navbar (auth-aware links, styling) across the app.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/21a67b1",
+      "status": "Done",
+      "created": "2025-05-09 10:00",
+      "resolved": "2025-05-11 18:00",
+      "due": null,
+      "parent": "E7",
+      "sprint": "S2",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "21a67b1"
+      ]
+    },
+    {
+      "ref": "H27",
+      "type": "Story",
+      "summary": "As a new user I can register as an instructor or a regular user",
+      "description": "As a new user I can register as an instructor or a regular user.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/7f525dd",
+      "status": "Done",
+      "created": "2025-05-11 10:00",
+      "resolved": "2025-05-14 18:00",
+      "due": null,
+      "parent": "E3",
+      "sprint": "S2",
+      "storyPoints": 5,
+      "estimateH": 8,
+      "spentH": 7,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "7f525dd"
+      ]
+    },
+    {
+      "ref": "H28",
+      "type": "Task",
+      "summary": "Add auth-context and ProtectedRoute wrapper for guarded pages",
+      "description": "Add auth-context and ProtectedRoute wrapper for guarded pages.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/7f525dd",
+      "status": "Done",
+      "created": "2025-05-11 10:00",
+      "resolved": "2025-05-14 18:00",
+      "due": null,
+      "parent": "E3",
+      "sprint": "S2",
+      "storyPoints": 3,
+      "estimateH": 6,
+      "spentH": 6,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "7f525dd"
+      ]
+    },
+    {
+      "ref": "H29",
+      "type": "Story",
+      "summary": "As a user I can browse the instructors page",
+      "description": "As a user I can browse the instructors page.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/7f525dd",
+      "status": "Done",
+      "created": "2025-05-12 10:00",
+      "resolved": "2025-05-14 18:00",
+      "due": null,
+      "parent": "E5",
+      "sprint": "S2",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "7f525dd"
+      ]
+    },
+    {
+      "ref": "H30",
+      "type": "Task",
+      "summary": "Convert dashboard/data-input/diet-selection/profile pages to client wrapper routes",
+      "description": "Convert dashboard/data-input/diet-selection/profile pages to client wrapper routes.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/7f525dd",
+      "status": "Done",
+      "created": "2025-05-12 10:00",
+      "resolved": "2025-05-14 18:00",
+      "due": null,
+      "parent": "E7",
+      "sprint": "S2",
+      "storyPoints": 1,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "7f525dd"
+      ]
+    },
+    {
+      "ref": "H31",
+      "type": "Sub-task",
+      "summary": "Add ui dropdown-menu and radio-group primitives",
+      "description": "Add ui dropdown-menu and radio-group primitives.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/7f525dd",
+      "status": "Done",
+      "created": "2025-05-12 10:00",
+      "resolved": "2025-05-14 18:00",
+      "due": null,
+      "parent": "H27",
+      "sprint": "S2",
+      "storyPoints": 1,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "7f525dd"
+      ]
+    },
+    {
+      "ref": "H32",
+      "type": "Story",
+      "summary": "As an instructor I can open my instructor dashboard",
+      "description": "As an instructor I can open my instructor dashboard.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/05ffa6e",
+      "status": "Done",
+      "created": "2025-05-12 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": null,
+      "parent": "E5",
+      "sprint": "S3",
+      "storyPoints": 5,
+      "estimateH": 10,
+      "spentH": 9,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "05ffa6e"
+      ]
+    },
+    {
+      "ref": "H33",
+      "type": "Story",
+      "summary": "As a user I can see the instructor list and open a chat detail page per instructor",
+      "description": "As a user I can see the instructor list and open a chat detail page per instructor.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/05ffa6e",
+      "status": "Done",
+      "created": "2025-05-12 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": null,
+      "parent": "E5",
+      "sprint": "S3",
+      "storyPoints": 5,
+      "estimateH": 12,
+      "spentH": 12,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "05ffa6e"
+      ]
+    },
+    {
+      "ref": "H34",
+      "type": "Story",
+      "summary": "As a user I can schedule sessions on the schedule page (schedule-session-dialog)",
+      "description": "As a user I can schedule sessions on the schedule page (schedule-session-dialog).\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/05ffa6e",
+      "status": "Done",
+      "created": "2025-05-13 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": null,
+      "parent": "E5",
+      "sprint": "S3",
+      "storyPoints": 3,
+      "estimateH": 6,
+      "spentH": 6,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "05ffa6e"
+      ]
+    },
+    {
+      "ref": "H35",
+      "type": "Story",
+      "summary": "As a user I receive in-app notifications (NotificationDropdown, notification-context, toast-provider)",
+      "description": "As a user I receive in-app notifications (NotificationDropdown, notification-context, toast-provider).\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/05ffa6e",
+      "status": "Done",
+      "created": "2025-05-13 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": null,
+      "parent": "E5",
+      "sprint": "S3",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "05ffa6e"
+      ]
+    },
+    {
+      "ref": "H36",
+      "type": "Task",
+      "summary": "Regroup auth UI into /login + /register with shared auth-forms/auth-buttons",
+      "description": "Regroup auth UI into /login + /register with shared auth-forms/auth-buttons.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/05ffa6e",
+      "status": "Done",
+      "created": "2025-05-13 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": null,
+      "parent": "E3",
+      "sprint": "S3",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "05ffa6e"
+      ]
+    },
+    {
+      "ref": "H37",
+      "type": "Task",
+      "summary": "Add instructors dataset, user types, socket.io server route and live useSocket hook",
+      "description": "Add instructors dataset, user types, socket.io server route and live useSocket hook.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/05ffa6e",
+      "status": "Done",
+      "created": "2025-05-13 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": null,
+      "parent": "E5",
+      "sprint": "S3",
+      "storyPoints": 2,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "05ffa6e"
+      ]
+    },
+    {
+      "ref": "H38",
+      "type": "Story",
+      "summary": "As a user I can view my weekly workout plan per day with exercise details dialog",
+      "description": "As a user I can view my weekly workout plan per day with exercise details dialog.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/82e9dcf",
+      "status": "Done",
+      "created": "2025-05-15 10:00",
+      "resolved": "2025-05-19 18:00",
+      "due": null,
+      "parent": "E6",
+      "sprint": "S3",
+      "storyPoints": 3,
+      "estimateH": 6,
+      "spentH": 7,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "82e9dcf"
+      ]
+    },
+    {
+      "ref": "H39",
+      "type": "Sub-task",
+      "summary": "Define workout-plan type model + mock data",
+      "description": "Define workout-plan type model + mock data.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/82e9dcf",
+      "status": "Done",
+      "created": "2025-05-15 10:00",
+      "resolved": "2025-05-19 18:00",
+      "due": null,
+      "parent": "H38",
+      "sprint": "S3",
+      "storyPoints": 1,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "82e9dcf"
+      ]
+    },
+    {
+      "ref": "H40",
+      "type": "Sub-task",
+      "summary": "Add my-workout-plan link to navbar",
+      "description": "Add my-workout-plan link to navbar.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/82e9dcf",
+      "status": "Done",
+      "created": "2025-05-15 10:00",
+      "resolved": "2025-05-19 18:00",
+      "due": null,
+      "parent": "H38",
+      "sprint": "S3",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "82e9dcf"
+      ]
+    },
+    {
+      "ref": "H41",
+      "type": "Story",
+      "summary": "As a user I get polished chat/UI (loading states, alerts, mobile layout in instructor-chat)",
+      "description": "As a user I get polished chat/UI (loading states, alerts, mobile layout in instructor-chat).\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/bc1a55c",
+      "status": "Done",
+      "created": "2025-05-17 10:00",
+      "resolved": "2025-05-20 18:00",
+      "due": null,
+      "parent": "E5",
+      "sprint": "S3",
+      "storyPoints": 3,
+      "estimateH": 6,
+      "spentH": 6,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "bc1a55c"
+      ]
+    },
+    {
+      "ref": "H42",
+      "type": "Task",
+      "summary": "Polish login/register pages and navbar for final demo",
+      "description": "Polish login/register pages and navbar for final demo.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/bc1a55c",
+      "status": "Done",
+      "created": "2025-05-17 10:00",
+      "resolved": "2025-05-20 18:00",
+      "due": null,
+      "parent": "E7",
+      "sprint": "S3",
+      "storyPoints": 2,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "bc1a55c"
+      ]
+    },
+    {
+      "ref": "H43",
+      "type": "Story",
+      "summary": "As a user I can see fitness stats card on my profile",
+      "description": "As a user I can see fitness stats card on my profile.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/05ffa6e",
+      "status": "Done",
+      "created": "2025-05-14 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": null,
+      "parent": "E4",
+      "sprint": "S3",
+      "storyPoints": 2,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "05ffa6e"
+      ]
+    },
+    {
+      "ref": "B3",
+      "type": "Bug",
+      "summary": "Hero primary CTA links to `#`",
+      "description": "Hero primary CTA links to `#`.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/bc1a55c",
+      "status": "Done",
+      "created": "2025-05-09 10:00",
+      "resolved": "2025-05-20 18:00",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S3",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "bc1a55c"
+      ]
+    },
+    {
+      "ref": "B4",
+      "type": "Bug",
+      "summary": "Navbar lacks links to the app pages",
+      "description": "Navbar lacks links to the app pages.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/05ffa6e",
+      "status": "Done",
+      "created": "2025-05-09 10:00",
+      "resolved": "2025-05-16 18:00",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S3",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "05ffa6e"
+      ]
+    },
+    {
+      "ref": "B6",
+      "type": "Task",
+      "summary": "Remove dead socket types file",
+      "description": "Remove dead socket types file.\n\nCommit(s): https://github.com/himanishpuri/livevitals/commit/b1c3d08",
+      "status": "Done",
+      "created": "2025-05-07 10:00",
+      "resolved": "2025-05-08 18:00",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S2",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v0.1.0",
+      "commits": [
+        "b1c3d08"
+      ]
+    },
+    {
+      "ref": "E9",
+      "type": "Epic",
+      "summary": "Platform Upgrade",
+      "description": "Move the app to Next.js 16, React 19.3, latest dependencies and refreshed shadcn components.",
+      "status": "Done",
+      "created": "2025-05-26 10:00",
+      "resolved": "2025-06-06 17:30",
+      "due": "2025-06-08",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "E10",
+      "type": "Epic",
+      "summary": "shadcn UI Migration",
+      "description": "Put every screen on shadcn components and theme tokens.",
+      "status": "Done",
+      "created": "2025-05-26 10:00",
+      "resolved": "2025-06-13 17:30",
+      "due": "2025-06-15",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "E11",
+      "type": "Epic",
+      "summary": "Motion & Transitions",
+      "description": "Page transitions on native React View Transitions, honouring reduced motion.",
+      "status": "Done",
+      "created": "2025-05-26 10:00",
+      "resolved": "2025-06-16 17:30",
+      "due": "2025-06-22",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "E12",
+      "type": "Epic",
+      "summary": "Feature Consolidation & Fixes",
+      "description": "Port the Jashan-only features and fix the functional defects found on dev.",
+      "status": "Done",
+      "created": "2025-05-26 10:00",
+      "resolved": "2025-06-20 17:30",
+      "due": "2025-06-22",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "E13",
+      "type": "Epic",
+      "summary": "Realtime Service",
+      "description": "Standalone realtime service for chat, presence and video calls.",
+      "status": "Done",
+      "created": "2025-05-26 10:00",
+      "resolved": "2025-06-27 17:30",
+      "due": "2025-06-29",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "E14",
+      "type": "Epic",
+      "summary": "Testing & Delivery",
+      "description": "Playwright E2E, Docker images, Compose stack and GitHub Actions CI.",
+      "status": "Done",
+      "created": "2025-05-26 10:00",
+      "resolved": "2025-07-03 17:30",
+      "due": "2025-07-06",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "E15",
+      "type": "Epic",
+      "summary": "Documentation & Branding",
+      "description": "Logo, README, screenshots and the v1.0.0 release.",
+      "status": "Done",
+      "created": "2025-05-26 10:00",
+      "resolved": "2025-07-10 17:30",
+      "due": "2025-07-13",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Docs"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O1",
+      "type": "Task",
+      "summary": "Create main branch from dev and make it the default",
+      "description": "Start the overhaul from a clean main branch.\n\nAcceptance: `main` comes from `origin/dev`, is pushed, and is the GitHub default branch.",
+      "status": "Done",
+      "created": "2025-06-02 09:30",
+      "resolved": "2025-06-02 17:30",
+      "due": null,
+      "parent": "E9",
+      "sprint": "S4",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O2",
+      "type": "Task",
+      "summary": "Upgrade to Next.js 16, React 19.3 and latest dependencies",
+      "description": "Upgrade every dependency to its latest release.\n\nAcceptance: Next 16, React 19.3 and the latest deps install without `--force` and the build passes.",
+      "status": "Done",
+      "created": "2025-06-02 09:30",
+      "resolved": "2025-06-02 17:30",
+      "due": null,
+      "parent": "E9",
+      "sprint": "S4",
+      "storyPoints": 5,
+      "estimateH": 8,
+      "spentH": 10,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O3",
+      "type": "Task",
+      "summary": "Migrate ESLint to flat config and drop next lint",
+      "description": "Move linting to flat ESLint config.\n\nAcceptance: `eslint .` runs on the flat config with no FlatCompat and no `next lint`.",
+      "status": "Done",
+      "created": "2025-06-02 09:30",
+      "resolved": "2025-06-03 17:30",
+      "due": null,
+      "parent": "E9",
+      "sprint": "S4",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O4",
+      "type": "Task",
+      "summary": "Enable standalone build output",
+      "description": "Produce a standalone server bundle.\n\nAcceptance: `next.config.ts` sets `output: \"standalone\"` and the build emits `.next/standalone`.",
+      "status": "Done",
+      "created": "2025-06-02 09:30",
+      "resolved": "2025-06-04 17:30",
+      "due": null,
+      "parent": "E9",
+      "sprint": "S4",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O5",
+      "type": "Task",
+      "summary": "Replace framer-motion with motion",
+      "description": "Swap framer-motion for motion.\n\nAcceptance: Every import reads `motion/react` and framer-motion is uninstalled.",
+      "status": "Done",
+      "created": "2025-06-02 09:30",
+      "resolved": "2025-06-04 17:30",
+      "due": null,
+      "parent": "E9",
+      "sprint": "S4",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O6",
+      "type": "Story",
+      "summary": "Refresh shadcn components to the latest registry (radix-ui)",
+      "description": "Refresh shadcn components from the current registry.\n\nAcceptance: Components are regenerated on `radix-ui` and no `@base-ui` import remains.",
+      "status": "Done",
+      "created": "2025-06-02 09:30",
+      "resolved": "2025-06-05 17:30",
+      "due": null,
+      "parent": "E9",
+      "sprint": "S4",
+      "storyPoints": 3,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O7",
+      "type": "Task",
+      "summary": "Fix breaking changes from zod 4, lucide 1, recharts 3, react-day-picker 9",
+      "description": "Absorb the breaking changes of the major upgrades.\n\nAcceptance: zod 4, lucide 1, recharts 3 and react-day-picker 9 call sites compile and lint clean.",
+      "status": "Done",
+      "created": "2025-06-02 09:30",
+      "resolved": "2025-06-06 17:30",
+      "due": null,
+      "parent": "E9",
+      "sprint": "S4",
+      "storyPoints": 3,
+      "estimateH": 5,
+      "spentH": 6,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O8",
+      "type": "Story",
+      "summary": "Theme switching with next-themes",
+      "description": "Switch theming to next-themes.\n\nAcceptance: `ThemeProvider` wraps `NextThemesProvider` and the toggle flips `resolvedTheme`.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-09 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "B2",
+      "type": "Bug",
+      "summary": "Form toasts invisible: no global Toaster",
+      "description": "Render form toasts globally.\n\nAcceptance: One global `<Toaster richColors />` is mounted and toasts appear on submit.",
+      "status": "Done",
+      "created": "2025-05-09 10:00",
+      "resolved": "2025-06-09 17:30",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S5",
+      "storyPoints": 2,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB1",
+      "type": "Bug",
+      "summary": "Toasts unreadable in dark mode and rendered by duplicate Toasters",
+      "description": "Kill the duplicate and unreadable toasts.\n\nAcceptance: A single global `<Toaster richColors />` renders readable toasts in dark mode.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-09 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O9",
+      "type": "Story",
+      "summary": "Mobile navigation in a shadcn Sheet",
+      "description": "Put the mobile menu in a shadcn Sheet.\n\nAcceptance: The Sheet opens and closes and its links do not leak into the tab order.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-10 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 2,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB2",
+      "type": "Bug",
+      "summary": "Closed mobile menu links still reachable by keyboard",
+      "description": "Make closed mobile menu links unreachable.\n\nAcceptance: Closed Sheet content is removed from the tab order and the page.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-10 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O10",
+      "type": "Story",
+      "summary": "Instructor avatars with shadcn Avatar",
+      "description": "Render instructor photos with shadcn Avatar.\n\nAcceptance: Instructor images and initials fallbacks use `Avatar` with SVG placeholders.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-10 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB3",
+      "type": "Bug",
+      "summary": "Instructor photos are text placeholder files",
+      "description": "Replace the placeholder instructor photos.\n\nAcceptance: `john-smith.svg` and `sarah-johnson.svg` replace the JPEG and webp placeholders everywhere.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-11 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB4",
+      "type": "Bug",
+      "summary": "Video room falls back to a remote placeholder image blocked by next/image",
+      "description": "Drop the remote video placeholder image.\n\nAcceptance: The video room no longer rewrites failed images to `via.placeholder.com`.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-11 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O11",
+      "type": "Story",
+      "summary": "Dashboard charts on shadcn Chart",
+      "description": "Rebuild the dashboard charts on shadcn Chart.\n\nAcceptance: All four charts render through `ChartContainer` with `--chart-*` colours.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-11 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 5,
+      "estimateH": 6,
+      "spentH": 7,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O12",
+      "type": "Task",
+      "summary": "Replace hard-coded colors with theme tokens",
+      "description": "Replace hard-coded colours with theme tokens.\n\nAcceptance: The colour grep over `src` prints nothing outside `src/components/ui`.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-12 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 3,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB5",
+      "type": "Bug",
+      "summary": "font-sans maps to Geist while Inter is loaded",
+      "description": "Point `font-sans` at Inter.\n\nAcceptance: `--font-sans` maps to `--font-inter` and the Geist mappings are gone.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-12 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB6",
+      "type": "Bug",
+      "summary": "next/image fill without sizes on login and register",
+      "description": "Size the auth background images.\n\nAcceptance: Both `next/image` `fill` usages carry `sizes` and a `relative` parent.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-12 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "B7",
+      "type": "Task",
+      "summary": "Delete unused Home.module.css",
+      "description": "Delete the unused module stylesheet.\n\nAcceptance: `src/styles/Home.module.css` is gone and nothing imports it.",
+      "status": "Done",
+      "created": "2025-05-09 10:00",
+      "resolved": "2025-06-13 17:30",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S5",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB7",
+      "type": "Task",
+      "summary": "Remove dead code: unused instructor-chat page, empty loading.tsx, unused imports",
+      "description": "Remove the dead code left on dev.\n\nAcceptance: The unused instructor-chat page, empty loading file and unused imports are deleted.",
+      "status": "Done",
+      "created": "2025-06-09 09:30",
+      "resolved": "2025-06-13 17:30",
+      "due": null,
+      "parent": "E10",
+      "sprint": "S5",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O13",
+      "type": "Story",
+      "summary": "Page transitions on native React View Transitions",
+      "description": "Use native React View Transitions for page changes.\n\nAcceptance: Navigation plays the moved keyframes through `::view-transition-old/new`.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-16 17:30",
+      "due": null,
+      "parent": "E11",
+      "sprint": "S6",
+      "storyPoints": 3,
+      "estimateH": 4,
+      "spentH": 5,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O14",
+      "type": "Task",
+      "summary": "Respect the reduced-motion preference",
+      "description": "Honour the reduced-motion preference.\n\nAcceptance: View transitions are disabled under `prefers-reduced-motion: reduce`.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-16 17:30",
+      "due": null,
+      "parent": "E11",
+      "sprint": "S6",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O15",
+      "type": "Task",
+      "summary": "Unit test setup with Vitest and Testing Library",
+      "description": "Set up Vitest and Testing Library.\n\nAcceptance: `npm test` runs Vitest with jsdom and Testing Library.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-16 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 2,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Testing"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O16",
+      "type": "Story",
+      "summary": "Weekly workout plan (port from Jashan branch)",
+      "description": "Port the weekly workout plan.\n\nAcceptance: `/my-workout-plan` lists seven day cards with exercise dialogs.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-17 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 3,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O17",
+      "type": "Story",
+      "summary": "Privacy and Terms pages linked from the footer",
+      "description": "Publish the Privacy and Terms pages.\n\nAcceptance: Footer links open `/privacy` and `/terms`.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-17 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O18",
+      "type": "Story",
+      "summary": "Forgot-password page",
+      "description": "Add the forgot-password page.\n\nAcceptance: `/forgot-password` renders a reset-request form.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-17 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB8",
+      "type": "Bug",
+      "summary": "\"Forgot password?\" link points to #",
+      "description": "Fix the forgot-password link.\n\nAcceptance: \"Forgot password?\" points at `/forgot-password`.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-18 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O19",
+      "type": "Story",
+      "summary": "Protect private pages with ProtectedRoute",
+      "description": "Guard every private page.\n\nAcceptance: Private routes use `ProtectedRoute` and redirect anonymous visitors.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-18 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 3,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB9",
+      "type": "Bug",
+      "summary": "Private pages render for anonymous visitors",
+      "description": "Block anonymous access to private pages.\n\nAcceptance: Anonymous visitors are redirected to `/login` on every private route.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-18 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB10",
+      "type": "Bug",
+      "summary": "Dead auth check and unused state in the video room",
+      "description": "Remove the dead auth check in the video room.\n\nAcceptance: The `isAuthenticated === undefined` branch and `authChecked` state are gone.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-19 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "B1",
+      "type": "Bug",
+      "summary": "Health data is never saved: HealthDataProvider is not mounted",
+      "description": "Persist health data.\n\nAcceptance: `HealthDataProvider` is mounted and edits survive a reload.",
+      "status": "Done",
+      "created": "2025-05-09 10:00",
+      "resolved": "2025-06-19 17:30",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S6",
+      "storyPoints": 3,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB11",
+      "type": "Bug",
+      "summary": "Registered users cannot log in",
+      "description": "Let registered users log in.\n\nAcceptance: A registered account logs in with the same credentials.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-19 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Auth"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB12",
+      "type": "Bug",
+      "summary": "Scheduled sessions are lost on reload",
+      "description": "Persist scheduled sessions.\n\nAcceptance: Sessions survive a reload through `localStorage`.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-20 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O20",
+      "type": "Task",
+      "summary": "Unit tests for auth, health data, ProtectedRoute and Navbar",
+      "description": "Cover the fixed flows with unit tests.\n\nAcceptance: Auth, health-data, ProtectedRoute and Navbar tests pass under `npm test`.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-20 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 3,
+      "estimateH": 4,
+      "spentH": 5,
+      "components": [
+        "Testing"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB13",
+      "type": "Bug",
+      "summary": "Notification bell shown to anonymous users",
+      "description": "Hide the notification bell from anonymous users.\n\nAcceptance: The bell renders only when the visitor is authenticated.",
+      "status": "Done",
+      "created": "2025-06-16 09:30",
+      "resolved": "2025-06-20 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S6",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O21",
+      "type": "Story",
+      "summary": "Standalone realtime service (socket.io + PeerJS)",
+      "description": "Ship the standalone realtime service.\n\nAcceptance: `realtime/` serves `/health`, the socket.io events and the PeerJS endpoint.",
+      "status": "Done",
+      "created": "2025-06-23 09:30",
+      "resolved": "2025-06-23 17:30",
+      "due": null,
+      "parent": "E13",
+      "sprint": "S7",
+      "storyPoints": 8,
+      "estimateH": 10,
+      "spentH": 12,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB14",
+      "type": "Bug",
+      "summary": "Chat client dials localhost:9000 while the server listens on /api/socketio",
+      "description": "Point the chat client at the real service.\n\nAcceptance: The client dials `REALTIME_URL`, not a `/api/socketio` path.",
+      "status": "Done",
+      "created": "2025-06-23 09:30",
+      "resolved": "2025-06-23 17:30",
+      "due": null,
+      "parent": "E13",
+      "sprint": "S7",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "B5",
+      "type": "Bug",
+      "summary": "PeerJS and socket URLs hard-coded to localhost:9000",
+      "description": "Configure the realtime URLs from env.\n\nAcceptance: Socket and PeerJS hosts come from `NEXT_PUBLIC_REALTIME_URL`.",
+      "status": "Done",
+      "created": "2025-05-10 10:00",
+      "resolved": "2025-06-24 17:30",
+      "due": null,
+      "parent": "E8",
+      "sprint": "S7",
+      "storyPoints": 3,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O22",
+      "type": "Task",
+      "summary": "Shared socket client and env-configured realtime URL",
+      "description": "Share one socket client.\n\nAcceptance: `getSocket()` is the single client and its URL is env-driven.",
+      "status": "Done",
+      "created": "2025-06-23 09:30",
+      "resolved": "2025-06-24 17:30",
+      "due": null,
+      "parent": "E13",
+      "sprint": "S7",
+      "storyPoints": 3,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB15",
+      "type": "Bug",
+      "summary": "Chat events (join, send, history, typing) not handled by the server",
+      "description": "Handle the chat events server-side.\n\nAcceptance: Join, send, history and typing are handled by the realtime server.",
+      "status": "Done",
+      "created": "2025-06-23 09:30",
+      "resolved": "2025-06-25 17:30",
+      "due": null,
+      "parent": "E13",
+      "sprint": "S7",
+      "storyPoints": 3,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB16",
+      "type": "Bug",
+      "summary": "Video call never connects: nobody calls peer.call",
+      "description": "Make the video call connect.\n\nAcceptance: `peer.call` runs after the peer opens and both videos show a live track.",
+      "status": "Done",
+      "created": "2025-06-23 09:30",
+      "resolved": "2025-06-25 17:30",
+      "due": null,
+      "parent": "E13",
+      "sprint": "S7",
+      "storyPoints": 3,
+      "estimateH": 4,
+      "spentH": 5,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB17",
+      "type": "Bug",
+      "summary": "Instructor answer ignores the caller parameter",
+      "description": "Honour the caller parameter.\n\nAcceptance: The instructor answers the `caller` query as a registered instructor.",
+      "status": "Done",
+      "created": "2025-06-23 09:30",
+      "resolved": "2025-06-26 17:30",
+      "due": null,
+      "parent": "E13",
+      "sprint": "S7",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "OB18",
+      "type": "Bug",
+      "summary": "Active-user count never emitted and availability toggled randomly",
+      "description": "Emit a real active-user count.\n\nAcceptance: `active_users_count` is broadcast on identify and disconnect and availability is never randomised.",
+      "status": "Done",
+      "created": "2025-06-23 09:30",
+      "resolved": "2025-06-26 17:30",
+      "due": null,
+      "parent": "E13",
+      "sprint": "S7",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Realtime"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O23",
+      "type": "Task",
+      "summary": "Realtime service integration tests",
+      "description": "Test the realtime service.\n\nAcceptance: The vitest suite covers health, presence, calls and chat.",
+      "status": "Done",
+      "created": "2025-06-23 09:30",
+      "resolved": "2025-06-27 17:30",
+      "due": null,
+      "parent": "E13",
+      "sprint": "S7",
+      "storyPoints": 3,
+      "estimateH": 4,
+      "spentH": 4,
+      "components": [
+        "Testing"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O24",
+      "type": "Task",
+      "summary": "Playwright end-to-end suite",
+      "description": "Add the Playwright end-to-end suite.\n\nAcceptance: `npm run test:e2e` passes every spec.",
+      "status": "Done",
+      "created": "2025-06-30 09:30",
+      "resolved": "2025-06-30 17:30",
+      "due": null,
+      "parent": "E14",
+      "sprint": "S8",
+      "storyPoints": 5,
+      "estimateH": 6,
+      "spentH": 7,
+      "components": [
+        "Testing"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O25",
+      "type": "Task",
+      "summary": "Production Dockerfile for the web app",
+      "description": "Dockerise the web app.\n\nAcceptance: The standalone image builds and serves the app on port 3000.",
+      "status": "Done",
+      "created": "2025-06-30 09:30",
+      "resolved": "2025-07-01 17:30",
+      "due": null,
+      "parent": "E14",
+      "sprint": "S8",
+      "storyPoints": 3,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O26",
+      "type": "Task",
+      "summary": "Realtime Dockerfile and docker compose stack",
+      "description": "Add the realtime image and the Compose stack.\n\nAcceptance: `docker compose up` brings both services up healthy.",
+      "status": "Done",
+      "created": "2025-06-30 09:30",
+      "resolved": "2025-07-02 17:30",
+      "due": null,
+      "parent": "E14",
+      "sprint": "S8",
+      "storyPoints": 3,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O27",
+      "type": "Task",
+      "summary": "GitHub Actions CI pipeline",
+      "description": "Run CI on GitHub Actions.\n\nAcceptance: The workflow lints, typechecks, tests, builds and runs the e2e job.",
+      "status": "Done",
+      "created": "2025-06-30 09:30",
+      "resolved": "2025-07-03 17:30",
+      "due": null,
+      "parent": "E14",
+      "sprint": "S8",
+      "storyPoints": 3,
+      "estimateH": 3,
+      "spentH": 4,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O28",
+      "type": "Task",
+      "summary": "Logo and app icon",
+      "description": "Add the logo and the app icon.\n\nAcceptance: `logo.svg` and `icon.svg` ship and replace the favicon.",
+      "status": "Done",
+      "created": "2025-07-07 09:30",
+      "resolved": "2025-07-07 17:30",
+      "due": null,
+      "parent": "E15",
+      "sprint": "S9",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Docs"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O29",
+      "type": "Story",
+      "summary": "README with setup, Docker, testing and team",
+      "description": "Write the README.\n\nAcceptance: The README covers logo, features, stack, setup, Docker, testing, demo accounts and team.",
+      "status": "Done",
+      "created": "2025-07-07 09:30",
+      "resolved": "2025-07-08 17:30",
+      "due": null,
+      "parent": "E15",
+      "sprint": "S9",
+      "storyPoints": 3,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Docs"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O30",
+      "type": "Task",
+      "summary": "Release v1.0.0",
+      "description": "Cut the v1.0.0 release.\n\nAcceptance: Tag `v1.0.0` and the GitHub release exist on `main`.",
+      "status": "Done",
+      "created": "2025-07-07 09:30",
+      "resolved": "2025-07-10 17:30",
+      "due": null,
+      "parent": "E15",
+      "sprint": "S9",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "F1",
+      "type": "Story",
+      "summary": "Real authentication backend with server sessions",
+      "description": "Server-side authentication with sessions replaces the client-side mock.",
+      "status": "To Do",
+      "created": "2025-07-11 15:00",
+      "resolved": null,
+      "due": null,
+      "parent": "E12",
+      "sprint": null,
+      "storyPoints": 8,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": null,
+      "commits": []
+    },
+    {
+      "ref": "F2",
+      "type": "Story",
+      "summary": "TURN server for calls across restrictive networks",
+      "description": "TURN relay so calls work behind restrictive NATs.",
+      "status": "To Do",
+      "created": "2025-07-11 15:00",
+      "resolved": null,
+      "due": null,
+      "parent": "E12",
+      "sprint": null,
+      "storyPoints": 5,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": null,
+      "commits": []
+    },
+    {
+      "ref": "F3",
+      "type": "Story",
+      "summary": "Persist health data and chat history on the server",
+      "description": "Server-side persistence for health data and chat history.",
+      "status": "To Do",
+      "created": "2025-07-11 15:00",
+      "resolved": null,
+      "due": null,
+      "parent": "E12",
+      "sprint": null,
+      "storyPoints": 8,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": null,
+      "commits": []
+    }
+  ]
+}
