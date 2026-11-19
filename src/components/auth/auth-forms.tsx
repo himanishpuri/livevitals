@@ -4,116 +4,47 @@ import type React from "react";
 
 import { useState } from "react";
 import { useAuth } from "@/context/auth-context";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-	Alert,
-	AlertDescription,
-} from "@/components/ui/alert";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import {
+	EmailField,
+	FormStatusAlert,
+	RoleSelect,
+	formChangeHandler,
+	useAuthSubmit,
+} from "@/components/auth/auth-form-fields";
 
 export function LoginForm() {
 	const { login } = useAuth();
-	const [isLoading, setIsLoading] = useState(false);
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
 		role: "user" as "user" | "instructor",
 	});
-	const [formStatus, setFormStatus] = useState<{
-		type: "success" | "error" | null;
-		message: string;
-	}>({ type: null, message: "" });
-
-	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-	) => {
-		const { name, value } = e.target;
-		setFormData((prev) => ({
-			...prev,
-			[name]: value,
-		}));
-	};
-
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setIsLoading(true);
-		setFormStatus({ type: null, message: "" });
-
-		try {
-			const success = await login(formData);
-
-			if (success) {
-				setFormStatus({
-					type: "success",
-					message: "Login successful! Redirecting...",
-				});
-				// Redirect is handled by the useEffect in the parent component
-			} else {
-				setFormStatus({
-					type: "error",
-					message: "Invalid credentials. Please try again.",
-				});
-			}
-		} catch (error) {
-			setFormStatus({
-				type: "error",
-				message: "An error occurred. Please try again.",
-			});
-		} finally {
-			setIsLoading(false);
-		}
-	};
+	const { isLoading, formStatus, handleSubmit } = useAuthSubmit(
+		() => login(formData),
+		{
+			success: "Login successful! Redirecting...",
+			failure: "Invalid credentials. Please try again.",
+		},
+	);
+	const handleChange = formChangeHandler(setFormData);
 
 	return (
 		<form
 			onSubmit={handleSubmit}
 			className="space-y-6"
 		>
-			<AnimatePresence>
-				{formStatus.type && (
-					<motion.div
-						initial={{ opacity: 0, y: -10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0 }}
-					>
-						<Alert variant={formStatus.type === "success" ? "default" : "destructive"}>
-							{formStatus.type === "success" ? (
-								<CheckCircle2 className="h-5 w-5" />
-							) : (
-								<AlertCircle className="h-5 w-5" />
-							)}
-							<AlertDescription>{formStatus.message}</AlertDescription>
-						</Alert>
-					</motion.div>
-				)}
-			</AnimatePresence>
+			<FormStatusAlert status={formStatus} />
 
-			<div className="space-y-2">
-				<Label htmlFor="email">Email</Label>
-				<Input
-					id="email"
-					name="email"
-					type="email"
-					autoComplete="email"
-					required
-					placeholder="you@example.com"
-					value={formData.email}
-					onChange={handleChange}
-					className="h-11"
-				/>
-			</div>
+			<EmailField
+				value={formData.email}
+				onChange={handleChange}
+			/>
 
 			<div className="space-y-2">
 				<div className="flex items-center justify-between">
@@ -138,27 +69,10 @@ export function LoginForm() {
 				/>
 			</div>
 
-			<div className="space-y-2">
-				<Label htmlFor="role">Account Type</Label>
-				<Select
-					name="role"
-					value={formData.role}
-					onValueChange={(value) =>
-						setFormData((prev) => ({
-							...prev,
-							role: value as "user" | "instructor",
-						}))
-					}
-				>
-					<SelectTrigger className="h-11 w-full">
-						<SelectValue placeholder="Select account type" />
-					</SelectTrigger>
-					<SelectContent>
-						<SelectItem value="user">User</SelectItem>
-						<SelectItem value="instructor">Instructor</SelectItem>
-					</SelectContent>
-				</Select>
-			</div>
+			<RoleSelect
+				value={formData.role}
+				onChange={(role) => setFormData((prev) => ({ ...prev, role }))}
+			/>
 
 			<Button
 				type="submit"
@@ -180,8 +94,6 @@ export function LoginForm() {
 
 export function RegisterForm() {
 	const { register } = useAuth();
-	const router = useRouter();
-	const [isLoading, setIsLoading] = useState(false);
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -190,78 +102,23 @@ export function RegisterForm() {
 		specialty: "",
 		biography: "",
 	});
-	const [formStatus, setFormStatus] = useState<{
-		type: "success" | "error" | null;
-		message: string;
-	}>({ type: null, message: "" });
+	const { isLoading, formStatus, handleSubmit } = useAuthSubmit(
+		() => register(formData),
+		{
+			success: "Registration successful! Redirecting...",
+			failure: "Registration failed. Please try again.",
+		},
+	);
+	const handleChange = formChangeHandler(setFormData);
 
 	const isInstructor = formData.role === "instructor";
-
-	const handleChange = (
-		e: React.ChangeEvent<
-			HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-		>,
-	) => {
-		const { name, value } = e.target;
-		setFormData((prev) => ({
-			...prev,
-			[name]: value,
-		}));
-	};
-
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setIsLoading(true);
-		setFormStatus({ type: null, message: "" });
-
-		try {
-			const success = await register(formData);
-
-			if (success) {
-				setFormStatus({
-					type: "success",
-					message: "Registration successful! Redirecting...",
-				});
-				// Redirect is handled by the useEffect in the parent component
-			} else {
-				setFormStatus({
-					type: "error",
-					message: "Registration failed. Please try again.",
-				});
-			}
-		} catch (error) {
-			setFormStatus({
-				type: "error",
-				message: "An error occurred. Please try again.",
-			});
-		} finally {
-			setIsLoading(false);
-		}
-	};
 
 	return (
 		<form
 			onSubmit={handleSubmit}
 			className="space-y-6"
 		>
-			<AnimatePresence>
-				{formStatus.type && (
-					<motion.div
-						initial={{ opacity: 0, y: -10 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0 }}
-					>
-						<Alert variant={formStatus.type === "success" ? "default" : "destructive"}>
-							{formStatus.type === "success" ? (
-								<CheckCircle2 className="h-5 w-5" />
-							) : (
-								<AlertCircle className="h-5 w-5" />
-							)}
-							<AlertDescription>{formStatus.message}</AlertDescription>
-						</Alert>
-					</motion.div>
-				)}
-			</AnimatePresence>
+			<FormStatusAlert status={formStatus} />
 
 			<div className="space-y-2">
 				<Label htmlFor="name">Full Name</Label>
@@ -278,20 +135,10 @@ export function RegisterForm() {
 				/>
 			</div>
 
-			<div className="space-y-2">
-				<Label htmlFor="email">Email</Label>
-				<Input
-					id="email"
-					name="email"
-					type="email"
-					autoComplete="email"
-					required
-					placeholder="you@example.com"
-					value={formData.email}
-					onChange={handleChange}
-					className="h-11"
-				/>
-			</div>
+			<EmailField
+				value={formData.email}
+				onChange={handleChange}
+			/>
 
 			<div className="space-y-2">
 				<Label htmlFor="password">Password</Label>
@@ -311,27 +158,10 @@ export function RegisterForm() {
 				</p>
 			</div>
 
-			<div className="space-y-2">
-				<Label htmlFor="role">Account Type</Label>
-				<Select
-					name="role"
-					value={formData.role}
-					onValueChange={(value) =>
-						setFormData((prev) => ({
-							...prev,
-							role: value as "user" | "instructor",
-						}))
-					}
-				>
-					<SelectTrigger className="h-11 w-full">
-						<SelectValue placeholder="Select account type" />
-					</SelectTrigger>
-					<SelectContent>
-						<SelectItem value="user">User</SelectItem>
-						<SelectItem value="instructor">Instructor</SelectItem>
-					</SelectContent>
-				</Select>
-			</div>
+			<RoleSelect
+				value={formData.role}
+				onChange={(role) => setFormData((prev) => ({ ...prev, role }))}
+			/>
 
 			<AnimatePresence>
 				{isInstructor && (

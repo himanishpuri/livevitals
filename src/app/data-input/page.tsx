@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ProtectedRoute from "@/components/ProtectedRoute";
+import ProtectedRoute from "@/components/protected-route";
 import DataInputPage from "@/components/data-input/data-input-page";
 
 export const metadata: Metadata = {

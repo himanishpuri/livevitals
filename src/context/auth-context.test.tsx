@@ -7,7 +7,7 @@ const { socket } = vi.hoisted(() => ({
 	socket: { emit: vi.fn(), on: vi.fn(), off: vi.fn() },
 }));
 
-vi.mock("@/hooks/useSocket", () => ({
+vi.mock("@/hooks/use-socket", () => ({
 	default: () => ({ socket, isConnected: false, instructors: [] }),
 }));
 

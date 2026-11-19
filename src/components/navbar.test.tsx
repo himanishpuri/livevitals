@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import type { AuthState } from "@/types/user";
-import Navbar from "./Navbar";
+import Navbar from "./navbar";
 
 const authState = vi.hoisted(() => ({
 	current: { user: null, isAuthenticated: false, isLoading: false } as AuthState,
@@ -16,7 +16,7 @@ vi.mock("@/context/auth-context", () => ({
 	useAuth: () => authState.current,
 }));
 
-vi.mock("@/components/NotificationDropdown", () => ({
+vi.mock("@/components/notification-dropdown", () => ({
 	NotificationDropdown: () => <div data-testid="bell" />,
 }));
 

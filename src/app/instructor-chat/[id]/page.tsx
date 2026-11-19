@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useMemo, Suspense } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import useSocket from "@/hooks/useSocket";
+import useSocket from "@/hooks/use-socket";
 import { useAuth } from "@/context/auth-context";
 import { peerOptions } from "@/lib/realtime";
 import Peer, { type MediaConnection } from "peerjs";
@@ -12,7 +12,7 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@/components/ui/avatar";
-import ProtectedRoute from "@/components/ProtectedRoute";
+import ProtectedRoute from "@/components/protected-route";
 import { ScheduleSessionDialog } from "@/components/instructor-chat/schedule-session-dialog";
 import { ChatComponent } from "@/components/instructor-chat/chat-component";
 import {

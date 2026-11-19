@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import WorkoutPlanPage from "./workout-plan-page";
+import WorkoutPlanPage from "@/components/workout-plan/workout-plan-page";
 
 export const metadata: Metadata = {
   title: "My Workout Plan | LiveVitals",

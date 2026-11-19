@@ -12,8 +12,8 @@ import {
 import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import PageWrapper from "@/components/PageWrapper";
-import ProtectedRoute from "@/components/ProtectedRoute";
+import PageWrapper from "@/components/page-wrapper";
+import ProtectedRoute from "@/components/protected-route";
 import DayWorkoutCard from "@/components/workout-plan/day-workout-card";
 import ExerciseDetailsModal from "@/components/workout-plan/exercise-details-modal";
 import { mockWorkoutPlanData } from "@/data/mock-workout-plan";

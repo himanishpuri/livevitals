@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
-	Form,
 	FormControl,
 	FormDescription,
 	FormField,
@@ -14,6 +13,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Slider } from "@/components/ui/slider";
+import { DataEntryForm } from "@/components/data-input/data-entry-form";
 
 const formSchema = z.object({
 	weight: z
@@ -33,6 +33,27 @@ interface WeightHeightFormProps {
 	isSaving: boolean;
 }
 
+const measurementSliders = [
+	{
+		name: "weight",
+		label: "Weight (kg)",
+		description: "Drag the slider to set your current weight",
+		min: 30,
+		max: 150,
+		step: 0.1,
+		format: (value: number) => `${value.toFixed(1)} kg`,
+	},
+	{
+		name: "height",
+		label: "Height (cm)",
+		description: "Enter your current height in centimeters",
+		min: 100,
+		max: 220,
+		step: 1,
+		format: (value: number) => `${value} cm`,
+	},
+] as const;
+
 export function WeightHeightForm({
 	initialWeight,
 	initialHeight,
@@ -47,98 +68,58 @@ export function WeightHeightForm({
 		},
 	});
 
-	const onSubmit = (values: z.infer<typeof formSchema>) => {
-		onSave(values);
-	};
-
 	return (
-		<Form {...form}>
-			<form
-				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-6"
+		<DataEntryForm
+			form={form}
+			onSubmit={onSave}
+		>
+			{measurementSliders.map(
+				({ name, label, description, min, max, step, format }) => (
+					<FormField
+						key={name}
+						control={form.control}
+						name={name}
+						render={({ field }) => (
+							<FormItem>
+								<div className="space-y-1">
+									<FormLabel>{label}</FormLabel>
+									<FormDescription>{description}</FormDescription>
+								</div>
+								<div className="space-y-4 pt-4">
+									<FormControl>
+										<Slider
+											defaultValue={[field.value]}
+											min={min}
+											max={max}
+											step={step}
+											onValueChange={(vals) => {
+												field.onChange(vals[0]);
+											}}
+										/>
+									</FormControl>
+									<motion.div
+										key={field.value}
+										initial={{ scale: 0.8, opacity: 0 }}
+										animate={{ scale: 1, opacity: 1 }}
+										className="mx-auto text-center font-medium text-2xl"
+									>
+										{format(field.value)}
+									</motion.div>
+								</div>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				),
+			)}
+
+			<Button
+				type="submit"
+				className="w-full"
+				disabled={isSaving}
 			>
-				<FormField
-					control={form.control}
-					name="weight"
-					render={({ field }) => (
-						<FormItem>
-							<div className="space-y-1">
-								<FormLabel>Weight (kg)</FormLabel>
-								<FormDescription>
-									Drag the slider to set your current weight
-								</FormDescription>
-							</div>
-							<div className="space-y-4 pt-4">
-								<FormControl>
-									<Slider
-										defaultValue={[field.value]}
-										min={30}
-										max={150}
-										step={0.1}
-										onValueChange={(vals) => {
-											field.onChange(vals[0]);
-										}}
-									/>
-								</FormControl>
-								<motion.div
-									key={field.value}
-									initial={{ scale: 0.8, opacity: 0 }}
-									animate={{ scale: 1, opacity: 1 }}
-									className="mx-auto text-center font-medium text-2xl"
-								>
-									{field.value.toFixed(1)} kg
-								</motion.div>
-							</div>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-
-				<FormField
-					control={form.control}
-					name="height"
-					render={({ field }) => (
-						<FormItem>
-							<div className="space-y-1">
-								<FormLabel>Height (cm)</FormLabel>
-								<FormDescription>
-									Enter your current height in centimeters
-								</FormDescription>
-							</div>
-							<div className="space-y-4 pt-4">
-								<FormControl>
-									<Slider
-										defaultValue={[field.value]}
-										min={100}
-										max={220}
-										step={1}
-										onValueChange={(vals) => {
-											field.onChange(vals[0]);
-										}}
-									/>
-								</FormControl>
-								<motion.div
-									key={field.value}
-									initial={{ scale: 0.8, opacity: 0 }}
-									animate={{ scale: 1, opacity: 1 }}
-									className="mx-auto text-center font-medium text-2xl"
-								>
-									{field.value} cm
-								</motion.div>
-							</div>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-
-				<Button
-					type="submit"
-					className="w-full"
-					disabled={isSaving}
-				>
-					{isSaving ? "Saving..." : "Save Measurements"}
-				</Button>
-			</form>
-		</Form>
+				{isSaving ? "Saving..." : "Save Measurements"}
+			</Button>
+		</DataEntryForm>
 	);
 }

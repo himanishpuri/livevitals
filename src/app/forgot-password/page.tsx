@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities -- static legal/marketing prose keeps straight quotes */ 
-import PageWrapper from "@/components/PageWrapper";
-import ForgotPasswordForm from "@/components/forgot-password-form";
+import PageWrapper from "@/components/page-wrapper";
+import ForgotPasswordForm from "@/components/auth/forgot-password-form";
 import { Activity } from "lucide-react";
 import Link from "next/link";
 

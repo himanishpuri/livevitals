@@ -7,7 +7,7 @@ import { Send, Paperclip, Smile, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import useSocket from "@/hooks/useSocket";
+import useSocket from "@/hooks/use-socket";
 import { useAuth } from "@/context/auth-context";
 import {
 	Avatar,
