@@ -20,6 +20,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import PageWrapper from "@/components/PageWrapper";
 
 const InstructorChatPage = () => {
 	const { instructors, isConnected } = useSocket();
@@ -33,7 +34,7 @@ const InstructorChatPage = () => {
 	}, [isConnected]);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
+		<PageWrapper className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
 			<div className="max-w-6xl mx-auto">
 				<div className="mb-10 text-center">
 					<div className="flex justify-center mb-4">
@@ -184,7 +185,7 @@ const InstructorChatPage = () => {
 					</Card>
 				</div>
 			</div>
-		</div>
+		</PageWrapper>
 	);
 };
 

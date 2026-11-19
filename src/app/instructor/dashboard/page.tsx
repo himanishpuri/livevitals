@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card";
 import { toast } from "sonner";
 import useSocket from "@/hooks/useSocket";
+import PageWrapper from "@/components/PageWrapper";
 
 export default function InstructorDashboard() {
 	const { user, isAuthenticated, logout } = useAuth();
@@ -89,7 +90,7 @@ export default function InstructorDashboard() {
 	};
 
 	return (
-		<div className="min-h-screen bg-background p-6 text-foreground">
+		<PageWrapper className="min-h-screen bg-background p-6 text-foreground">
 			<div className="max-w-7xl mx-auto">
 				<header className="flex items-center justify-between mb-8">
 					<h1 className="text-3xl font-bold">
@@ -264,6 +265,6 @@ export default function InstructorDashboard() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</PageWrapper>
 	);
 }
