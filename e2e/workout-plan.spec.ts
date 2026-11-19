@@ -31,3 +31,33 @@ test("weekly plan lists seven days and opens exercise details", async ({
 		dialog.getByRole("heading", { name: "Bench Press" }),
 	).toBeVisible();
 });
+
+test("exercise completion persists and a day can be completed", async ({
+	page,
+}) => {
+	await loginAsUser(page);
+	await page.goto("/my-workout-plan");
+
+	const exercise = page.getByRole("checkbox", { name: "Bench Press" });
+	await exercise.check();
+	await expect(exercise).toBeChecked();
+
+	await page.reload();
+	await expect(exercise).toBeChecked();
+
+	const dayCard = page.getByRole("list").first();
+	await page
+		.getByRole("button", { name: "Mark Day as Complete" })
+		.first()
+		.click();
+	await expect(dayCard.getByRole("checkbox")).toHaveCount(4);
+	for (const checkbox of await dayCard.getByRole("checkbox").all()) {
+		await expect(checkbox).toBeChecked();
+	}
+
+	const completeButton = page
+		.getByRole("button", { name: "Day complete" })
+		.first();
+	await expect(completeButton).toBeVisible();
+	await expect(completeButton).toBeDisabled();
+});

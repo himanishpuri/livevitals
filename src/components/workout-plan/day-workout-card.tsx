@@ -9,11 +9,13 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import type { WorkoutDay, Exercise } from "@/types/workout-plan";
+import type { UseWorkoutProgressReturn } from "@/hooks/use-workout-progress";
 
 interface DayWorkoutCardProps {
   date: Date;
   workout?: WorkoutDay;
   isToday: boolean;
+  progress: UseWorkoutProgressReturn;
   onExerciseClick: (exercise: Exercise) => void;
 }
 
@@ -21,6 +23,7 @@ export default function DayWorkoutCard({
   date,
   workout,
   isToday,
+  progress,
   onExerciseClick,
 }: DayWorkoutCardProps) {
   const dayName = format(date, "EEEE");
@@ -67,7 +70,10 @@ export default function DayWorkoutCard({
                   <div className="flex items-start gap-2">
                     <Checkbox
                       id={`exercise-${exercise.id}`}
-                      checked={exercise.isCompleted}
+                      checked={progress.isCompleted(exercise)}
+                      onCheckedChange={() =>
+                        progress.toggleExercise(exercise.id)
+                      }
                       className="mt-1"
                     />
                     <div className="flex-1">
@@ -76,7 +82,7 @@ export default function DayWorkoutCard({
                           htmlFor={`exercise-${exercise.id}`}
                           className={cn(
                             "font-medium cursor-pointer",
-                            exercise.isCompleted &&
+                            progress.isCompleted(exercise) &&
                               "line-through text-muted-foreground"
                           )}
                         >
@@ -119,9 +125,21 @@ export default function DayWorkoutCard({
               variant="outline"
               size="sm"
               className="w-full mt-4"
+              onClick={() =>
+                progress.completeDay(
+                  workout.exercises.map((exercise) => exercise.id)
+                )
+              }
+              disabled={workout.exercises.every((exercise) =>
+                progress.isCompleted(exercise)
+              )}
             >
               <CheckCircle className="h-4 w-4 mr-2" />
-              Mark Day as Complete
+              {workout.exercises.every((exercise) =>
+                progress.isCompleted(exercise)
+              )
+                ? "Day complete"
+                : "Mark Day as Complete"}
             </Button>
           </div>
         ) : (
