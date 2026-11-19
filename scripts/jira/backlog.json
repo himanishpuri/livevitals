@@ -2688,6 +2688,26 @@
       "commits": []
     },
     {
+      "ref": "O41",
+      "type": "Bug",
+      "summary": "Workout plan is empty on Sundays",
+      "description": "The mock workout plan computed this week's Monday as today minus getDay() plus one, which on a Sunday is the next Monday, so the plan page showed no workouts every Sunday.\n\nAcceptance: The plan's Monday is the Monday of the ISO week that contains today, including on Sundays, and a unit test pins this with a Sunday date.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-18 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S10",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
       "ref": "F1",
       "type": "Story",
       "summary": "Real authentication backend with server sessions",
