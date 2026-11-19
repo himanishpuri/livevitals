@@ -131,6 +131,8 @@ export function ChatComponent({
 			(success: boolean) => {
 				if (success) {
 					setNewMessage("");
+				} else {
+					toast.error("Message could not be sent");
 				}
 				setIsSending(false);
 			},
