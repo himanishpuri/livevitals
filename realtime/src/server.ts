@@ -210,6 +210,9 @@ export function createRealtimeServer({
 
 	const close = async () => {
 		const { promise, resolve } = Promise.withResolvers<void>();
+		// Upgraded peer sockets would keep httpServer.close() waiting forever.
+		for (const client of peerWss?.clients ?? []) client.terminate();
+		peerWss?.close();
 		io.close(() => {
 			if (httpServer.listening) {
 				httpServer.close(() => resolve());
