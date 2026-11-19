@@ -31,16 +31,6 @@ export default function DayWorkoutCard({
     onExerciseClick(exercise);
   };
 
-  const handleToggleExerciseCompletion = (exerciseId: string) => {
-    // In a real app, this would update the exercise completion status
-    console.log(`Toggle completion for exercise: ${exerciseId}`);
-  };
-
-  const handleMarkDayComplete = () => {
-    // In a real app, this would mark all exercises for the day as complete
-    console.log(`Mark day complete: ${format(date, "yyyy-MM-dd")}`);
-  };
-
   return (
     <Card
       className={cn(
@@ -78,9 +68,6 @@ export default function DayWorkoutCard({
                     <Checkbox
                       id={`exercise-${exercise.id}`}
                       checked={exercise.isCompleted}
-                      onCheckedChange={() =>
-                        handleToggleExerciseCompletion(exercise.id)
-                      }
                       className="mt-1"
                     />
                     <div className="flex-1">
@@ -132,7 +119,6 @@ export default function DayWorkoutCard({
               variant="outline"
               size="sm"
               className="w-full mt-4"
-              onClick={handleMarkDayComplete}
             >
               <CheckCircle className="h-4 w-4 mr-2" />
               Mark Day as Complete

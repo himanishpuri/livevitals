@@ -144,3 +144,7 @@ The project is managed as Scrum in the Jira Cloud project [`LV`](https://thapar-
 | Kush Khandpur | 102318044 |
 | Vansh Chauhan | 102318057 |
 | Aarushi | 102318078 |
+
+## License
+
+MIT. See [LICENSE](LICENSE).

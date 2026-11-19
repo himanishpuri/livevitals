@@ -25,5 +25,17 @@
     "socket.io-client": "^4.8.4",
     "typescript": "^7.0.2",
     "vitest": "^5.1.1"
+  },
+  "description": "Realtime chat, presence and call-signalling service for LiveVitals",
+  "author": "Himanish Puri",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/himanishpuri/livevitals.git",
+    "directory": "realtime"
+  },
+  "homepage": "https://github.com/himanishpuri/livevitals#readme",
+  "bugs": {
+    "url": "https://github.com/himanishpuri/livevitals/issues"
   }
 }
