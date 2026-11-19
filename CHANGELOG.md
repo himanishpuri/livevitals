@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Pin `realtime` to TypeScript ^6 to match the web app; TypeScript is
+  repo-wide ^6 until a lint chain supports TS 7, and Dependabot skips
+  typescript major bumps.
+
 ## [1.0.1] - 2025-07-20
 
 Codebase hardening. No changes to routes, socket events or stored data.
+
 
 ### Added
 

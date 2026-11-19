@@ -2708,6 +2708,27 @@
       "commits": []
     },
     {
+      "ref": "O42",
+      "type": "Task",
+      "summary": "Pin realtime to TypeScript 6 to match the web app",
+      "description": "realtime devDependencies pinned typescript ^7.0.2, while the web app is pinned ^6.0.3 because @typescript-eslint supports at most 6.0. TypeScript 7 is the Go-based compiler rewrite and offers no language-level gain, so the repo standardises on ^6.0.3 repo-wide until a lint chain supports TS 7.\n\nAcceptance: realtime/package.json pins typescript ^6.0.3, realtime typecheck and tests pass, and Dependabot ignores typescript major bumps for both packages.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-18 17:30",
+      "due": null,
+      "parent": "E9",
+      "sprint": "S10",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+
+    {
       "ref": "F1",
       "type": "Story",
       "summary": "Real authentication backend with server sessions",

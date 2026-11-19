@@ -195,7 +195,7 @@ test("sprint table matches the backlog sums", () => {
     S7: [9, 27],
     S8: [5, 15],
     S9: [3, 5],
-    S10: [10, 18],
+    S10: [11, 19],
   };
   const totals = sprintTotals(backlog);
   assert.equal(totals.length, 10);
@@ -214,7 +214,7 @@ test("sprint table matches the backlog sums", () => {
     )
     .reduce((sum, issue) => sum + issue.storyPoints, 0);
   assert.equal(sprintsPoints, manual);
-  assert.equal(backlog.issues.length, 128);
+  assert.equal(backlog.issues.length, 129);
 });
 
 test("csv repeats multi-value headers and keeps columns aligned", () => {
