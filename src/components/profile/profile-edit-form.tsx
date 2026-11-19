@@ -28,7 +28,7 @@ import { toast } from "sonner";
 
 const formSchema = z.object({
 	name: z.string().min(2, "Name must be at least 2 characters"),
-	email: z.string().email("Please enter a valid email address"),
+	email: z.email("Please enter a valid email address"),
 	phone: z.string().min(10, "Please enter a valid phone number"),
 	location: z.string().min(3, "Location must be at least 3 characters"),
 	bio: z.string().max(200, "Bio must be less than 200 characters"),
