@@ -13,6 +13,7 @@ const useSocket = (): UseSocketReturn => {
 	const [instructorsList, setInstructorsList] =
 		useState<Instructor[]>(instructors);
 	const socket = useRef<Socket | null>(null);
+	const [socketInstance, setSocketInstance] = useState<Socket | null>(null);
 
 	const socketInitializer = async () => {
 		if (!socket.current) {
@@ -46,6 +47,7 @@ const useSocket = (): UseSocketReturn => {
 
 			// Get initial instructor statuses
 			socket.current.emit("get_instructor_status");
+			setSocketInstance(socket.current);
 		}
 	};
 
@@ -62,7 +64,7 @@ const useSocket = (): UseSocketReturn => {
 	return {
 		instructors: instructorsList,
 		isConnected,
-		socket: socket.current,
+		socket: socketInstance,
 	};
 };
 

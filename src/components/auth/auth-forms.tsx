@@ -16,7 +16,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 
 export function LoginForm() {
 	const { login } = useAuth();
@@ -142,7 +142,10 @@ export function LoginForm() {
 					name="role"
 					value={formData.role}
 					onValueChange={(value) =>
-						setFormData((prev) => ({ ...prev, role: value as any }))
+						setFormData((prev) => ({
+							...prev,
+							role: value as "user" | "instructor",
+						}))
 					}
 				>
 					<SelectTrigger className="h-11 w-full">
@@ -315,7 +318,10 @@ export function RegisterForm() {
 					name="role"
 					value={formData.role}
 					onValueChange={(value) =>
-						setFormData((prev) => ({ ...prev, role: value as any }))
+						setFormData((prev) => ({
+							...prev,
+							role: value as "user" | "instructor",
+						}))
 					}
 				>
 					<SelectTrigger className="h-11 w-full">

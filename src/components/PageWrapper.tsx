@@ -1,6 +1,6 @@
 "use client";
 
-import { type HTMLMotionProps, motion } from "framer-motion";
+import { type HTMLMotionProps, motion } from "motion/react";
 
 const PageWrapper = (props: HTMLMotionProps<"div">) => {
 	return (
