@@ -72,9 +72,10 @@ export default function LoginPage() {
 						</p>
 						<div className="relative h-64 w-full rounded-xl overflow-hidden shadow-xl">
 							<Image
-								src="/placeholder.svg?height=400&width=600"
+								src="/placeholder.svg"
 								alt="Fitness consultation"
 								fill
+								sizes="(min-width: 1024px) 50vw, 100vw"
 								className="object-cover"
 							/>
 						</div>
