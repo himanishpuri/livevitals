@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Check, ChevronRight, Info } from "lucide-react";
-import PageWrapper from "@/components/PageWrapper";
+import PageWrapper from "@/components/page-wrapper";
 import { Button } from "@/components/ui/button";
 import {
 	Card,

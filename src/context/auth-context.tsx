@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { User, AuthState, LoginCredentials, RegisterData } from "@/types/user";
-import useSocket from "@/hooks/useSocket";
+import useSocket from "@/hooks/use-socket";
 
 // Demo users for development (replace with real authentication in production)
 const DEMO_USERS: Array<User & { password: string }> = [

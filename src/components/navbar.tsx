@@ -5,9 +5,9 @@ import { Activity, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { AuthButtons } from "@/components/auth/auth-buttons";
-import { NotificationDropdown } from "@/components/NotificationDropdown";
+import { NotificationDropdown } from "@/components/notification-dropdown";
 import { useAuth } from "@/context/auth-context";
 import {
 	Sheet,

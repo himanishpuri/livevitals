@@ -6,7 +6,7 @@ import { Activity, Target, Utensils, Weight } from "lucide-react";
 import { HealthDataContext } from "@/context/health-data-context";
 import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
-import PageWrapper from "@/components/PageWrapper";
+import PageWrapper from "@/components/page-wrapper";
 import { toast } from "sonner";
 import {
 	Card,

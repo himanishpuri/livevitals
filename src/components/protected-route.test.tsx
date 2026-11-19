@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import type { AuthState } from "@/types/user";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./protected-route";
 
 const replace = vi.hoisted(() => vi.fn());
 const authState = vi.hoisted(() => ({

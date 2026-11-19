@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import useSocket from "@/hooks/useSocket";
+import useSocket from "@/hooks/use-socket";
 import { InstructorList } from "@/components/instructor-chat/instructor-list";
 import { toast } from "sonner";
 import { useAuth } from "@/context/auth-context";
@@ -20,7 +20,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import PageWrapper from "@/components/PageWrapper";
+import PageWrapper from "@/components/page-wrapper";
 
 const InstructorChatPage = () => {
 	const { instructors, isConnected } = useSocket();

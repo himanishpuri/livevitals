@@ -7,7 +7,7 @@ import {
 	useEffect,
 	ReactNode,
 } from "react";
-import useSocket from "@/hooks/useSocket";
+import useSocket from "@/hooks/use-socket";
 import { useAuth } from "@/context/auth-context";
 import { toast } from "sonner";
 

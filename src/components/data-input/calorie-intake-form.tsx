@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
-	Form,
 	FormControl,
 	FormDescription,
 	FormField,
@@ -13,6 +12,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DataEntryForm } from "@/components/data-input/data-entry-form";
 
 const formSchema = z.object({
 	calories: z
@@ -38,6 +38,12 @@ interface CalorieIntakeFormProps {
 	isSaving: boolean;
 }
 
+const macroFields = [
+	{ name: "protein", label: "Protein" },
+	{ name: "carbs", label: "Carbs" },
+	{ name: "fat", label: "Fat" },
+] as const;
+
 export function CalorieIntakeForm({
 	initialCalories,
 	initialProtein,
@@ -56,135 +62,76 @@ export function CalorieIntakeForm({
 		},
 	});
 
-	const onSubmit = (values: z.infer<typeof formSchema>) => {
-		onSave(values);
-	};
-
 	return (
-		<Form {...form}>
-			<form
-				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-6"
+		<DataEntryForm
+			form={form}
+			onSubmit={onSave}
+		>
+			<FormField
+				control={form.control}
+				name="calories"
+				render={({ field }) => (
+					<FormItem>
+						<div className="space-y-1">
+							<FormLabel>Daily Calorie Intake</FormLabel>
+							<FormDescription>Total calories consumed today</FormDescription>
+						</div>
+						<div className="space-y-4 pt-2">
+							<div className="flex items-center space-x-4">
+								<FormControl>
+									<Input
+										type="number"
+										placeholder="Enter calories"
+										{...field}
+										onChange={(e) => field.onChange(Number(e.target.value))}
+									/>
+								</FormControl>
+								<span>kcal</span>
+							</div>
+						</div>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
+
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+				{macroFields.map(({ name, label }) => (
+					<FormField
+						key={name}
+						control={form.control}
+						name={name}
+						render={({ field }) => (
+							<FormItem>
+								<div className="space-y-1">
+									<FormLabel>{label}</FormLabel>
+								</div>
+								<div className="flex items-center space-x-4">
+									<FormControl>
+										<Input
+											type="number"
+											placeholder="0"
+											{...field}
+											onChange={(e) =>
+												field.onChange(Number(e.target.value))
+											}
+										/>
+									</FormControl>
+									<span>g</span>
+								</div>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				))}
+			</div>
+
+			<Button
+				type="submit"
+				className="w-full"
+				disabled={isSaving}
 			>
-				<FormField
-					control={form.control}
-					name="calories"
-					render={({ field }) => (
-						<FormItem>
-							<div className="space-y-1">
-								<FormLabel>Daily Calorie Intake</FormLabel>
-								<FormDescription>
-									Total calories consumed today
-								</FormDescription>
-							</div>
-							<div className="space-y-4 pt-2">
-								<div className="flex items-center space-x-4">
-									<FormControl>
-										<Input
-											type="number"
-											placeholder="Enter calories"
-											{...field}
-											onChange={(e) =>
-												field.onChange(Number(e.target.value))
-											}
-										/>
-									</FormControl>
-									<span>kcal</span>
-								</div>
-							</div>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-					<FormField
-						control={form.control}
-						name="protein"
-						render={({ field }) => (
-							<FormItem>
-								<div className="space-y-1">
-									<FormLabel>Protein</FormLabel>
-								</div>
-								<div className="flex items-center space-x-4">
-									<FormControl>
-										<Input
-											type="number"
-											placeholder="0"
-											{...field}
-											onChange={(e) =>
-												field.onChange(Number(e.target.value))
-											}
-										/>
-									</FormControl>
-									<span>g</span>
-								</div>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
-					<FormField
-						control={form.control}
-						name="carbs"
-						render={({ field }) => (
-							<FormItem>
-								<div className="space-y-1">
-									<FormLabel>Carbs</FormLabel>
-								</div>
-								<div className="flex items-center space-x-4">
-									<FormControl>
-										<Input
-											type="number"
-											placeholder="0"
-											{...field}
-											onChange={(e) =>
-												field.onChange(Number(e.target.value))
-											}
-										/>
-									</FormControl>
-									<span>g</span>
-								</div>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
-					<FormField
-						control={form.control}
-						name="fat"
-						render={({ field }) => (
-							<FormItem>
-								<div className="space-y-1">
-									<FormLabel>Fat</FormLabel>
-								</div>
-								<div className="flex items-center space-x-4">
-									<FormControl>
-										<Input
-											type="number"
-											placeholder="0"
-											{...field}
-											onChange={(e) =>
-												field.onChange(Number(e.target.value))
-											}
-										/>
-									</FormControl>
-									<span>g</span>
-								</div>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-				</div>
-
-				<Button
-					type="submit"
-					className="w-full"
-					disabled={isSaving}
-				>
-					{isSaving ? "Saving..." : "Save Calorie Data"}
-				</Button>
-			</form>
-		</Form>
+				{isSaving ? "Saving..." : "Save Calorie Data"}
+			</Button>
+		</DataEntryForm>
 	);
 }

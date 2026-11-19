@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities -- static legal/marketing prose keeps straight quotes */ 
-import PageWrapper from "@/components/PageWrapper";
+import PageWrapper from "@/components/page-wrapper";
 
 export default function PrivacyPage() {
   return (

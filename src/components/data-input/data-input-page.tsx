@@ -10,7 +10,7 @@ import {
 	Utensils,
 	Weight,
 } from "lucide-react";
-import PageWrapper from "@/components/PageWrapper";
+import PageWrapper from "@/components/page-wrapper";
 import { HealthDataContext } from "@/context/health-data-context";
 import {
 	Card,

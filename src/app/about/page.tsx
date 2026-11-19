@@ -1,5 +1,5 @@
-import AboutSection from "@/components/About-Section";
-import PageWrapper from "@/components/PageWrapper";
+import AboutSection from "@/components/about-section";
+import PageWrapper from "@/components/page-wrapper";
 
 export default function AboutPage() {
 	return (

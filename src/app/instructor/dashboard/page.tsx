@@ -18,9 +18,9 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
-import useSocket from "@/hooks/useSocket";
-import PageWrapper from "@/components/PageWrapper";
-import ProtectedRoute from "@/components/ProtectedRoute";
+import useSocket from "@/hooks/use-socket";
+import PageWrapper from "@/components/page-wrapper";
+import ProtectedRoute from "@/components/protected-route";
 
 export default function InstructorDashboard() {
 	const { user, isAuthenticated, logout } = useAuth();

@@ -40,7 +40,6 @@ export default function ForgotPasswordForm() {
       setIsSubmitting(true);
       try {
         // Here you would typically send the request to your server
-        console.log("Password reset requested for:", email);
 
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
