@@ -23,6 +23,7 @@ services:
   e2e:
     profiles: ["test"]
     image: mcr.microsoft.com/playwright:v1.65.1-noble
+    # network_mode: host needs Linux (Docker Engine); Docker Desktop on macOS/Windows ignores it.
     network_mode: host
     working_dir: /work
     volumes:

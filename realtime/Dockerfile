@@ -3,6 +3,10 @@
 FROM node:26-alpine
 WORKDIR /app
 ENV NODE_ENV=production
+LABEL org.opencontainers.image.title="livevitals-realtime" \
+      org.opencontainers.image.description="LiveVitals realtime service (Socket.IO + PeerJS)" \
+      org.opencontainers.image.source="https://github.com/himanishpuri/livevitals" \
+      org.opencontainers.image.licenses="MIT"
 COPY package.json package-lock.json ./
 RUN --mount=type=cache,target=/root/.npm npm ci --omit=dev
 COPY src ./src
