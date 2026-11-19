@@ -69,7 +69,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 		if (!socket || !user) return;
 
 		// Listen for new chat messages
-		socket.on("new_notification", (notification: Notification) => {
+		const onNotification = (notification: Notification) => {
 			setNotifications((prev) => [notification, ...prev]);
 
 			// Show toast for important notifications
@@ -81,10 +81,11 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 					description: notification.message,
 				});
 			}
-		});
+		};
+		socket.on("new_notification", onNotification);
 
 		// Listen for chat messages directed to the user
-		socket.on("chat_message", (message: ChatMessage) => {
+		const onChatMessage = (message: ChatMessage) => {
 			// Only create notifications for messages from others, not our own
 			if (message.sender !== user.id) {
 				const notification: Notification = {
@@ -101,11 +102,12 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
 				setNotifications((prev) => [notification, ...prev]);
 			}
-		});
+		};
+		socket.on("chat_message", onChatMessage);
 
 		return () => {
-			socket.off("new_notification");
-			socket.off("chat_message");
+			socket.off("new_notification", onNotification);
+			socket.off("chat_message", onChatMessage);
 		};
 	}, [socket, user]);
 

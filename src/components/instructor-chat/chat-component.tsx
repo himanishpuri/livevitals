@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/avatar";
 import { motion, AnimatePresence } from "motion/react";
 import { format } from "date-fns";
+import { toast } from "sonner";
 
 interface Message {
 	id: string;
@@ -64,13 +65,14 @@ export function ChatComponent({
 		socket.emit("join_chat", chatRoomId);
 
 		// Listen for incoming messages
-		socket.on("chat_message", (message: Message) => {
+		const onMessage = (message: Message) => {
 			setMessages((prev) => [...prev, message]);
 			setIsTyping(false);
-		});
+		};
+		socket.on("chat_message", onMessage);
 
 		// Listen for typing events
-		socket.on("typing", ({ sender }) => {
+		const onTyping = ({ sender }: { sender: string }) => {
 			if (sender !== user?.id) {
 				setIsTyping(true);
 
@@ -84,7 +86,8 @@ export function ChatComponent({
 					setIsTyping(false);
 				}, 3000);
 			}
-		});
+		};
+		socket.on("typing", onTyping);
 
 		// Fetch message history
 		socket.emit("get_chat_history", chatRoomId, (history: Message[]) => {
@@ -94,8 +97,10 @@ export function ChatComponent({
 		});
 
 		return () => {
-			socket.off("chat_message");
-			socket.off("typing");
+			// Only this component's handlers: the socket is shared (the
+			// notification bell listens on the same events).
+			socket.off("chat_message", onMessage);
+			socket.off("typing", onTyping);
 			socket.emit("leave_chat", chatRoomId);
 
 			if (typingTimeoutRef.current) {
