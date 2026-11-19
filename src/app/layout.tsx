@@ -9,7 +9,7 @@ import { AuthProvider } from "@/context/auth-context";
 import { NotificationProvider } from "@/context/notification-context";
 import { Toaster } from "@/components/ui/sonner";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
 	title: "LiveVitals - Video Calling Health App",
@@ -26,9 +26,9 @@ export default function RootLayout({
 			<html
 				lang="en"
 				suppressHydrationWarning
+				className={inter.variable}
 			>
-				<body className={inter.className}>
-					{" "}
+				<body className="font-sans antialiased">
 					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 						<AuthProvider>
 							<NotificationProvider>
