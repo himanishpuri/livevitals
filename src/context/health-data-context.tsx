@@ -14,28 +14,25 @@ export const HealthDataContext = createContext<HealthDataContextType>({
 	updateHealthData: () => {},
 });
 
+function readStoredHealthData(): HealthData {
+	if (typeof window === "undefined") return initialHealthData;
+	const saved = localStorage.getItem("healthData");
+	if (!saved) return initialHealthData;
+	try {
+		return JSON.parse(saved) as HealthData;
+	} catch (error) {
+		console.error("Error parsing saved health data:", error);
+		return initialHealthData;
+	}
+}
+
 export function HealthDataProvider({ children }: { children: ReactNode }) {
-	const [healthData, setHealthData] = useState<HealthData>(initialHealthData);
-	const [isHydrated, setIsHydrated] = useState(false);
+	const [healthData, setHealthData] = useState<HealthData>(readStoredHealthData);
 
-	// Load data from localStorage on initial mount
+	// Save data to localStorage when it changes
 	useEffect(() => {
-		const savedData = localStorage.getItem("healthData");
-		if (savedData) {
-			try {
-				setHealthData(JSON.parse(savedData));
-			} catch (error) {
-				console.error("Error parsing saved health data:", error);
-			}
-		}
-		setIsHydrated(true);
-	}, []);
-
-	// Save data to localStorage when it changes (only after the stored data loaded)
-	useEffect(() => {
-		if (!isHydrated) return;
 		localStorage.setItem("healthData", JSON.stringify(healthData));
-	}, [healthData, isHydrated]);
+	}, [healthData]);
 
 	const updateHealthData = (newData: Partial<HealthData>) => {
 		setHealthData((prevData) => ({

@@ -43,18 +43,13 @@ export function ChatComponent({
 	const [newMessage, setNewMessage] = useState("");
 	const [isSending, setIsSending] = useState(false);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
-	const [chatRoomId, setChatRoomId] = useState<string>("");
+	// Deterministic room id: sorted so both sides agree on the room name
+	const chatRoomId =
+		user?.id && instructorId
+			? `chat_${[user.id, instructorId].sort().join("_")}`
+			: "";
 	const [isTyping, setIsTyping] = useState(false);
 	const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-	// Generate a deterministic chat room ID from user and instructor IDs
-	useEffect(() => {
-		if (user?.id && instructorId) {
-			// Sort the IDs to ensure the same room ID regardless of who initiates
-			const sortedIds = [user.id, instructorId].sort();
-			setChatRoomId(`chat_${sortedIds[0]}_${sortedIds[1]}`);
-		}
-	}, [user?.id, instructorId]);
 
 	// Scroll to bottom when messages change
 	useEffect(() => {
