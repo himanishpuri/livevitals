@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Activity, Target, Utensils, Weight } from "lucide-react";
 import { HealthDataContext } from "@/context/health-data-context";
 import { useAuth } from "@/context/auth-context";

@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import useSocket from "@/hooks/useSocket";
 import { useAuth } from "@/context/auth-context";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { format } from "date-fns";
 
 interface Message {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Check, ChevronRight, Info } from "lucide-react";
 import PageWrapper from "@/components/PageWrapper";
 import { Button } from "@/components/ui/button";

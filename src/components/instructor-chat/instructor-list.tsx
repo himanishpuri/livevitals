@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Video, Star, Clock, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
