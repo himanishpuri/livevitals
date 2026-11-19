@@ -60,10 +60,7 @@ export default function Navbar() {
 		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
 			<div className="container mx-auto px-4 flex h-16 items-center justify-between">
 				<div className="flex items-center gap-2">
-					<Link
-						href="/"
-						className="flex items-center gap-2"
-					>
+					<Link href="/" className="flex items-center gap-2">
 						<Activity className="h-6 w-6 text-primary" />
 						<span className="text-xl font-bold">LiveVitals</span>
 					</Link>
@@ -105,10 +102,7 @@ export default function Navbar() {
 							<Menu className="h-6 w-6" />
 						</Button>
 					</SheetTrigger>
-					<SheetContent
-						side="right"
-						className="w-72"
-					>
+					<SheetContent side="right" className="w-72">
 						<SheetHeader>
 							<SheetTitle className="flex items-center gap-2">
 								<Activity className="h-5 w-5 text-primary" />
@@ -117,10 +111,7 @@ export default function Navbar() {
 						</SheetHeader>
 						<nav className="flex flex-col gap-6 px-4 py-6">
 							{navLinks.map((link) => (
-								<SheetClose
-									asChild
-									key={link.href}
-								>
+								<SheetClose asChild key={link.href}>
 									<Link
 										href={link.href}
 										className={cn(
@@ -150,4 +141,3 @@ export default function Navbar() {
 		</header>
 	);
 }
-

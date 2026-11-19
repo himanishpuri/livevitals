@@ -9,11 +9,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useSocket from "@/hooks/use-socket";
 import { useAuth } from "@/context/auth-context";
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion, AnimatePresence } from "motion/react";
 import { format } from "date-fns";
 import { toast } from "sonner";
@@ -181,10 +177,7 @@ export function ChatComponent({
 					</div>
 				</div>
 				<div>
-					<Button
-						variant="ghost"
-						size="icon"
-					>
+					<Button variant="ghost" size="icon">
 						<Smile className="h-5 w-5 text-muted-foreground" />
 					</Button>
 				</div>
@@ -204,106 +197,87 @@ export function ChatComponent({
 					</div>
 				) : (
 					<div className="space-y-6">
-						{Object.entries(groupedMessages).map(
-							([date, dateMessages]) => (
-								<div
-									key={date}
-									className="space-y-4"
-								>
-									<div className="relative flex items-center justify-center">
-										<div className="absolute inset-0 flex items-center">
-											<div className="w-full border-t border-border"></div>
-										</div>
-										<div className="relative px-4 bg-background text-xs text-muted-foreground">
-											{date}
-										</div>
+						{Object.entries(groupedMessages).map(([date, dateMessages]) => (
+							<div key={date} className="space-y-4">
+								<div className="relative flex items-center justify-center">
+									<div className="absolute inset-0 flex items-center">
+										<div className="w-full border-t border-border"></div>
 									</div>
-
-									<div className="space-y-4">
-										{dateMessages.map((message, index) => {
-											const isOwnMessage =
-												message.sender === user?.id;
-											const showAvatar =
-												index === 0 ||
-												dateMessages[index - 1]?.sender !==
-													message.sender;
-
-											return (
-												<div
-													key={message.id}
-													className={`flex ${
-														isOwnMessage
-															? "justify-end"
-															: "justify-start"
-													}`}
-												>
-													<div
-														className={`flex ${
-															isOwnMessage
-																? "flex-row-reverse"
-																: "flex-row"
-														} max-w-[80%] items-end gap-2`}
-													>
-														{!isOwnMessage && showAvatar && (
-															<Avatar className="flex-shrink-0">
-																<AvatarImage
-																	src={
-																		instructorImage ||
-																		"/placeholder.svg"
-																	}
-																	alt={instructorName}
-																/>
-																<AvatarFallback>
-																	{instructorName.charAt(0).toUpperCase()}
-																</AvatarFallback>
-															</Avatar>
-														)}
-
-														{!isOwnMessage && !showAvatar && (
-															<div className="w-8 flex-shrink-0" />
-														)}
-
-														<motion.div
-															initial={{ opacity: 0, y: 10 }}
-															animate={{ opacity: 1, y: 0 }}
-															className={`rounded-2xl px-4 py-2 ${
-																isOwnMessage
-																	? "bg-primary text-primary-foreground rounded-br-none"
-																	: "bg-muted rounded-bl-none"
-															}`}
-														>
-															<p className="text-sm whitespace-pre-wrap break-words">
-																{message.text}
-															</p>
-															<p className="text-xs opacity-70 mt-1 text-right">
-																{format(
-																	new Date(message.timestamp),
-																	"h:mm a",
-																)}
-															</p>
-														</motion.div>
-
-														{isOwnMessage && showAvatar && (
-															<div className="w-8 h-8 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center flex-shrink-0">
-																<span className="text-xs font-medium">
-																	{user?.name
-																		.charAt(0)
-																		.toUpperCase()}
-																</span>
-															</div>
-														)}
-
-														{isOwnMessage && !showAvatar && (
-															<div className="w-8 flex-shrink-0" />
-														)}
-													</div>
-												</div>
-											);
-										})}
+									<div className="relative px-4 bg-background text-xs text-muted-foreground">
+										{date}
 									</div>
 								</div>
-							),
-						)}
+
+								<div className="space-y-4">
+									{dateMessages.map((message, index) => {
+										const isOwnMessage = message.sender === user?.id;
+										const showAvatar =
+											index === 0 ||
+											dateMessages[index - 1]?.sender !== message.sender;
+
+										return (
+											<div
+												key={message.id}
+												className={`flex ${
+													isOwnMessage ? "justify-end" : "justify-start"
+												}`}
+											>
+												<div
+													className={`flex ${
+														isOwnMessage ? "flex-row-reverse" : "flex-row"
+													} max-w-[80%] items-end gap-2`}
+												>
+													{!isOwnMessage && showAvatar && (
+														<Avatar className="flex-shrink-0">
+															<AvatarImage
+																src={instructorImage || "/placeholder.svg"}
+																alt={instructorName}
+															/>
+															<AvatarFallback>
+																{instructorName.charAt(0).toUpperCase()}
+															</AvatarFallback>
+														</Avatar>
+													)}
+
+													{!isOwnMessage && !showAvatar && (
+														<div className="w-8 flex-shrink-0" />
+													)}
+
+													<motion.div
+														initial={{ opacity: 0, y: 10 }}
+														animate={{ opacity: 1, y: 0 }}
+														className={`rounded-2xl px-4 py-2 ${
+															isOwnMessage
+																? "bg-primary text-primary-foreground rounded-br-none"
+																: "bg-muted rounded-bl-none"
+														}`}
+													>
+														<p className="text-sm whitespace-pre-wrap break-words">
+															{message.text}
+														</p>
+														<p className="text-xs opacity-70 mt-1 text-right">
+															{format(new Date(message.timestamp), "h:mm a")}
+														</p>
+													</motion.div>
+
+													{isOwnMessage && showAvatar && (
+														<div className="w-8 h-8 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center flex-shrink-0">
+															<span className="text-xs font-medium">
+																{user?.name.charAt(0).toUpperCase()}
+															</span>
+														</div>
+													)}
+
+													{isOwnMessage && !showAvatar && (
+														<div className="w-8 flex-shrink-0" />
+													)}
+												</div>
+											</div>
+										);
+									})}
+								</div>
+							</div>
+						))}
 
 						<AnimatePresence>
 							{isTyping && (
@@ -351,10 +325,7 @@ export function ChatComponent({
 
 			{/* Message input */}
 			<div className="p-3 border-t">
-				<form
-					onSubmit={handleSendMessage}
-					className="flex gap-2"
-				>
+				<form onSubmit={handleSendMessage} className="flex gap-2">
 					<Button
 						type="button"
 						size="icon"

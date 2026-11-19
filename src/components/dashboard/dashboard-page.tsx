@@ -72,15 +72,11 @@ export default function DashboardPage() {
 					>
 						<Card>
 							<CardHeader className="flex flex-row items-center justify-between pb-2">
-								<CardTitle className="text-sm font-medium">
-									Weight
-								</CardTitle>
+								<CardTitle className="text-sm font-medium">Weight</CardTitle>
 								<Weight className="h-4 w-4 text-muted-foreground" />
 							</CardHeader>
 							<CardContent>
-								<div className="text-2xl font-bold">
-									{currentWeight} kg
-								</div>
+								<div className="text-2xl font-bold">{currentWeight} kg</div>
 								<p className="text-xs text-muted-foreground">
 									Last updated today
 								</p>
@@ -96,15 +92,11 @@ export default function DashboardPage() {
 					>
 						<Card>
 							<CardHeader className="flex flex-row items-center justify-between pb-2">
-								<CardTitle className="text-sm font-medium">
-									Height
-								</CardTitle>
+								<CardTitle className="text-sm font-medium">Height</CardTitle>
 								<Activity className="h-4 w-4 text-muted-foreground" />
 							</CardHeader>
 							<CardContent>
-								<div className="text-2xl font-bold">
-									{currentHeight} cm
-								</div>
+								<div className="text-2xl font-bold">{currentHeight} cm</div>
 								<p className="text-xs text-muted-foreground">
 									Last updated 2 days ago
 								</p>
@@ -144,9 +136,7 @@ export default function DashboardPage() {
 					>
 						<Card>
 							<CardHeader className="flex flex-row items-center justify-between pb-2">
-								<CardTitle className="text-sm font-medium">
-									BMI
-								</CardTitle>
+								<CardTitle className="text-sm font-medium">BMI</CardTitle>
 								<Target className="h-4 w-4 text-muted-foreground" />
 							</CardHeader>
 							<CardContent>
@@ -164,10 +154,7 @@ export default function DashboardPage() {
 					</motion.div>
 				</div>
 
-				<Tabs
-					defaultValue="overview"
-					className="space-y-4"
-				>
+				<Tabs defaultValue="overview" className="space-y-4">
 					<TabsList>
 						<TabsTrigger value="overview">Overview</TabsTrigger>
 						<TabsTrigger value="weight">Weight</TabsTrigger>
@@ -205,8 +192,7 @@ export default function DashboardPage() {
 							<CardHeader>
 								<CardTitle>Calorie Intake vs Goal</CardTitle>
 								<CardDescription>
-									Your daily calorie consumption relative to your
-									target
+									Your daily calorie consumption relative to your target
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pt-6">

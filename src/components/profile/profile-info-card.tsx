@@ -17,24 +17,18 @@ export function ProfileInfoCard({ profile }: ProfileInfoCardProps) {
 		<Card>
 			<CardHeader>
 				<CardTitle>Profile Information</CardTitle>
-				<CardDescription>
-					Your personal and health information
-				</CardDescription>
+				<CardDescription>Your personal and health information</CardDescription>
 			</CardHeader>
 			<CardContent className="space-y-6">
 				<div className="space-y-4">
 					<h3 className="font-semibold">Personal Details</h3>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
 						<div>
-							<div className="text-sm text-muted-foreground">
-								Full Name
-							</div>
+							<div className="text-sm text-muted-foreground">Full Name</div>
 							<div>{profile.name}</div>
 						</div>
 						<div>
-							<div className="text-sm text-muted-foreground">
-								Date of Birth
-							</div>
+							<div className="text-sm text-muted-foreground">Date of Birth</div>
 							<div>{profile.dateOfBirth}</div>
 						</div>
 						<div>
@@ -42,9 +36,7 @@ export function ProfileInfoCard({ profile }: ProfileInfoCardProps) {
 							<div>{profile.gender}</div>
 						</div>
 						<div>
-							<div className="text-sm text-muted-foreground">
-								Blood Type
-							</div>
+							<div className="text-sm text-muted-foreground">Blood Type</div>
 							<div>{profile.bloodType || "Not specified"}</div>
 						</div>
 					</div>
@@ -64,9 +56,7 @@ export function ProfileInfoCard({ profile }: ProfileInfoCardProps) {
 							<div>{profile.phone}</div>
 						</div>
 						<div>
-							<div className="text-sm text-muted-foreground">
-								Address
-							</div>
+							<div className="text-sm text-muted-foreground">Address</div>
 							<div>{profile.location}</div>
 						</div>
 						<div>
@@ -84,9 +74,7 @@ export function ProfileInfoCard({ profile }: ProfileInfoCardProps) {
 					<h3 className="font-semibold">Medical Information</h3>
 					<div className="grid grid-cols-1 gap-y-4">
 						<div>
-							<div className="text-sm text-muted-foreground">
-								Allergies
-							</div>
+							<div className="text-sm text-muted-foreground">Allergies</div>
 							<div>
 								{profile.allergies.length > 0
 									? profile.allergies.join(", ")
@@ -104,9 +92,7 @@ export function ProfileInfoCard({ profile }: ProfileInfoCardProps) {
 							</div>
 						</div>
 						<div>
-							<div className="text-sm text-muted-foreground">
-								Medications
-							</div>
+							<div className="text-sm text-muted-foreground">Medications</div>
 							<div>
 								{profile.medications.length > 0
 									? profile.medications.join(", ")

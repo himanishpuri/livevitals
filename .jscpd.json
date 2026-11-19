@@ -1,0 +1,8 @@
+{
+  "path": ["src", "realtime/src", "e2e", "scripts"],
+  "minLines": 8,
+  "minTokens": 60,
+  "ignore": ["**/components/ui/**", "**/*.json", "**/node_modules/**"],
+  "reporters": ["console"],
+  "exitCode": 1
+}

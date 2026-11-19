@@ -27,7 +27,11 @@ const storedWeight = () =>
 
 describe("HealthDataProvider", () => {
 	it("persists updateHealthData to localStorage", async () => {
-		render(<HealthDataProvider><Probe /></HealthDataProvider>);
+		render(
+			<HealthDataProvider>
+				<Probe />
+			</HealthDataProvider>,
+		);
 
 		act(() => ctx().updateHealthData({ currentWeight: 71 }));
 
@@ -35,11 +39,19 @@ describe("HealthDataProvider", () => {
 	});
 
 	it("restores stored data on remount", async () => {
-		render(<HealthDataProvider><Probe /></HealthDataProvider>);
+		render(
+			<HealthDataProvider>
+				<Probe />
+			</HealthDataProvider>,
+		);
 		act(() => ctx().updateHealthData({ currentWeight: 63 }));
 		await waitFor(() => expect(storedWeight()).toBe(63));
 
-		render(<HealthDataProvider><Probe /></HealthDataProvider>);
+		render(
+			<HealthDataProvider>
+				<Probe />
+			</HealthDataProvider>,
+		);
 
 		await waitFor(() =>
 			expect(screen.getAllByText("weight:63").length).toBeGreaterThan(0),
@@ -55,13 +67,18 @@ describe("HealthDataProvider", () => {
 			writes.push(String(value));
 		});
 
-		render(<HealthDataProvider><Probe /></HealthDataProvider>);
+		render(
+			<HealthDataProvider>
+				<Probe />
+			</HealthDataProvider>,
+		);
 		await waitFor(() =>
 			expect(screen.getByText("weight:58")).toBeInTheDocument(),
 		);
 
 		const wroteSeed = writes.some(
-			(value) => JSON.parse(value).currentWeight === initialHealthData.currentWeight,
+			(value) =>
+				JSON.parse(value).currentWeight === initialHealthData.currentWeight,
 		);
 		expect(wroteSeed).toBe(false);
 	});

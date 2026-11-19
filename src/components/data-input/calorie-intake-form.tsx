@@ -63,10 +63,7 @@ export function CalorieIntakeForm({
 	});
 
 	return (
-		<DataEntryForm
-			form={form}
-			onSubmit={onSave}
-		>
+		<DataEntryForm form={form} onSubmit={onSave}>
 			<FormField
 				control={form.control}
 				name="calories"
@@ -111,9 +108,7 @@ export function CalorieIntakeForm({
 											type="number"
 											placeholder="0"
 											{...field}
-											onChange={(e) =>
-												field.onChange(Number(e.target.value))
-											}
+											onChange={(e) => field.onChange(Number(e.target.value))}
 										/>
 									</FormControl>
 									<span>g</span>
@@ -125,11 +120,7 @@ export function CalorieIntakeForm({
 				))}
 			</div>
 
-			<Button
-				type="submit"
-				className="w-full"
-				disabled={isSaving}
-			>
+			<Button type="submit" className="w-full" disabled={isSaving}>
 				{isSaving ? "Saving..." : "Save Calorie Data"}
 			</Button>
 		</DataEntryForm>

@@ -7,11 +7,7 @@ import { useAuth } from "@/context/auth-context";
 import { peerOptions } from "@/lib/realtime";
 import Peer, { type MediaConnection } from "peerjs";
 import { type Instructor } from "@/data/instructors";
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ProtectedRoute from "@/components/protected-route";
 import { ScheduleSessionDialog } from "@/components/instructor-chat/schedule-session-dialog";
 import { ChatComponent } from "@/components/instructor-chat/chat-component";
@@ -94,9 +90,7 @@ const VideoRoom = () => {
 			return;
 		}
 		if (!instructor?.availability) {
-			toast.error(
-				`${instructor?.name ?? "Instructor"} is currently offline`,
-			);
+			toast.error(`${instructor?.name ?? "Instructor"} is currently offline`);
 			return;
 		}
 
@@ -267,8 +261,8 @@ const VideoRoom = () => {
 	}
 
 	return (
-			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
-				<div className="max-w-6xl mx-auto">
+		<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
+			<div className="max-w-6xl mx-auto">
 				<div className="flex items-center gap-4 mb-8">
 					<Button
 						variant="ghost"
@@ -279,9 +273,7 @@ const VideoRoom = () => {
 						<ArrowLeft className="h-5 w-5" />
 					</Button>
 
-					<h1 className="text-2xl font-bold">
-						Session with {instructor.name}
-					</h1>
+					<h1 className="text-2xl font-bold">Session with {instructor.name}</h1>
 
 					<Badge
 						variant={instructor.availability ? "default" : "outline"}
@@ -302,10 +294,7 @@ const VideoRoom = () => {
 								<div className="flex flex-col items-center text-center mb-4">
 									<Avatar className="mb-4 h-24 w-24 border-2 border-background shadow-sm">
 										<AvatarImage
-											src={
-												instructor.profileImage ||
-												"/placeholder.svg"
-											}
+											src={instructor.profileImage || "/placeholder.svg"}
 											alt={instructor.name}
 										/>
 										<AvatarFallback>
@@ -316,9 +305,7 @@ const VideoRoom = () => {
 										</AvatarFallback>
 									</Avatar>
 
-									<h2 className="text-xl font-semibold">
-										{instructor.name}
-									</h2>
+									<h2 className="text-xl font-semibold">{instructor.name}</h2>
 									<p className="text-primary text-sm font-medium mb-2">
 										{instructor.specialty}
 									</p>
@@ -386,17 +373,11 @@ const VideoRoom = () => {
 							className="mb-6"
 						>
 							<TabsList className="grid w-full grid-cols-2">
-								<TabsTrigger
-									value="video"
-									className="flex items-center gap-2"
-								>
+								<TabsTrigger value="video" className="flex items-center gap-2">
 									<Video className="h-4 w-4" />
 									<span>Video Call</span>
 								</TabsTrigger>
-								<TabsTrigger
-									value="chat"
-									className="flex items-center gap-2"
-								>
+								<TabsTrigger value="chat" className="flex items-center gap-2">
 									<MessageSquare className="h-4 w-4" />
 									<span>Text Chat</span>
 								</TabsTrigger>
@@ -508,10 +489,7 @@ const VideoRoom = () => {
 														className="h-14 w-14 rounded-full"
 														aria-label="Start call"
 														onClick={initializeCall}
-														disabled={
-															isCalling ||
-															!instructor.availability
-														}
+														disabled={isCalling || !instructor.availability}
 													>
 														<Phone className="h-6 w-6" />
 													</Button>
@@ -522,9 +500,7 @@ const VideoRoom = () => {
 													size="icon"
 													className="h-12 w-12 rounded-full"
 													aria-label={
-														videoEnabled
-															? "Turn off camera"
-															: "Turn on camera"
+														videoEnabled ? "Turn off camera" : "Turn on camera"
 													}
 													onClick={toggleVideo}
 												>
@@ -579,7 +555,7 @@ const VideoRoom = () => {
 					</div>
 				</div>
 			</div>
-			</div>
+		</div>
 	);
 };
 

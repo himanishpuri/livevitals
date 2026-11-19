@@ -181,9 +181,7 @@ export function createRealtimeServer({
 				.slice("chat_".length)
 				.split("_")
 				.find((participant) => participant !== sender);
-			const target = other
-				? io.to(roomId).to(`user:${other}`)
-				: io.to(roomId);
+			const target = other ? io.to(roomId).to(`user:${other}`) : io.to(roomId);
 			target.emit("chat_message", stored);
 			reply?.(true);
 		});

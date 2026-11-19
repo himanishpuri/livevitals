@@ -22,9 +22,9 @@ export default function Hero() {
 					<span className="text-primary">LiveVitals</span>
 				</h1>{" "}
 				<p className="mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
-					Connect with fitness instructors through secure, high-quality
-					video calls. Get personalized guidance from experts for your
-					fitness journey.
+					Connect with fitness instructors through secure, high-quality video
+					calls. Get personalized guidance from experts for your fitness
+					journey.
 				</p>
 				<div className="flex flex-col gap-4 sm:flex-row">
 					{isAuthenticated ? (
@@ -36,19 +36,12 @@ export default function Hero() {
 							<Link href="/instructor-chat">Find an Instructor</Link>
 						</Button>
 					) : (
-						<Button
-							size="lg"
-							asChild
-						>
+						<Button size="lg" asChild>
 							<Link href="/login">Sign In to Start</Link>
 						</Button>
 					)}
 					{!isAuthenticated && (
-						<Button
-							size="lg"
-							variant="outline"
-							asChild
-						>
+						<Button size="lg" variant="outline" asChild>
 							<Link href="/register">Create Account</Link>
 						</Button>
 					)}

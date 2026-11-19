@@ -24,10 +24,7 @@ interface WeightChartProps {
 
 export function WeightChart({ data }: WeightChartProps) {
 	return (
-		<ChartContainer
-			config={chartConfig}
-			className="h-[300px] w-full"
-		>
+		<ChartContainer config={chartConfig} className="h-[300px] w-full">
 			<AreaChart
 				data={data}
 				margin={{
@@ -51,9 +48,7 @@ export function WeightChart({ data }: WeightChartProps) {
 					tickFormatter={(value) => `${value} kg`}
 					domain={["dataMin - 2", "dataMax + 2"]}
 				/>
-				<ChartTooltip
-					content={<ChartTooltipContent labelKey="weight" />}
-				/>
+				<ChartTooltip content={<ChartTooltipContent labelKey="weight" />} />
 				<Area
 					type="monotone"
 					dataKey="weight"

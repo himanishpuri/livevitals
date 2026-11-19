@@ -35,16 +35,10 @@ export function LoginForm() {
 	const handleChange = formChangeHandler(setFormData);
 
 	return (
-		<form
-			onSubmit={handleSubmit}
-			className="space-y-6"
-		>
+		<form onSubmit={handleSubmit} className="space-y-6">
 			<FormStatusAlert status={formStatus} />
 
-			<EmailField
-				value={formData.email}
-				onChange={handleChange}
-			/>
+			<EmailField value={formData.email} onChange={handleChange} />
 
 			<div className="space-y-2">
 				<div className="flex items-center justify-between">
@@ -81,8 +75,7 @@ export function LoginForm() {
 			>
 				{isLoading ? (
 					<>
-						<Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing
-						In...
+						<Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing In...
 					</>
 				) : (
 					"Sign In"
@@ -114,10 +107,7 @@ export function RegisterForm() {
 	const isInstructor = formData.role === "instructor";
 
 	return (
-		<form
-			onSubmit={handleSubmit}
-			className="space-y-6"
-		>
+		<form onSubmit={handleSubmit} className="space-y-6">
 			<FormStatusAlert status={formStatus} />
 
 			<div className="space-y-2">
@@ -135,10 +125,7 @@ export function RegisterForm() {
 				/>
 			</div>
 
-			<EmailField
-				value={formData.email}
-				onChange={handleChange}
-			/>
+			<EmailField value={formData.email} onChange={handleChange} />
 
 			<div className="space-y-2">
 				<Label htmlFor="password">Password</Label>

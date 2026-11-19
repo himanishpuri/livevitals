@@ -30,7 +30,12 @@ function Probe() {
 	);
 }
 
-const renderAuth = () => render(<AuthProvider><Probe /></AuthProvider>);
+const renderAuth = () =>
+	render(
+		<AuthProvider>
+			<Probe />
+		</AuthProvider>,
+	);
 
 const waitForAnon = () =>
 	waitFor(() => expect(screen.getByText("anon")).toBeInTheDocument(), {

@@ -14,9 +14,23 @@ export const OUT_DIR = join(HERE, "out");
 const COMMIT_URL = "https://github.com/himanishpuri/livevitals/commit/";
 
 const BASE_COLUMNS = [
-  "Issue Id", "Work Type", "Summary", "Description", "Status", "Resolution",
-  "Created", "Updated", "Resolved", "Due Date", "Assignee", "Reporter",
-  "Parent", "Sprint", "Story Points", "Original Estimate", "Time Spent",
+  "Issue Id",
+  "Work Type",
+  "Summary",
+  "Description",
+  "Status",
+  "Resolution",
+  "Created",
+  "Updated",
+  "Resolved",
+  "Due Date",
+  "Assignee",
+  "Reporter",
+  "Parent",
+  "Sprint",
+  "Story Points",
+  "Original Estimate",
+  "Time Spent",
 ];
 
 // ---------------------------------------------------------------- pure part
@@ -44,7 +58,9 @@ export function epicCostInr(ref, issues, rateInrPerHour) {
   let total = 0;
   for (const child of issues) {
     if (child.parent !== ref) continue;
-    total += issueCostInr(child, rateInrPerHour) + epicCostInr(child.ref, issues, rateInrPerHour);
+    total +=
+      issueCostInr(child, rateInrPerHour) +
+      epicCostInr(child.ref, issues, rateInrPerHour);
   }
   return Math.round(total * 100) / 100;
 }
@@ -57,7 +73,9 @@ export function orderedIssues(backlog) {
 
 export function sprintTotals(backlog) {
   return backlog.sprints.map((sprint) => {
-    const inSprint = backlog.issues.filter((issue) => issue.sprint === sprint.ref);
+    const inSprint = backlog.issues.filter(
+      (issue) => issue.sprint === sprint.ref,
+    );
     const storyPoints = inSprint
       .filter((issue) => issue.type !== "Sub-task" && issue.status === "Done")
       .reduce((sum, issue) => sum + (issue.storyPoints ?? 0), 0);
@@ -72,7 +90,8 @@ function worklogFor(issue, accountId) {
 
 function commentsFor(issue, accountId) {
   return (issue.commits ?? []).map(
-    (sha) => `${issue.resolved ?? ""};${accountId};Implemented in ${COMMIT_URL}${sha}`,
+    (sha) =>
+      `${issue.resolved ?? ""};${accountId};Implemented in ${COMMIT_URL}${sha}`,
   );
 }
 
@@ -86,12 +105,15 @@ export function planRows(backlog, state = {}, issueIdOverrides = null) {
   return issues.map((issue) => ({
     issue,
     issueId: issueIdOverrides?.get(issue.ref) ?? idByRef.get(issue.ref),
-    parentId: issue.parent ? issueIdOverrides?.get(issue.parent) ?? idByRef.get(issue.parent) ?? "" : "",
-    sprintId: issue.sprint ? sprintIds[issue.sprint] ?? "" : "",
+    parentId: issue.parent
+      ? (issueIdOverrides?.get(issue.parent) ?? idByRef.get(issue.parent) ?? "")
+      : "",
+    sprintId: issue.sprint ? (sprintIds[issue.sprint] ?? "") : "",
     accountId,
-    cost: issue.type === "Epic"
-      ? epicCostInr(issue.ref, issues, backlog.rateInrPerHour)
-      : issueCostInr(issue, backlog.rateInrPerHour),
+    cost:
+      issue.type === "Epic"
+        ? epicCostInr(issue.ref, issues, backlog.rateInrPerHour)
+        : issueCostInr(issue, backlog.rateInrPerHour),
     worklog: worklogFor(issue, accountId),
     comments: commentsFor(issue, accountId),
   }));
@@ -103,12 +125,20 @@ function padGroup(values, size) {
   return out;
 }
 
-export function buildCsv(backlog, state = {}, refs = null, issueIdOverrides = null) {
+export function buildCsv(
+  backlog,
+  state = {},
+  refs = null,
+  issueIdOverrides = null,
+) {
   const rows = planRows(backlog, state, issueIdOverrides).filter(
     (row) => !refs || refs.includes(row.issue.ref),
   );
   const maxWorklogs = Math.max(1, ...rows.map((row) => (row.worklog ? 1 : 0)));
-  const maxComponents = Math.max(2, ...rows.map((row) => row.issue.components.length));
+  const maxComponents = Math.max(
+    2,
+    ...rows.map((row) => row.issue.components.length),
+  );
   const maxComments = Math.max(1, ...rows.map((row) => row.comments.length));
 
   const header = [...BASE_COLUMNS];
@@ -121,30 +151,32 @@ export function buildCsv(backlog, state = {}, refs = null, issueIdOverrides = nu
   const lines = [csvLine(header)];
   for (const row of rows) {
     const issue = row.issue;
-    lines.push(csvLine([
-      row.issueId,
-      issue.type,
-      issue.summary,
-      issue.description,
-      issue.status,
-      issue.status === "Done" ? "Done" : "",
-      issue.created,
-      issue.resolved ?? issue.created,
-      issue.resolved ?? "",
-      issue.due ?? "",
-      row.accountId,
-      row.accountId,
-      row.parentId,
-      row.sprintId,
-      issue.storyPoints ?? "",
-      hoursToSeconds(issue.estimateH),
-      hoursToSeconds(issue.spentH),
-      ...padGroup(row.worklog ? [row.worklog] : [], maxWorklogs),
-      ...padGroup(issue.components ?? [], maxComponents),
-      issue.fixVersion ?? "",
-      ...padGroup(row.comments, maxComments),
-      row.cost,
-    ]));
+    lines.push(
+      csvLine([
+        row.issueId,
+        issue.type,
+        issue.summary,
+        issue.description,
+        issue.status,
+        issue.status === "Done" ? "Done" : "",
+        issue.created,
+        issue.resolved ?? issue.created,
+        issue.resolved ?? "",
+        issue.due ?? "",
+        row.accountId,
+        row.accountId,
+        row.parentId,
+        row.sprintId,
+        issue.storyPoints ?? "",
+        hoursToSeconds(issue.estimateH),
+        hoursToSeconds(issue.spentH),
+        ...padGroup(row.worklog ? [row.worklog] : [], maxWorklogs),
+        ...padGroup(issue.components ?? [], maxComponents),
+        issue.fixVersion ?? "",
+        ...padGroup(row.comments, maxComments),
+        row.cost,
+      ]),
+    );
   }
   return `${lines.join("\r\n")}\r\n`;
 }
@@ -196,9 +228,12 @@ function jiraConfig() {
       // try the next location
     }
   }
-  const { JIRA_SITE, JIRA_EMAIL, JIRA_API_TOKEN, JIRA_PROJECT_KEY } = process.env;
+  const { JIRA_SITE, JIRA_EMAIL, JIRA_API_TOKEN, JIRA_PROJECT_KEY } =
+    process.env;
   if (!JIRA_SITE || !JIRA_EMAIL || !JIRA_API_TOKEN) {
-    die("missing JIRA_SITE / JIRA_EMAIL / JIRA_API_TOKEN (create .env.jira in the repo root)");
+    die(
+      "missing JIRA_SITE / JIRA_EMAIL / JIRA_API_TOKEN (create .env.jira in the repo root)",
+    );
   }
   return {
     site: JIRA_SITE.replace(/\/+$/, ""),
@@ -234,7 +269,10 @@ async function searchIssues(config, jql, fields = ["summary"]) {
   do {
     const body = { jql, fields, maxResults: 100 };
     if (nextPageToken) body.nextPageToken = nextPageToken;
-    const page = await api(config, "/rest/api/3/search/jql", { method: "POST", body });
+    const page = await api(config, "/rest/api/3/search/jql", {
+      method: "POST",
+      body,
+    });
     issues.push(...(page?.issues ?? []));
     nextPageToken = page?.nextPageToken;
   } while (nextPageToken);
@@ -251,11 +289,15 @@ async function cmdCheck() {
   const config = jiraConfig();
   const me = await api(config, "/rest/api/3/myself");
   const project = await api(config, `/rest/api/3/project/${config.projectKey}`);
-  const boards = await api(config, `/rest/agile/1.0/board?projectKeyOrId=${config.projectKey}`);
+  const boards = await api(
+    config,
+    `/rest/agile/1.0/board?projectKeyOrId=${config.projectKey}`,
+  );
   const fields = await api(config, "/rest/api/3/field");
   const board = boards?.values?.[0];
-  const pointsField = fields.find((field) => field.name === "Story Points")
-    ?? fields.find((field) => field.name === "Story point estimate");
+  const pointsField =
+    fields.find((field) => field.name === "Story Points") ??
+    fields.find((field) => field.name === "Story point estimate");
   if (!pointsField) die("no Story Points field found on this site");
 
   const state = loadState();
@@ -282,14 +324,24 @@ async function cmdPrepare() {
   const state = loadState();
   if (!state.boardId) die("run check first");
 
-  const components = await api(config, `/rest/api/3/project/${config.projectKey}/components`);
-  const versions = await api(config, `/rest/api/3/project/${config.projectKey}/versions`);
-  const sprints = await api(config, `/rest/agile/1.0/board/${state.boardId}/sprint?maxResults=50`);
+  const components = await api(
+    config,
+    `/rest/api/3/project/${config.projectKey}/components`,
+  );
+  const versions = await api(
+    config,
+    `/rest/api/3/project/${config.projectKey}/versions`,
+  );
+  const sprints = await api(
+    config,
+    `/rest/agile/1.0/board/${state.boardId}/sprint?maxResults=50`,
+  );
 
   const componentIds = { ...(state.components ?? {}) };
   for (const name of backlog.components) {
-    let component = components.find((item) => item.name === name)
-      ?? (componentIds[name] ? { id: componentIds[name], name } : null);
+    let component =
+      components.find((item) => item.name === name) ??
+      (componentIds[name] ? { id: componentIds[name], name } : null);
     if (!component) {
       component = await api(config, "/rest/api/3/component", {
         method: "POST",
@@ -336,7 +388,12 @@ async function cmdPrepare() {
     sprintIds[sprint.ref] = existing.id;
   }
 
-  saveState({ ...state, components: componentIds, versions: versionIds, sprints: sprintIds });
+  saveState({
+    ...state,
+    components: componentIds,
+    versions: versionIds,
+    sprints: sprintIds,
+  });
   console.log("components\t" + JSON.stringify(componentIds));
   console.log("versions\t" + JSON.stringify(versionIds));
   console.log("sprints\t" + JSON.stringify(sprintIds));
@@ -345,8 +402,13 @@ async function cmdPrepare() {
 function requireCsvState(state) {
   if (!state.accountId) die("run check first");
   const backlog = loadBacklog();
-  const missing = backlog.sprints.filter((sprint) => !state.sprints?.[sprint.ref]);
-  if (missing.length) die(`run prepare first (no sprint id for ${missing.map((s) => s.ref).join(", ")})`);
+  const missing = backlog.sprints.filter(
+    (sprint) => !state.sprints?.[sprint.ref],
+  );
+  if (missing.length)
+    die(
+      `run prepare first (no sprint id for ${missing.map((s) => s.ref).join(", ")})`,
+    );
   return backlog;
 }
 
@@ -368,7 +430,10 @@ function cmdCsv() {
   const state = loadState();
   const backlog = requireCsvState(state);
   const path = writeCsvFile("livevitals-import.csv", buildCsv(backlog, state));
-  writeCsvFile("expected-keys.json", `${JSON.stringify(expectedKeys(backlog), null, 2)}\n`);
+  writeCsvFile(
+    "expected-keys.json",
+    `${JSON.stringify(expectedKeys(backlog), null, 2)}\n`,
+  );
   console.log(`wrote ${path}`);
   printSprintTable(backlog);
 }
@@ -377,7 +442,9 @@ async function cmdFinalize() {
   const config = jiraConfig();
   const backlog = loadBacklog();
   const state = loadState();
-  const remote = await searchIssues(config, `project = ${config.projectKey}`, ["summary"]);
+  const remote = await searchIssues(config, `project = ${config.projectKey}`, [
+    "summary",
+  ]);
 
   const keysBySummary = new Map();
   for (const issue of remote) {
@@ -395,7 +462,9 @@ async function cmdFinalize() {
       keys[issue.ref] = matches[0];
       console.log(`${issue.ref}\t${matches[0]}\t${issue.summary}`);
     } else {
-      problems.push(`${issue.ref}\t${matches.length === 0 ? "no match" : `duplicate: ${matches.join(",")}`}\t${issue.summary}`);
+      problems.push(
+        `${issue.ref}\t${matches.length === 0 ? "no match" : `duplicate: ${matches.join(",")}`}\t${issue.summary}`,
+      );
     }
   }
   saveState({ ...state, keys });
@@ -407,13 +476,22 @@ async function cmdFinalize() {
       console.log(`sprint ${sprintRef} already closed`);
       continue;
     }
-    await api(config, `/rest/agile/1.0/sprint/${id}`, { method: "POST", body: { state: "active" } });
-    await api(config, `/rest/agile/1.0/sprint/${id}`, { method: "POST", body: { state: "closed" } });
+    await api(config, `/rest/agile/1.0/sprint/${id}`, {
+      method: "POST",
+      body: { state: "active" },
+    });
+    await api(config, `/rest/agile/1.0/sprint/${id}`, {
+      method: "POST",
+      body: { state: "closed" },
+    });
     console.log(`sprint ${sprintRef} closed`);
   }
 
   for (const [ref, id] of Object.entries(state.versions ?? {})) {
-    await api(config, `/rest/api/3/version/${id}`, { method: "PUT", body: { released: true } });
+    await api(config, `/rest/api/3/version/${id}`, {
+      method: "PUT",
+      body: { released: true },
+    });
     console.log(`version ${ref} released`);
   }
 
@@ -441,10 +519,14 @@ function cmdAddendum(refs) {
   const state = loadState();
   const backlog = requireCsvState(state);
   for (const ref of refs) {
-    if (!backlog.issues.some((issue) => issue.ref === ref)) die(`unknown ref ${ref}`);
+    if (!backlog.issues.some((issue) => issue.ref === ref))
+      die(`unknown ref ${ref}`);
   }
   const ids = addendumIds(backlog, refs, state.lastAddendumId);
-  const path = writeCsvFile("livevitals-addendum.csv", buildCsv(backlog, state, refs, ids));
+  const path = writeCsvFile(
+    "livevitals-addendum.csv",
+    buildCsv(backlog, state, refs, ids),
+  );
   // Each addendum must use ids no earlier import used, so remember the last one.
   saveState({ ...state, lastAddendumId: Math.max(...ids.values()) });
   console.log(`wrote ${path} (${refs.length} rows)`);
@@ -470,7 +552,10 @@ const handlers = {
   addendum: () => cmdAddendum(process.argv.slice(3)),
 };
 
-if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+if (
+  process.argv[1] &&
+  pathToFileURL(process.argv[1]).href === import.meta.url
+) {
   const command = process.argv[2];
   const handler = handlers[command];
   if (!handler) {

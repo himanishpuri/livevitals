@@ -1,0 +1,16 @@
+package-lock.json
+realtime/package-lock.json
+scripts/jira/backlog.json
+**/*.md
+src/components/ui/**
+.next
+out
+build
+coverage
+playwright-report
+test-results
+blob-report
+public
+docs
+next-env.d.ts
+scripts/jira/out

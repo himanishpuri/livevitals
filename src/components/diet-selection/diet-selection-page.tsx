@@ -55,10 +55,7 @@ export default function DietSelectionPage() {
 					className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
 				>
 					{dietPlans.map((diet) => (
-						<motion.div
-							key={diet.id}
-							variants={cardVariants}
-						>
+						<motion.div key={diet.id} variants={cardVariants}>
 							<Card
 								className={`h-full ${
 									selectedDietId === diet.id ? "border-primary" : ""
@@ -68,9 +65,7 @@ export default function DietSelectionPage() {
 									<div className="flex justify-between items-start">
 										<div>
 											<CardTitle>{diet.name}</CardTitle>
-											<CardDescription>
-												{diet.shortDescription}
-											</CardDescription>
+											<CardDescription>{diet.shortDescription}</CardDescription>
 										</div>
 										{selectedDietId === diet.id && (
 											<div className="h-5 w-5 rounded-full bg-primary flex items-center justify-center">
@@ -82,10 +77,7 @@ export default function DietSelectionPage() {
 								<CardContent className="space-y-2">
 									<div className="flex flex-wrap gap-2 mb-4">
 										{diet.tags.map((tag) => (
-											<Badge
-												key={tag}
-												variant="outline"
-											>
+											<Badge key={tag} variant="outline">
 												{tag}
 											</Badge>
 										))}
@@ -120,10 +112,7 @@ export default function DietSelectionPage() {
 								<CardFooter className="flex justify-between pt-2">
 									<Dialog>
 										<DialogTrigger asChild>
-											<Button
-												variant="ghost"
-												size="sm"
-											>
+											<Button variant="ghost" size="sm">
 												<Info className="h-4 w-4 mr-1" /> Details
 											</Button>
 										</DialogTrigger>
@@ -131,15 +120,11 @@ export default function DietSelectionPage() {
 									</Dialog>
 									<Button
 										variant={
-											selectedDietId === diet.id
-												? "secondary"
-												: "default"
+											selectedDietId === diet.id ? "secondary" : "default"
 										}
 										onClick={() => handleSelectDiet(diet.id)}
 									>
-										{selectedDietId === diet.id
-											? "Selected"
-											: "Select"}{" "}
+										{selectedDietId === diet.id ? "Selected" : "Select"}{" "}
 										<ChevronRight className="ml-1 h-4 w-4" />
 									</Button>
 								</CardFooter>

@@ -52,10 +52,7 @@ export default function ProfilePage() {
 									<div className="absolute -top-12 w-full flex justify-center">
 										<div className="h-24 w-24 rounded-full border-4 border-background overflow-hidden">
 											<Image
-												src={
-													userProfile.avatarUrl ||
-													"/placeholder.svg"
-												}
+												src={userProfile.avatarUrl || "/placeholder.svg"}
 												alt={userProfile.name}
 												fill
 												sizes="96px"
@@ -66,9 +63,7 @@ export default function ProfilePage() {
 									</div>
 									<div className="pt-12 text-center">
 										<CardTitle>{userProfile.name}</CardTitle>
-										<CardDescription>
-											{userProfile.bio}
-										</CardDescription>
+										<CardDescription>{userProfile.bio}</CardDescription>
 									</div>
 								</CardHeader>
 								<CardContent className="pt-6">
@@ -87,17 +82,12 @@ export default function ProfilePage() {
 										</div>
 										<div className="flex items-center">
 											<Clock className="w-4 h-4 mr-2 text-muted-foreground" />
-											<span>
-												Member since {userProfile.memberSince}
-											</span>
+											<span>Member since {userProfile.memberSince}</span>
 										</div>
 									</div>
 								</CardContent>
 								<CardFooter>
-									<Button
-										className="w-full"
-										variant="outline"
-									>
+									<Button className="w-full" variant="outline">
 										<Edit className="w-4 h-4 mr-2" /> Edit Profile
 									</Button>
 								</CardFooter>
@@ -111,9 +101,7 @@ export default function ProfilePage() {
 						>
 							<Card>
 								<CardHeader>
-									<CardTitle className="text-base">
-										Your Health Goals
-									</CardTitle>
+									<CardTitle className="text-base">Your Health Goals</CardTitle>
 								</CardHeader>
 								<CardContent className="space-y-4">
 									<div className="space-y-2">
@@ -126,8 +114,7 @@ export default function ProfilePage() {
 										<Progress
 											value={Math.min(
 												100,
-												(healthData.currentWeight /
-													healthGoals.targetWeight) *
+												(healthData.currentWeight / healthGoals.targetWeight) *
 													100,
 											)}
 											className="h-2"
@@ -136,9 +123,7 @@ export default function ProfilePage() {
 
 									<div className="space-y-2">
 										<div className="flex justify-between items-center">
-											<span className="text-sm">
-												Daily Calorie Goal
-											</span>
+											<span className="text-sm">Daily Calorie Goal</span>
 											<span className="text-sm font-medium">
 												{healthData.dailyCalories.target} kcal
 											</span>
@@ -161,10 +146,7 @@ export default function ProfilePage() {
 												{healthGoals.weeklyActivityMinutes} min/week
 											</span>
 										</div>
-										<Progress
-											value={70}
-											className="h-2"
-										/>
+										<Progress value={70} className="h-2" />
 									</div>
 								</CardContent>
 							</Card>
@@ -192,31 +174,19 @@ export default function ProfilePage() {
 									Edit Profile
 								</TabsTrigger>
 							</TabsList>
-							<TabsContent
-								value="info"
-								className="mt-6"
-							>
+							<TabsContent value="info" className="mt-6">
 								<ProfileInfoCard profile={userProfile} />
 							</TabsContent>{" "}
-							<TabsContent
-								value="goals"
-								className="mt-6"
-							>
+							<TabsContent value="goals" className="mt-6">
 								<HealthGoalsCard
 									goals={healthGoals}
 									currentStats={healthData}
 								/>
 							</TabsContent>
-							<TabsContent
-								value="fitness"
-								className="mt-6"
-							>
+							<TabsContent value="fitness" className="mt-6">
 								<FitnessStatsCard />
 							</TabsContent>
-							<TabsContent
-								value="edit"
-								className="mt-6"
-							>
+							<TabsContent value="edit" className="mt-6">
 								<ProfileEditForm profile={userProfile} />
 							</TabsContent>
 						</Tabs>

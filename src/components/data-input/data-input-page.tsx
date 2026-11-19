@@ -29,10 +29,7 @@ export default function DataInputPage() {
 	const { healthData, updateHealthData } = useContext(HealthDataContext);
 	const [isSaving, setIsSaving] = useState(false);
 
-	const handleSaveWeightHeight = (data: {
-		weight: number;
-		height: number;
-	}) => {
+	const handleSaveWeightHeight = (data: { weight: number; height: number }) => {
 		setIsSaving(true);
 
 		// Simulate saving to an API
@@ -104,10 +101,7 @@ export default function DataInputPage() {
 			<div className="container mx-auto p-8">
 				<h1 className="text-3xl font-bold mb-6">Data Input</h1>
 
-				<Tabs
-					defaultValue="weight-height"
-					className="space-y-6"
-				>
+				<Tabs defaultValue="weight-height" className="space-y-6">
 					<TabsList className="grid grid-cols-3 w-full max-w-md">
 						<TabsTrigger value="weight-height">
 							<Weight className="h-4 w-4 mr-2" />
@@ -125,10 +119,7 @@ export default function DataInputPage() {
 
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 						<div className="md:col-span-2">
-							<TabsContent
-								value="weight-height"
-								className="mt-0"
-							>
+							<TabsContent value="weight-height" className="mt-0">
 								<Card>
 									<CardHeader>
 										<CardTitle className="flex items-center">
@@ -136,8 +127,7 @@ export default function DataInputPage() {
 											Weight & Height
 										</CardTitle>
 										<CardDescription>
-											Update your current weight and height
-											measurements
+											Update your current weight and height measurements
 										</CardDescription>
 									</CardHeader>
 									<CardContent>
@@ -151,10 +141,7 @@ export default function DataInputPage() {
 								</Card>
 							</TabsContent>
 
-							<TabsContent
-								value="calories"
-								className="mt-0"
-							>
+							<TabsContent value="calories" className="mt-0">
 								<Card>
 									<CardHeader>
 										<CardTitle className="flex items-center">
@@ -162,15 +149,12 @@ export default function DataInputPage() {
 											Calorie & Macronutrient Intake
 										</CardTitle>
 										<CardDescription>
-											Enter your daily calorie and macronutrient
-											consumption
+											Enter your daily calorie and macronutrient consumption
 										</CardDescription>
 									</CardHeader>
 									<CardContent>
 										<CalorieIntakeForm
-											initialCalories={
-												healthData.dailyCalories.consumed
-											}
+											initialCalories={healthData.dailyCalories.consumed}
 											initialProtein={healthData.dailyMacros.protein}
 											initialCarbs={healthData.dailyMacros.carbs}
 											initialFat={healthData.dailyMacros.fat}
@@ -181,10 +165,7 @@ export default function DataInputPage() {
 								</Card>
 							</TabsContent>
 
-							<TabsContent
-								value="notes"
-								className="mt-0"
-							>
+							<TabsContent value="notes" className="mt-0">
 								<Card>
 									<CardHeader>
 										<CardTitle className="flex items-center">
@@ -192,8 +173,7 @@ export default function DataInputPage() {
 											Health Notes
 										</CardTitle>
 										<CardDescription>
-											Record any additional health information or
-											observations
+											Record any additional health information or observations
 										</CardDescription>
 									</CardHeader>
 									<CardContent>
@@ -225,12 +205,10 @@ export default function DataInputPage() {
 										<div className="flex gap-2">
 											<BadgePlus className="h-5 w-5 text-primary shrink-0 mt-0.5" />
 											<div>
-												<h3 className="font-medium">
-													Consistency is Key
-												</h3>
+												<h3 className="font-medium">Consistency is Key</h3>
 												<p className="text-sm text-muted-foreground">
-													Try to measure yourself at the same time
-													each day for the most accurate tracking.
+													Try to measure yourself at the same time each day for
+													the most accurate tracking.
 												</p>
 											</div>
 										</div>
@@ -240,8 +218,8 @@ export default function DataInputPage() {
 											<div>
 												<h3 className="font-medium">Be Honest</h3>
 												<p className="text-sm text-muted-foreground">
-													Track all food intake, not just healthy
-													meals, for accurate calorie counts.
+													Track all food intake, not just healthy meals, for
+													accurate calorie counts.
 												</p>
 											</div>
 										</div>
@@ -249,12 +227,10 @@ export default function DataInputPage() {
 										<div className="flex gap-2">
 											<Save className="h-5 w-5 text-primary shrink-0 mt-0.5" />
 											<div>
-												<h3 className="font-medium">
-													Daily Updates
-												</h3>
+												<h3 className="font-medium">Daily Updates</h3>
 												<p className="text-sm text-muted-foreground">
-													Update your data daily rather than trying
-													to remember later in the week.
+													Update your data daily rather than trying to remember
+													later in the week.
 												</p>
 											</div>
 										</div>

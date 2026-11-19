@@ -90,7 +90,10 @@ describe("realtime server", () => {
 	it("announces a signed-in instructor", async () => {
 		const instructor = await connectClient();
 		const user = await connectClient();
-		const status = once<{ id: string; available: boolean }>(user, "instructor_status");
+		const status = once<{ id: string; available: boolean }>(
+			user,
+			"instructor_status",
+		);
 		const notification = once<Notification>(user, "new_notification");
 		instructor.emit("instructor_signin", "john-smith");
 		expect(await status).toEqual({ id: "john-smith", available: true });
@@ -116,7 +119,10 @@ describe("realtime server", () => {
 
 		const strangerCalls = collect<unknown>(stranger, "incoming_call");
 		const callerFailures = collect<unknown>(caller, "call_failed");
-		const incoming = once<{ from: string; to: string }>(instructor, "incoming_call");
+		const incoming = once<{ from: string; to: string }>(
+			instructor,
+			"incoming_call",
+		);
 		caller.emit("initiate_call", { from: "caller-peer", to: "john-smith" });
 		expect(await incoming).toEqual({ from: "caller-peer", to: "john-smith" });
 		await barrier(stranger);
@@ -162,7 +168,11 @@ describe("realtime server", () => {
 	it("returns the chat history of a room", async () => {
 		const alice = await connectClient();
 		const sent = Promise.withResolvers<boolean>();
-		alice.emit("send_chat_message", { roomId: chatRoom, message }, sent.resolve);
+		alice.emit(
+			"send_chat_message",
+			{ roomId: chatRoom, message },
+			sent.resolve,
+		);
 		expect(await sent.promise).toBe(true);
 
 		const history = Promise.withResolvers<Message[]>();
@@ -176,11 +186,17 @@ describe("realtime server", () => {
 		const instructor = await connectClient();
 		const user = await connectClient();
 		await identify(instructor, "john-smith", "instructor");
-		const online = once<{ id: string; available: boolean }>(user, "instructor_status");
+		const online = once<{ id: string; available: boolean }>(
+			user,
+			"instructor_status",
+		);
 		instructor.emit("instructor_signin", "john-smith");
 		expect((await online).available).toBe(true);
 
-		const offline = once<{ id: string; available: boolean }>(user, "instructor_status");
+		const offline = once<{ id: string; available: boolean }>(
+			user,
+			"instructor_status",
+		);
 		instructor.disconnect();
 		expect(await offline).toEqual({ id: "john-smith", available: false });
 	});

@@ -38,10 +38,7 @@ export function HealthNotesForm({
 	});
 
 	return (
-		<DataEntryForm
-			form={form}
-			onSubmit={onSave}
-		>
+		<DataEntryForm form={form} onSubmit={onSave}>
 			<FormField
 				control={form.control}
 				name="notes"
@@ -50,8 +47,8 @@ export function HealthNotesForm({
 						<div className="space-y-1">
 							<FormLabel>Health Notes</FormLabel>
 							<FormDescription>
-								Record any health-related observations, symptoms, or notes
-								for your records
+								Record any health-related observations, symptoms, or notes for
+								your records
 							</FormDescription>
 						</div>
 						<div className="space-y-2 pt-2">
@@ -71,11 +68,7 @@ export function HealthNotesForm({
 				)}
 			/>
 
-			<Button
-				type="submit"
-				className="w-full"
-				disabled={isSaving}
-			>
+			<Button type="submit" className="w-full" disabled={isSaving}>
 				{isSaving ? "Saving..." : "Save Notes"}
 			</Button>
 		</DataEntryForm>

@@ -6,8 +6,7 @@ import type { Exercise, WorkoutDay } from "@/types/workout-plan";
 
 type Progress = Record<string, boolean>;
 
-const storageKey = (userId: string) =>
-	`livevitals_workout_progress:${userId}`;
+const storageKey = (userId: string) => `livevitals_workout_progress:${userId}`;
 
 const EMPTY: Progress = {};
 
@@ -17,9 +16,7 @@ export interface UseWorkoutProgressReturn {
 	completeDay: (exerciseIds: string[]) => void;
 }
 
-const useWorkoutProgress = (
-	plan: WorkoutDay[],
-): UseWorkoutProgressReturn => {
+const useWorkoutProgress = (plan: WorkoutDay[]): UseWorkoutProgressReturn => {
 	const { user } = useAuth();
 	const userId = user?.id;
 	const [progress, setProgress] = useState<Progress>(EMPTY);
@@ -56,10 +53,7 @@ const useWorkoutProgress = (
 	const persist = useCallback(
 		(next: Progress) => {
 			if (loadedId === userId && userId) {
-				localStorage.setItem(
-					storageKey(userId),
-					JSON.stringify(next),
-				);
+				localStorage.setItem(storageKey(userId), JSON.stringify(next));
 			}
 		},
 		[loadedId, userId],

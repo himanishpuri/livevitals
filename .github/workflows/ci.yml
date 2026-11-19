@@ -27,6 +27,8 @@ jobs:
             realtime/package-lock.json
       - run: npm ci
       - run: npm run lint
+      - run: npm run format:check
+      - run: npm run lint:dup
       - run: npm run typecheck
       - run: npm test
       - run: npm run test:jira

@@ -34,8 +34,6 @@ test.describe("mobile", () => {
 		await page.goto("/");
 		await page.getByRole("button", { name: "Open Menu" }).click();
 		await page.getByRole("link", { name: "About", exact: true }).click();
-		await expect(
-			page.getByRole("heading", { name: "About Us" }),
-		).toBeVisible();
+		await expect(page.getByRole("heading", { name: "About Us" })).toBeVisible();
 	});
 });

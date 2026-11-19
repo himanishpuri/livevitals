@@ -43,6 +43,8 @@ Run what your change touches; CI runs all of it.
 
 ```bash
 npm run lint
+npm run format:check    # Prettier; npm run format writes the fixes
+npm run lint:dup        # jscpd duplicate-code guard, any clone fails
 npm run typecheck
 npm test
 npm run test:e2e        # Playwright, starts its own servers
@@ -64,10 +66,12 @@ npm --prefix realtime test
 ## Publishing
 
 Maintainers publish branches through the no-mistakes gate installed on their
-machine:
+machine. The gate runs on Mistral Vibe through `acpx`, so install `acpx` and
+authenticate Vibe once with `vibe --setup` before the first push:
 
 ```bash
 no-mistakes init                 # once per clone
+vibe --setup                     # once: authenticate Mistral Vibe
 git fetch -q origin && git rebase origin/main
 git push no-mistakes LV-<n>-<kebab-summary>
 ```

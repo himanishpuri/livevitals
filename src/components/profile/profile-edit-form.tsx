@@ -80,10 +80,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 			</CardHeader>
 			<CardContent>
 				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(onSubmit)}
-						className="space-y-8"
-					>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 							<FormField
 								control={form.control}
@@ -92,10 +89,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 									<FormItem>
 										<FormLabel>Full Name</FormLabel>
 										<FormControl>
-											<Input
-												placeholder="Your name"
-												{...field}
-											/>
+											<Input placeholder="Your name" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -109,10 +103,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 									<FormItem>
 										<FormLabel>Email</FormLabel>
 										<FormControl>
-											<Input
-												placeholder="your.email@example.com"
-												{...field}
-											/>
+											<Input placeholder="your.email@example.com" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -126,10 +117,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 									<FormItem>
 										<FormLabel>Phone Number</FormLabel>
 										<FormControl>
-											<Input
-												placeholder="Your phone number"
-												{...field}
-											/>
+											<Input placeholder="Your phone number" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -171,10 +159,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 									<FormItem>
 										<FormLabel>Blood Type</FormLabel>
 										<FormControl>
-											<Input
-												placeholder="Optional"
-												{...field}
-											/>
+											<Input placeholder="Optional" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -188,10 +173,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 									<FormItem>
 										<FormLabel>Location</FormLabel>
 										<FormControl>
-											<Input
-												placeholder="City, Country"
-												{...field}
-											/>
+											<Input placeholder="City, Country" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -205,10 +187,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 									<FormItem>
 										<FormLabel>Emergency Contact</FormLabel>
 										<FormControl>
-											<Input
-												placeholder="Name and phone number"
-												{...field}
-											/>
+											<Input placeholder="Name and phone number" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -237,10 +216,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 							)}
 						/>
 
-						<Button
-							type="submit"
-							disabled={isSaving}
-						>
+						<Button type="submit" disabled={isSaving}>
 							{isSaving ? "Saving..." : "Save Changes"}
 						</Button>
 					</form>
