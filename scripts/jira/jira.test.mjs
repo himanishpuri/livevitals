@@ -173,7 +173,7 @@ test("sub-tasks are the only rows with an issue parent", () => {
 test("sprint table matches the backlog sums", () => {
   const expected = {
     S1: [22, 48], S2: [10, 26], S3: [14, 32], S4: [7, 16], S5: [14, 24],
-    S6: [15, 29], S7: [9, 27], S8: [4, 14], S9: [3, 5],
+    S6: [15, 29], S7: [9, 27], S8: [5, 15], S9: [3, 5],
   };
   const totals = sprintTotals(backlog);
   assert.equal(totals.length, 9);
@@ -185,7 +185,7 @@ test("sprint table matches the backlog sums", () => {
     .filter((issue) => issue.sprint && issue.type !== "Sub-task" && issue.status === "Done")
     .reduce((sum, issue) => sum + issue.storyPoints, 0);
   assert.equal(sprintsPoints, manual);
-  assert.equal(backlog.issues.length, 116);
+  assert.equal(backlog.issues.length, 117);
 });
 
 test("csv repeats multi-value headers and keeps columns aligned", () => {
@@ -237,4 +237,12 @@ test("addendum keeps ids and limits the rows", () => {
   assert.equal(subset.length, 3);
   assert.equal(subset[1][0], String(rowByRef.get("O21").issueId));
   assert.equal(subset[2][0], String(rowByRef.get("OB18").issueId));
+});
+
+test("addendum rows get fresh issue ids but keep parent ids from the backlog", () => {
+  const overrides = new Map([["O31", 1000]]);
+  const rows = planRows(backlog, state, overrides).filter((row) => row.issue.ref === "O31");
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].issueId, 1000);
+  assert.equal(rows[0].parentId, 13); // E13 keeps its original row id
 });

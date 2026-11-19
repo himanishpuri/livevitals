@@ -78,14 +78,14 @@ function commentsFor(issue, accountId) {
 
 // Row plan: Issue Id comes from the full backlog order, so a subset keeps the
 // same ids and Parent cells still resolve inside the generated file.
-export function planRows(backlog, state = {}) {
+export function planRows(backlog, state = {}, issueIdOverrides = null) {
   const issues = orderedIssues(backlog);
   const idByRef = new Map(issues.map((issue, index) => [issue.ref, index + 1]));
   const sprintIds = state.sprints ?? {};
   const accountId = state.accountId ?? "";
   return issues.map((issue) => ({
     issue,
-    issueId: idByRef.get(issue.ref),
+    issueId: issueIdOverrides?.get(issue.ref) ?? idByRef.get(issue.ref),
     parentId: issue.parent ? idByRef.get(issue.parent) ?? "" : "",
     sprintId: issue.sprint ? sprintIds[issue.sprint] ?? "" : "",
     accountId,
@@ -103,8 +103,8 @@ function padGroup(values, size) {
   return out;
 }
 
-export function buildCsv(backlog, state = {}, refs = null) {
-  const rows = planRows(backlog, state).filter(
+export function buildCsv(backlog, state = {}, refs = null, issueIdOverrides = null) {
+  const rows = planRows(backlog, state, issueIdOverrides).filter(
     (row) => !refs || refs.includes(row.issue.ref),
   );
   const maxWorklogs = Math.max(1, ...rows.map((row) => (row.worklog ? 1 : 0)));
@@ -443,8 +443,15 @@ function cmdAddendum(refs) {
   for (const ref of refs) {
     if (!backlog.issues.some((issue) => issue.ref === ref)) die(`unknown ref ${ref}`);
   }
-  const path = writeCsvFile("livevitals-addendum.csv", buildCsv(backlog, state, refs));
+  const path = writeCsvFile("livevitals-addendum.csv", buildCsv(backlog, state, refs, addendumIds(backlog, refs)));
   console.log(`wrote ${path} (${refs.length} rows)`);
+}
+
+// The importer skips rows whose Issue Id already exists, so addenda use fresh
+// ids. Parent cells still resolve to rows from the previous import.
+function addendumIds(backlog, refs) {
+  const base = 1000 + backlog.issues.length;
+  return new Map(refs.map((ref, index) => [ref, base + index]));
 }
 
 // ---------------------------------------------------------------------- CLI

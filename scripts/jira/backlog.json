@@ -2453,6 +2453,26 @@
       "commits": []
     },
     {
+      "ref": "O31",
+      "type": "Task",
+      "summary": "Make the realtime end-to-end notification check exact",
+      "description": "The realtime end-to-end test failed intermittently on the notification badge. Rebuilt images passed six consecutive full compose runs with and without a client-side message dedupe, so no app defect was confirmed. The check used toContainText(\"1\"), which also accepts \"10\".\n\nAcceptance: The bell check passes only when the badge reads exactly 1; three consecutive full compose e2e runs pass.",
+      "status": "Done",
+      "created": "2025-07-03 09:30",
+      "resolved": "2025-07-04 17:30",
+      "due": null,
+      "parent": "E13",
+      "sprint": "S8",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Testing"
+      ],
+      "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
       "ref": "F1",
       "type": "Story",
       "summary": "Real authentication backend with server sessions",
