@@ -51,7 +51,7 @@ flowchart LR
     Browser["Browser"] --> Web["web: Next.js 16 standalone :3000"]
     Browser --> RT["realtime: socket.io + PeerJS :9000"]
     Browser2["Browser (other peer)"]
-    Browser <--> Browser2 -. "WebRTC media" .- Browser2
+    Browser <-.->|"WebRTC media"| Browser2
 ```
 
 Both browsers connect to the realtime service (chat, presence, signalling) and exchange media peer-to-peer over WebRTC.
