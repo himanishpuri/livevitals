@@ -7,7 +7,7 @@ import { HealthDataContext } from "@/context/health-data-context";
 import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 import PageWrapper from "@/components/PageWrapper";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import {
 	Card,
 	CardContent,
@@ -58,7 +58,6 @@ export default function DashboardPage() {
 	}
 	return (
 		<PageWrapper>
-			<Toaster />
 			<div className="container mx-auto p-8">
 				<h1 className="text-3xl font-bold mb-6">
 					{user ? `${user.name}'s Dashboard` : "Dashboard"}

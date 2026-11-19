@@ -4,7 +4,7 @@ import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import useSocket from "@/hooks/useSocket";
 
 export default function InstructorDashboard() {
@@ -77,7 +77,6 @@ export default function InstructorDashboard() {
 
 	return (
 		<div className="text-black min-h-screen bg-gradient-to-b from-blue-50 to-white p-6">
-			<Toaster />
 			<div className="max-w-7xl mx-auto">
 				<header className="flex items-center justify-between mb-8">
 					<h1 className="text-3xl font-bold text-blue-800">

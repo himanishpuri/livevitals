@@ -7,7 +7,7 @@ import { ViewTransitions } from "next-view-transitions";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/context/auth-context";
 import { NotificationProvider } from "@/context/notification-context";
-import { ToastProvider } from "@/components/ui/toast-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +37,7 @@ export default function RootLayout({
 									<div className="flex-1">{children}</div>
 									<Footer />
 								</div>
-								<ToastProvider />
+								<Toaster richColors />
 							</NotificationProvider>
 						</AuthProvider>
 					</ThemeProvider>

@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import useSocket from "@/hooks/useSocket";
 import { InstructorList } from "@/components/instructor-chat/instructor-list";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { useAuth } from "@/context/auth-context";
 import {
 	Activity,
@@ -34,7 +34,6 @@ const InstructorChatPage = () => {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
-			<Toaster />
 			<div className="max-w-6xl mx-auto">
 				<div className="mb-10 text-center">
 					<div className="flex justify-center mb-4">

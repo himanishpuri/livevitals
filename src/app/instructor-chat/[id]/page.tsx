@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import useSocket from "@/hooks/useSocket";
 import Peer, { type MediaConnection } from "peerjs";
 import { instructors } from "@/data/instructors";
@@ -262,7 +262,6 @@ const InstructorVideoChat = () => {
 	if (!authChecked) {
 		return (
 			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
-				<Toaster />
 				<div className="text-center">
 					<p className="text-lg">Checking authentication...</p>
 					<p className="text-muted-foreground mt-2">Please wait...</p>
@@ -274,7 +273,6 @@ const InstructorVideoChat = () => {
 	if (!isAuthenticated) {
 		return (
 			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
-				<Toaster />
 				<div className="text-center">
 					<p className="text-lg">Authentication required</p>
 					<p className="text-muted-foreground mt-2">
@@ -287,7 +285,6 @@ const InstructorVideoChat = () => {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
-			<Toaster />
 			<div className="max-w-6xl mx-auto">
 				<div className="flex items-center gap-4 mb-8">
 					<Button
