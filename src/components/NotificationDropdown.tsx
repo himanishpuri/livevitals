@@ -49,6 +49,7 @@ export function NotificationDropdown() {
 					variant="ghost"
 					size="icon"
 					className="relative"
+					aria-label="Notifications"
 				>
 					<Bell className="h-5 w-5" />
 					{unreadCount > 0 && (
