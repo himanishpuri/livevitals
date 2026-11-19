@@ -1,11 +1,15 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import useSocket from "@/hooks/useSocket";
 import Peer, { type MediaConnection } from "peerjs";
 import { instructors } from "@/data/instructors";
-import Image from "next/image";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+} from "@/components/ui/avatar";
 import { useAuth } from "@/context/auth-context";
 import { ScheduleSessionDialog } from "@/components/instructor-chat/schedule-session-dialog";
 import { ChatComponent } from "@/components/instructor-chat/chat-component";
@@ -262,7 +266,6 @@ const InstructorVideoChat = () => {
 	if (!authChecked) {
 		return (
 			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
-				<Toaster />
 				<div className="text-center">
 					<p className="text-lg">Checking authentication...</p>
 					<p className="text-muted-foreground mt-2">Please wait...</p>
@@ -274,7 +277,6 @@ const InstructorVideoChat = () => {
 	if (!isAuthenticated) {
 		return (
 			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
-				<Toaster />
 				<div className="text-center">
 					<p className="text-lg">Authentication required</p>
 					<p className="text-muted-foreground mt-2">
@@ -287,7 +289,6 @@ const InstructorVideoChat = () => {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
-			<Toaster />
 			<div className="max-w-6xl mx-auto">
 				<div className="flex items-center gap-4 mb-8">
 					<Button
@@ -320,25 +321,21 @@ const InstructorVideoChat = () => {
 							</CardHeader>
 							<CardContent>
 								<div className="flex flex-col items-center text-center mb-4">
-									<div className="w-24 h-24 rounded-full overflow-hidden relative border-2 border-background shadow-sm mb-4">
-										<Image
+									<Avatar className="mb-4 h-24 w-24 border-2 border-background shadow-sm">
+										<AvatarImage
 											src={
 												instructor.profileImage ||
 												"/placeholder.svg"
 											}
 											alt={instructor.name}
-											width={96}
-											height={96}
-											className="object-cover"
-											onError={(e) => {
-												// Fallback for image loading errors
-												const target = e.target as HTMLImageElement;
-												target.src =
-													"https://via.placeholder.com/100?text=" +
-													instructor.name.charAt(0);
-											}}
 										/>
-									</div>
+										<AvatarFallback>
+											{instructor.name
+												.split(" ")
+												.map((part) => part.charAt(0))
+												.join("")}
+										</AvatarFallback>
+									</Avatar>
 
 									<h2 className="text-xl font-semibold">
 										{instructor.name}
@@ -351,7 +348,7 @@ const InstructorVideoChat = () => {
 										{[1, 2, 3, 4, 5].map((star) => (
 											<Star
 												key={star}
-												className="h-4 w-4 fill-yellow-400 text-yellow-400"
+												className="h-4 w-4 fill-primary text-primary"
 											/>
 										))}
 									</div>
@@ -438,7 +435,7 @@ const InstructorVideoChat = () => {
 								>
 									<Card className="mb-6">
 										<CardContent className="p-0 overflow-hidden">
-											<div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+											<div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
 												{isConnected ? (
 													<>
 														{/* Instructor video (large) */}
@@ -463,27 +460,21 @@ const InstructorVideoChat = () => {
 												) : (
 													<div className="absolute inset-0 flex items-center justify-center">
 														<div className="text-center">
-															<div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-2 border-background shadow-lg">
-																<Image
+															<Avatar className="mx-auto mb-4 h-24 w-24 border-2 border-background shadow-lg">
+																<AvatarImage
 																	src={
 																		instructor.profileImage ||
 																		"/placeholder.svg"
 																	}
 																	alt={instructor.name}
-																	width={96}
-																	height={96}
-																	className="object-cover"
-																	onError={(e) => {
-																		const target =
-																			e.target as HTMLImageElement;
-																		target.src =
-																			"https://via.placeholder.com/100?text=" +
-																			instructor.name.charAt(
-																				0,
-																			);
-																	}}
 																/>
-															</div>
+																<AvatarFallback>
+																	{instructor.name
+																		.split(" ")
+																		.map((part) => part.charAt(0))
+																		.join("")}
+																</AvatarFallback>
+															</Avatar>
 															{!isCalling ? (
 																<p className="text-xl font-medium mb-2">
 																	{instructor.name}
@@ -565,7 +556,7 @@ const InstructorVideoChat = () => {
 											</CardDescription>
 										</CardHeader>
 										<CardContent>
-											<div className="rounded-lg overflow-hidden bg-black aspect-video">
+											<div className="rounded-lg overflow-hidden bg-muted aspect-video">
 												<video
 													className="w-full h-full object-cover scale-x-[-1]"
 													playsInline

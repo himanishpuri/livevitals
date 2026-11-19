@@ -9,7 +9,11 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useSocket from "@/hooks/useSocket";
 import { useAuth } from "@/context/auth-context";
-import Image from "next/image";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+} from "@/components/ui/avatar";
 import { motion, AnimatePresence } from "motion/react";
 import { format } from "date-fns";
 
@@ -31,7 +35,7 @@ interface ChatComponentProps {
 export function ChatComponent({
 	instructorId,
 	instructorName = "Instructor",
-	instructorImage = "/instructors/male.jpg",
+	instructorImage = "/instructors/john-smith.svg",
 }: ChatComponentProps) {
 	const { socket } = useSocket();
 	const { user } = useAuth();
@@ -154,15 +158,15 @@ export function ChatComponent({
 			{/* Chat header */}
 			<div className="px-4 py-3 border-b bg-muted/30 flex items-center justify-between">
 				<div className="flex items-center">
-					<div className="w-10 h-10 rounded-full overflow-hidden mr-3 border border-border">
-						<Image
+					<Avatar className="mr-3 border border-border">
+						<AvatarImage
 							src={instructorImage || "/placeholder.svg"}
 							alt={instructorName}
-							width={40}
-							height={40}
-							className="object-cover"
 						/>
-					</div>
+						<AvatarFallback>
+							{instructorName.charAt(0).toUpperCase()}
+						</AvatarFallback>
+					</Avatar>
 					<div>
 						<h3 className="font-medium">{instructorName}</h3>
 						<p className="text-xs text-muted-foreground">
@@ -239,18 +243,18 @@ export function ChatComponent({
 														} max-w-[80%] items-end gap-2`}
 													>
 														{!isOwnMessage && showAvatar && (
-															<div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
-																<Image
+															<Avatar className="flex-shrink-0">
+																<AvatarImage
 																	src={
 																		instructorImage ||
 																		"/placeholder.svg"
 																	}
 																	alt={instructorName}
-																	width={32}
-																	height={32}
-																	className="object-cover"
 																/>
-															</div>
+																<AvatarFallback>
+																	{instructorName.charAt(0).toUpperCase()}
+																</AvatarFallback>
+															</Avatar>
 														)}
 
 														{!isOwnMessage && !showAvatar && (
@@ -308,15 +312,15 @@ export function ChatComponent({
 									className="flex justify-start"
 								>
 									<div className="flex items-end gap-2">
-										<div className="w-8 h-8 rounded-full overflow-hidden">
-											<Image
+										<Avatar>
+											<AvatarImage
 												src={instructorImage || "/placeholder.svg"}
 												alt={instructorName}
-												width={32}
-												height={32}
-												className="object-cover"
 											/>
-										</div>
+											<AvatarFallback>
+												{instructorName.charAt(0).toUpperCase()}
+											</AvatarFallback>
+										</Avatar>
 										<div className="bg-muted rounded-2xl rounded-bl-none px-4 py-3">
 											<div className="flex space-x-1">
 												<div

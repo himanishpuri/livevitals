@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import useSocket from "@/hooks/useSocket";
 import { InstructorList } from "@/components/instructor-chat/instructor-list";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { useAuth } from "@/context/auth-context";
 import {
 	Activity,
@@ -34,7 +34,6 @@ const InstructorChatPage = () => {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
-			<Toaster />
 			<div className="max-w-6xl mx-auto">
 				<div className="mb-10 text-center">
 					<div className="flex justify-center mb-4">
@@ -60,7 +59,7 @@ const InstructorChatPage = () => {
 						<div className="flex items-center gap-2 px-4 py-2 rounded-full bg-background border">
 							<span
 								className={`inline-block w-2.5 h-2.5 rounded-full ${
-									isConnected ? "bg-green-500" : "bg-red-500"
+									isConnected ? "bg-primary" : "bg-destructive"
 								}`}
 							></span>
 							<span className="text-sm font-medium">
@@ -109,28 +108,28 @@ const InstructorChatPage = () => {
 						<CardContent>
 							<ul className="space-y-3">
 								<li className="flex items-start gap-2">
-									<CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
 										Ensure your camera and microphone are working
 										properly before starting
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
-									<CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
 										Find a quiet space with good lighting for the best
 										experience
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
-									<CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
 										Prepare any questions or topics you&apos;d like to
 										discuss in advance
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
-									<CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
 										Consultations are limited to 30 minutes per
 										session
@@ -153,28 +152,28 @@ const InstructorChatPage = () => {
 						<CardContent>
 							<ul className="space-y-3">
 								<li className="flex items-start gap-2">
-									<CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
 										Get personalized advice tailored to your specific
 										needs
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
-									<CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
 										Save time with convenient consultations from
 										anywhere
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
-									<CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
 										Access to expert instructors with specialized
 										knowledge
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
-									<CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
 										Follow-up sessions to track your progress over
 										time

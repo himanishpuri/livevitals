@@ -38,9 +38,10 @@ export default function RegisterPage() {
 						</p>
 						<div className="relative h-64 w-full rounded-xl overflow-hidden shadow-xl">
 							<Image
-								src="/placeholder.svg?height=400&width=600"
+								src="/placeholder.svg"
 								alt="Fitness tracking"
 								fill
+								sizes="(min-width: 1024px) 50vw, 100vw"
 								className="object-cover"
 							/>
 						</div>
@@ -49,7 +50,7 @@ export default function RegisterPage() {
 			</div>
 
 			{/* Right side - Form */}
-			<div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-12 bg-white dark:bg-background">
+			<div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-12 bg-background">
 				<div className="w-full max-w-md space-y-8">
 					<div className="text-center mb-8">
 						<div className="flex justify-center mb-4">

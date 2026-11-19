@@ -11,7 +11,7 @@ export const instructors: Instructor[] = [
 	{
 		id: "john-smith",
 		name: "John Smith",
-		profileImage: "/instructors/male.jpg",
+		profileImage: "/instructors/john-smith.svg",
 		specialty: "Nutrition & Weight Management",
 		biography:
 			"John is a certified nutrition coach with 10+ years of experience helping clients achieve their health goals through balanced diet and lifestyle changes.",
@@ -19,7 +19,7 @@ export const instructors: Instructor[] = [
 	{
 		id: "sarah-johnson",
 		name: "Sarah Johnson",
-		profileImage: "/instructors/female.webp",
+		profileImage: "/instructors/sarah-johnson.svg",
 		specialty: "Strength Training",
 		biography:
 			"Sarah specializes in strength training and functional fitness, helping clients build muscle and improve overall body composition.",

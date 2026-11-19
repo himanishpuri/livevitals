@@ -4,7 +4,7 @@ import { useAuth } from "@/context/auth-context";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { User, LogOut } from "lucide-react";
-import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 
 export function AuthButtons() {
@@ -24,27 +24,14 @@ export function AuthButtons() {
 						}
 					}}
 				>
-					<div className="w-8 h-8 rounded-full overflow-hidden border-2 border-primary">
-						{user.profileImage ? (
-							<Image
-								src={user.profileImage}
-								alt={user.name}
-								width={32}
-								height={32}
-								className="object-cover"
-								onError={(e) => {
-									const target = e.target as HTMLImageElement;
-									target.src = `https://via.placeholder.com/32?text=${user.name.charAt(
-										0,
-									)}`;
-								}}
-							/>
-						) : (
-							<div className="w-full h-full bg-primary/10 flex items-center justify-center">
-								<User className="h-4 w-4 text-primary" />
-							</div>
+					<Avatar className="size-8 border-2 border-primary">
+						{user.profileImage && (
+							<AvatarImage src={user.profileImage} alt={user.name} />
 						)}
-					</div>
+						<AvatarFallback className="bg-primary/10">
+							<User className="h-4 w-4 text-primary" />
+						</AvatarFallback>
+					</Avatar>
 					<span className="text-sm font-medium hidden sm:block">
 						{user.name}
 					</span>

@@ -7,9 +7,9 @@ import { ViewTransitions } from "next-view-transitions";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/context/auth-context";
 import { NotificationProvider } from "@/context/notification-context";
-import { ToastProvider } from "@/components/ui/toast-provider";
+import { Toaster } from "@/components/ui/sonner";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
 	title: "LiveVitals - Video Calling Health App",
@@ -26,10 +26,10 @@ export default function RootLayout({
 			<html
 				lang="en"
 				suppressHydrationWarning
+				className={inter.variable}
 			>
-				<body className={inter.className}>
-					{" "}
-					<ThemeProvider>
+				<body className="font-sans antialiased">
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 						<AuthProvider>
 							<NotificationProvider>
 								<div className="flex min-h-screen flex-col">
@@ -37,7 +37,7 @@ export default function RootLayout({
 									<div className="flex-1">{children}</div>
 									<Footer />
 								</div>
-								<ToastProvider />
+								<Toaster richColors />
 							</NotificationProvider>
 						</AuthProvider>
 					</ThemeProvider>

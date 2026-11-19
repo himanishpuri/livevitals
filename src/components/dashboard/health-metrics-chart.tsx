@@ -1,13 +1,25 @@
 "use client";
 
+import { Line, LineChart, XAxis, YAxis } from "recharts";
 import {
-	Line,
-	LineChart,
-	ResponsiveContainer,
-	Tooltip,
-	XAxis,
-	YAxis,
-} from "recharts";
+	ChartContainer,
+	ChartLegend,
+	ChartLegendContent,
+	ChartTooltip,
+	ChartTooltipContent,
+	type ChartConfig,
+} from "@/components/ui/chart";
+
+const chartConfig = {
+	weight: {
+		label: "Weight",
+		color: "var(--chart-1)",
+	},
+	calories: {
+		label: "Calories",
+		color: "var(--chart-2)",
+	},
+} satisfies ChartConfig;
 
 interface HealthMetricsChartProps {
 	data: Array<{
@@ -19,69 +31,42 @@ interface HealthMetricsChartProps {
 
 export function HealthMetricsChart({ data }: HealthMetricsChartProps) {
 	return (
-		<ResponsiveContainer
-			width="100%"
-			height={350}
+		<ChartContainer
+			config={chartConfig}
+			className="h-[300px] w-full"
 		>
-			<LineChart data={data}>
+			<LineChart
+				data={data}
+				accessibilityLayer
+			>
 				<XAxis
 					dataKey="date"
-					stroke="#888888"
-					fontSize={12}
 					tickLine={false}
 					axisLine={false}
+					tickMargin={8}
 				/>
 				<YAxis
-					stroke="#888888"
-					fontSize={12}
 					tickLine={false}
 					axisLine={false}
-					tickFormatter={(value) => `${value}`}
+					tickMargin={8}
 				/>
-				<Tooltip
-					content={({ active, payload }) => {
-						if (active && payload && payload.length) {
-							return (
-								<div className="rounded-lg border bg-background p-2 shadow-sm">
-									<div className="grid grid-cols-2 gap-2">
-										<div className="flex flex-col">
-											<span className="text-[0.70rem] uppercase text-muted-foreground">
-												Weight
-											</span>
-											<span className="font-bold text-muted-foreground">
-												{payload[0].value} kg
-											</span>
-										</div>
-										<div className="flex flex-col">
-											<span className="text-[0.70rem] uppercase text-muted-foreground">
-												Calories
-											</span>
-											<span className="font-bold text-muted-foreground">
-												{payload[1].value} kcal
-											</span>
-										</div>
-									</div>
-								</div>
-							);
-						}
-						return null;
-					}}
-				/>
+				<ChartTooltip content={<ChartTooltipContent />} />
 				<Line
 					type="monotone"
 					dataKey="weight"
-					stroke="#8884d8"
+					stroke="var(--color-weight)"
 					strokeWidth={2}
 					activeDot={{ r: 8 }}
 				/>
 				<Line
 					type="monotone"
 					dataKey="calories"
-					stroke="#82ca9d"
+					stroke="var(--color-calories)"
 					strokeWidth={2}
 					activeDot={{ r: 8 }}
 				/>
+				<ChartLegend content={<ChartLegendContent />} />
 			</LineChart>
-		</ResponsiveContainer>
+		</ChartContainer>
 	);
 }

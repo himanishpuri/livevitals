@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { useTransitionRouter } from "next-view-transitions";
-import { Activity } from "lucide-react";
+import { Activity, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -11,19 +10,18 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { AuthButtons } from "@/components/auth/auth-buttons";
 import { NotificationDropdown } from "@/components/NotificationDropdown";
 import { useAuth } from "@/context/auth-context";
+import {
+	Sheet,
+	SheetClose,
+	SheetContent,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
 
 export default function Navbar() {
-	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
 	const router = useTransitionRouter();
-
-	const toggleMenu = () => {
-		setIsOpen(!isOpen);
-	};
-
-	const closeMenu = () => {
-		setIsOpen(false);
-	};
 
 	// Replace the navLinks array with this dynamic function that returns links based on auth status
 	const getNavLinks = (isAuth: boolean, userRole?: string) => {
@@ -81,7 +79,6 @@ export default function Navbar() {
 								href={link.href}
 								onClick={(e) => {
 									e.preventDefault();
-									closeMenu();
 									router.push(link.href, {
 										onTransitionReady: pageAnimation,
 									});
@@ -103,84 +100,65 @@ export default function Navbar() {
 					<AuthButtons />
 				</nav>
 
-				{/* Mobile Menu Button */}
-				<Button
-					variant="ghost"
-					size="icon"
-					className="relative md:hidden"
-					onClick={toggleMenu}
-					aria-label={isOpen ? "Close Menu" : "Open Menu"}
-				>
-					<div className="relative h-6 w-6">
-						<span
-							className={cn(
-								"absolute block h-0.5 w-6 bg-current transition-all duration-300",
-								isOpen ? "top-3 rotate-45" : "top-1.5",
-							)}
-						/>
-						<span
-							className={cn(
-								"absolute top-3 block h-0.5 w-6 bg-current transition-all duration-300",
-								isOpen ? "opacity-0" : "opacity-100",
-							)}
-						/>
-						<span
-							className={cn(
-								"absolute block h-0.5 w-6 bg-current transition-all duration-300",
-								isOpen ? "top-3 -rotate-45" : "top-4.5",
-							)}
-						/>
-					</div>
-				</Button>
-			</div>
-
-			{/* Mobile Navigation */}
-			{isOpen && (
-				<button
-					className="fixed inset-0 top-16 z-30 bg-background/80 backdrop-blur-sm transition-all duration-300"
-					onClick={closeMenu}
-					onKeyDown={(e) => e.key === "Escape" && closeMenu()}
-					aria-label="Close menu overlay"
-				/>
-			)}
-			<div
-				className={cn(
-					"fixed inset-x-0 top-16 z-40 h-[calc(100vh-4rem)] w-full overflow-y-auto bg-background shadow-lg transition-all duration-300 ease-in-out md:hidden",
-					isOpen
-						? "translate-x-0 opacity-100"
-						: "translate-x-full opacity-0",
-				)}
-			>
-				<nav className="flex flex-col gap-6 container mx-auto px-4 py-6">
-					{navLinks.map((link) => (
-						<Link
-							key={link.href}
-							href={link.href}
-							onClick={(e) => {
-								e.preventDefault();
-								closeMenu();
-								router.push(link.href, {
-									onTransitionReady: pageAnimation,
-								});
-							}}
-							className={cn(
-								"text-lg font-medium transition-colors hover:text-primary",
-								pathname === link.href
-									? "text-primary"
-									: "text-muted-foreground",
-							)}
+				{/* Mobile Menu */}
+				<Sheet>
+					<SheetTrigger asChild>
+						<Button
+							variant="ghost"
+							size="icon"
+							className="md:hidden"
+							aria-label="Open Menu"
 						>
-							{link.label}
-						</Link>
-					))}{" "}
-					<div className="flex items-center">
-						<ThemeToggle />
-						<span className="ml-2 text-sm">Toggle theme</span>
-					</div>
-					<div className="mt-4">
-						<AuthButtons />
-					</div>
-				</nav>
+							<Menu className="h-6 w-6" />
+						</Button>
+					</SheetTrigger>
+					<SheetContent
+						side="right"
+						className="w-72"
+					>
+						<SheetHeader>
+							<SheetTitle className="flex items-center gap-2">
+								<Activity className="h-5 w-5 text-primary" />
+								LiveVitals
+							</SheetTitle>
+						</SheetHeader>
+						<nav className="flex flex-col gap-6 px-4 py-6">
+							{navLinks.map((link) => (
+								<SheetClose
+									asChild
+									key={link.href}
+								>
+									<Link
+										href={link.href}
+										onClick={(e) => {
+											e.preventDefault();
+											router.push(link.href, {
+												onTransitionReady: pageAnimation,
+											});
+										}}
+										className={cn(
+											"text-lg font-medium transition-colors hover:text-primary",
+											pathname === link.href
+												? "text-primary"
+												: "text-muted-foreground",
+										)}
+									>
+										{link.label}
+									</Link>
+								</SheetClose>
+							))}
+							<div className="flex items-center">
+								<ThemeToggle />
+								<span className="ml-2 text-sm">Toggle theme</span>
+							</div>
+							<SheetClose asChild>
+								<div className="mt-4">
+									<AuthButtons />
+								</div>
+							</SheetClose>
+						</nav>
+					</SheetContent>
+				</Sheet>
 			</div>
 		</header>
 	);
