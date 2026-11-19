@@ -69,6 +69,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		isLoading: true,
 	});
 
+	// Tell the server who this socket belongs to, once the user is known and on
+	// every reconnect.
+	useEffect(() => {
+		const identify = () => {
+			if (authState.user) {
+				socket.emit("identify", {
+					userId: authState.user.id,
+					role: authState.user.role,
+				});
+			}
+		};
+
+		identify();
+		socket.on("connect", identify);
+		return () => {
+			socket.off("connect", identify);
+		};
+	}, [socket, authState.user]);
+
 	// Check for saved user data on load
 	useEffect(() => {
 		const checkAuth = () => {
@@ -239,9 +258,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	};
 
 	const logout = () => {
+		// Leave the user room before telling the server about a signout
+		socket.emit("identify", null);
+
 		// If it's an instructor, notify the server about signout
 		if (authState.user?.role === "instructor") {
-			socket?.emit("instructor_signout", authState.user.id);
+			socket.emit("instructor_signout", authState.user.id);
 		}
 
 		// Clear local storage
