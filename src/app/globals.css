@@ -149,3 +149,10 @@
 ::view-transition-new(root) {
   animation: 1000ms cubic-bezier(0.76, 0, 0.24, 1) both vt-in;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
