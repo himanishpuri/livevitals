@@ -14,6 +14,13 @@
       "description": "Platform overhaul",
       "startDate": "2025-06-02",
       "releaseDate": "2025-07-13"
+    },
+    {
+      "ref": "v1.0.1",
+      "name": "v1.0.1",
+      "description": "Codebase hardening",
+      "startDate": "2025-07-14",
+      "releaseDate": "2025-07-20"
     }
   ],
   "components": [
@@ -97,6 +104,14 @@
       "endDate": "2025-07-13 18:00",
       "timezone": "+05:30",
       "goal": "Branding, README, v1.0.0 release"
+    },
+    {
+      "ref": "S10",
+      "name": "Sprint 10",
+      "startDate": "2025-07-14 09:00",
+      "endDate": "2025-07-20 18:00",
+      "timezone": "+05:30",
+      "goal": "Push gate, repository hygiene, CI hardening, consistent code, v1.0.1 release"
     }
   ],
   "issues": [
@@ -1413,6 +1428,26 @@
       "commits": []
     },
     {
+      "ref": "E16",
+      "type": "Epic",
+      "summary": "Codebase Hardening",
+      "description": "Push gate, repository hygiene files, CI and container hardening, consistent file naming and formatting, duplicate-code removal and the v1.0.1 release.",
+      "status": "Done",
+      "created": "2025-07-11 15:00",
+      "resolved": "2025-07-18 17:30",
+      "due": "2025-07-20",
+      "parent": null,
+      "sprint": null,
+      "storyPoints": null,
+      "estimateH": null,
+      "spentH": null,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
       "ref": "O1",
       "type": "Task",
       "summary": "Create main branch from dev and make it the default",
@@ -2470,6 +2505,166 @@
         "Testing"
       ],
       "fixVersion": "v1.0.0",
+      "commits": []
+    },
+    {
+      "ref": "O32",
+      "type": "Task",
+      "summary": "Adopt the no-mistakes push gate",
+      "description": "Pushes go through a local gate that reviews, lints and tests each change before it reaches GitHub.\n\nAcceptance: .no-mistakes.yaml on main configures lint, test and duplicate-code review instructions; a branch pushed to the gate opens its PR after the checks pass.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-14 17:30",
+      "due": null,
+      "parent": "E16",
+      "sprint": "S10",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
+      "ref": "O33",
+      "type": "Task",
+      "summary": "Add repository hygiene files",
+      "description": "Standard open-source repository files: MIT license, editorconfig, gitattributes, nvmrc, Dependabot, CODEOWNERS, PR and issue templates, contributing guide, security policy and changelog.\n\nAcceptance: The files exist on main and GitHub shows the license, security policy and templates.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-14 17:30",
+      "due": null,
+      "parent": "E16",
+      "sprint": "S10",
+      "storyPoints": 3,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
+      "ref": "O34",
+      "type": "Task",
+      "summary": "Harden the CI workflow and container images",
+      "description": "Least-privilege CI with pinned actions, cancelled superseded runs and job timeouts; labelled container images with a writable Next.js cache.\n\nAcceptance: CI declares read-only permissions, concurrency and timeouts, pins actions by SHA and runs the Jira tooling tests; docker compose builds and the e2e suite passes.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-15 17:30",
+      "due": null,
+      "parent": "E16",
+      "sprint": "S10",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
+      "ref": "O35",
+      "type": "Task",
+      "summary": "Remove debug leftovers and complete package metadata",
+      "description": "No console logging or commented-out code in app sources, no unused dependencies, and complete package.json metadata.\n\nAcceptance: grep finds no console.log in src; package.json files declare description, repository, license and author; all gates pass.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-15 17:30",
+      "due": null,
+      "parent": "E16",
+      "sprint": "S10",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
+      "ref": "O36",
+      "type": "Task",
+      "summary": "Use kebab-case file names and remove duplicated code",
+      "description": "Component files follow one naming convention, and duplicated blocks in auth forms, login and register pages, schedule cards, data-input forms and e2e specs move into shared components and helpers.\n\nAcceptance: Every component file is kebab-case; jscpd reports no clones of 8+ lines outside src/components/ui; unit and e2e tests pass unchanged.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-16 17:30",
+      "due": null,
+      "parent": "E16",
+      "sprint": "S10",
+      "storyPoints": 3,
+      "estimateH": 5,
+      "spentH": 5,
+      "components": [
+        "Frontend"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
+      "ref": "O37",
+      "type": "Task",
+      "summary": "Enforce formatting and duplicate-code checks in CI",
+      "description": "Prettier formats the codebase and jscpd guards against new duplication.\n\nAcceptance: npm run format:check and npm run lint:dup pass locally and in CI.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-17 17:30",
+      "due": null,
+      "parent": "E16",
+      "sprint": "S10",
+      "storyPoints": 2,
+      "estimateH": 2,
+      "spentH": 2,
+      "components": [
+        "Testing"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
+      "ref": "O38",
+      "type": "Task",
+      "summary": "Credit the author in the README",
+      "description": "The README credits Himanish as the author and its project stats match Jira.\n\nAcceptance: The README ends with \"Made by Himanish · May 2025\" and lists the current sprint, epic and issue counts.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-17 17:30",
+      "due": null,
+      "parent": "E16",
+      "sprint": "S10",
+      "storyPoints": 1,
+      "estimateH": 0.5,
+      "spentH": 0.5,
+      "components": [
+        "Docs"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
+      "ref": "O39",
+      "type": "Task",
+      "summary": "Release v1.0.1",
+      "description": "Cut the v1.0.1 release.\n\nAcceptance: Tag v1.0.1 and its GitHub release exist on main.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-18 17:30",
+      "due": null,
+      "parent": "E16",
+      "sprint": "S10",
+      "storyPoints": 1,
+      "estimateH": 1,
+      "spentH": 1,
+      "components": [
+        "DevOps"
+      ],
+      "fixVersion": "v1.0.1",
       "commits": []
     },
     {
