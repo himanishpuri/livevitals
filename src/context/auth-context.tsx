@@ -6,7 +6,7 @@ import { User, AuthState, LoginCredentials, RegisterData } from "@/types/user";
 import useSocket from "@/hooks/useSocket";
 
 // Demo users for development (replace with real authentication in production)
-const DEMO_USERS = [
+const DEMO_USERS: Array<User & { password: string }> = [
 	{
 		id: "user-1",
 		name: "Demo User",
@@ -38,10 +38,25 @@ const DEMO_USERS = [
 	},
 ];
 
-interface AuthContextType extends AuthState {
+export interface AuthContextType extends AuthState {
 	login: (credentials: LoginCredentials) => Promise<boolean>;
 	register: (data: RegisterData) => Promise<boolean>;
 	logout: () => void;
+}
+
+interface StoredAccount {
+	user: User;
+	password: string;
+}
+
+const USERS_KEY = "livevitals_users";
+
+function readAccounts(): StoredAccount[] {
+	try {
+		return JSON.parse(localStorage.getItem(USERS_KEY) ?? "[]") as StoredAccount[];
+	} catch {
+		return [];
+	}
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -99,20 +114,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			// Simulate API delay
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
-			const user = DEMO_USERS.find(
-				(u) =>
-					u.email === credentials.email &&
-					u.password === credentials.password &&
-					u.role === credentials.role,
-			);
+			const user =
+				DEMO_USERS.find(
+					(u) =>
+						u.email === credentials.email &&
+						u.password === credentials.password &&
+						u.role === credentials.role,
+				) ??
+				readAccounts().find(
+					(a) =>
+						a.user.email === credentials.email &&
+						a.password === credentials.password &&
+						a.user.role === credentials.role,
+				)?.user;
 
 			if (!user) {
 				throw new Error("Invalid credentials");
 			}
 
 			// Create a user without the password
-			const { password, ...userWithoutPassword } = user;
-			const authenticatedUser = userWithoutPassword as User;
+			const authenticatedUser: User = {
+				id: user.id,
+				name: user.name,
+				email: user.email,
+				role: user.role,
+				profileImage: user.profileImage,
+				specialty: user.specialty,
+				biography: user.biography,
+			};
 
 			// Update state
 			setAuthState({
@@ -151,17 +180,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
 			// Check if user already exists
-			const userExists = DEMO_USERS.some((u) => u.email === data.email);
+			const accounts = readAccounts();
+			const userExists =
+				DEMO_USERS.some((u) => u.email === data.email) ||
+				accounts.some((a) => a.user.email === data.email);
 			if (userExists) {
-				throw new Error("User with this email already exists");
+				throw new Error("An account with this email already exists");
 			}
 
-			// For demo purposes, just generate a new UUID
+			// No "_" in ids: chat room ids are chat_<a>_<b>
 			const newUser: User = {
-				id:
-					data.role === "instructor"
-						? data.email.split("@")[0]
-						: `user-${Date.now()}`,
+				id: data.email.split("@")[0].toLowerCase().replace(/[^a-z0-9-]/g, "-"),
 				name: data.name,
 				email: data.email,
 				role: data.role,
@@ -176,8 +205,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				biography: data.biography,
 			};
 
-			// In a real app, would save to database
-			// For demo, we'll just simulate success
+			// Persist the account so the user can log in again later
+			localStorage.setItem(
+				USERS_KEY,
+				JSON.stringify([...accounts, { user: newUser, password: data.password }]),
+			);
 
 			// Update state
 			setAuthState({

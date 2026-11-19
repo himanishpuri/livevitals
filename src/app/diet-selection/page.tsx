@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import DietSelectionPage from "@/components/diet-selection/diet-selection-page";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function DietSelection() {
-	return <DietSelectionPage />;
+	return (
+		<ProtectedRoute>
+			<DietSelectionPage />
+		</ProtectedRoute>
+	);
 }

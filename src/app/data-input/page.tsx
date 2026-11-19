@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import DataInputPage from "@/components/data-input/data-input-page";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function DataInput() {
-	return <DataInputPage />;
+	return (
+		<ProtectedRoute>
+			<DataInputPage />
+		</ProtectedRoute>
+	);
 }

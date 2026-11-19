@@ -34,6 +34,7 @@ export default function Navbar() {
 			{ href: "/dashboard", label: "Dashboard" },
 			{ href: "/data-input", label: "Data Input" },
 			{ href: "/diet-selection", label: "Diet Plans" },
+			{ href: "/my-workout-plan", label: "Workout Plan" },
 			{ href: "/profile", label: "Profile" },
 			{ href: "/schedule", label: "My Sessions" },
 			{ href: "/instructor-chat", label: "Find Instructors" },
@@ -87,7 +88,7 @@ export default function Navbar() {
 						))}
 					</div>{" "}
 					<ThemeToggle />
-					<NotificationDropdown />
+					{isAuthenticated && <NotificationDropdown />}
 					{/* Auth buttons */}
 					<AuthButtons />
 				</nav>

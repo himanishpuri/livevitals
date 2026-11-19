@@ -10,7 +10,7 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@/components/ui/avatar";
-import { useAuth } from "@/context/auth-context";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import { ScheduleSessionDialog } from "@/components/instructor-chat/schedule-session-dialog";
 import { ChatComponent } from "@/components/instructor-chat/chat-component";
 import {
@@ -40,7 +40,6 @@ const InstructorVideoChat = () => {
 	const router = useRouter();
 	const params = useParams();
 	const { socket } = useSocket();
-	const { isAuthenticated } = useAuth();
 
 	// Check if this is an instructor answering a call
 
@@ -63,7 +62,6 @@ const InstructorVideoChat = () => {
 	const [activeTab, setActiveTab] = useState("video");
 	const [audioEnabled, setAudioEnabled] = useState(true);
 	const [videoEnabled, setVideoEnabled] = useState(true);
-	const [authChecked, setAuthChecked] = useState(false);
 
 	const generateId = () => crypto.randomUUID();
 
@@ -239,17 +237,6 @@ const InstructorVideoChat = () => {
 		}
 	}, [instructor, router]);
 
-	// Check authentication
-	useEffect(() => {
-		if (isAuthenticated === undefined) return;
-
-		if (!isAuthenticated) {
-			toast.error("Please sign in to join a video consultation");
-			setTimeout(() => router.push("/login"), 2000);
-		}
-		setAuthChecked(true);
-	}, [isAuthenticated, router]);
-
 	if (!instructor) {
 		return (
 			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
@@ -263,33 +250,10 @@ const InstructorVideoChat = () => {
 		);
 	}
 
-	if (!authChecked) {
-		return (
-			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
-				<div className="text-center">
-					<p className="text-lg">Checking authentication...</p>
-					<p className="text-muted-foreground mt-2">Please wait...</p>
-				</div>
-			</div>
-		);
-	}
-
-	if (!isAuthenticated) {
-		return (
-			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6 flex items-center justify-center">
-				<div className="text-center">
-					<p className="text-lg">Authentication required</p>
-					<p className="text-muted-foreground mt-2">
-						Redirecting to login...
-					</p>
-				</div>
-			</div>
-		);
-	}
-
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
-			<div className="max-w-6xl mx-auto">
+		<ProtectedRoute>
+			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
+				<div className="max-w-6xl mx-auto">
 				<div className="flex items-center gap-4 mb-8">
 					<Button
 						variant="ghost"
@@ -588,7 +552,8 @@ const InstructorVideoChat = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+			</div>
+		</ProtectedRoute>
 	);
 };
 

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 import { format, addDays, isPast, parseISO, differenceInDays } from "date-fns";
 import Image from "next/image";
 import PageWrapper from "@/components/PageWrapper";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { instructors } from "@/data/instructors";
@@ -57,19 +57,27 @@ const mockScheduledSessions = [
 	},
 ];
 
+const SESSIONS_KEY = "livevitals_sessions";
+
+function loadSessions() {
+	if (typeof window === "undefined") return mockScheduledSessions;
+	try {
+		const saved = localStorage.getItem(SESSIONS_KEY);
+		return saved
+			? (JSON.parse(saved) as typeof mockScheduledSessions)
+			: mockScheduledSessions;
+	} catch {
+		return mockScheduledSessions;
+	}
+}
+
 export default function SchedulePage() {
-	const { user, isAuthenticated } = useAuth();
 	const router = useRouter();
-	const [scheduledSessions, setScheduledSessions] = useState(
-		mockScheduledSessions,
-	);
+	const [scheduledSessions, setScheduledSessions] = useState(loadSessions);
 
 	useEffect(() => {
-		// Redirect if not logged in
-		if (!isAuthenticated) {
-			router.push("/login");
-		}
-	}, [isAuthenticated, router]);
+		localStorage.setItem(SESSIONS_KEY, JSON.stringify(scheduledSessions));
+	}, [scheduledSessions]);
 
 	// Filter sessions by status
 	const upcomingSessions = scheduledSessions.filter(
@@ -98,10 +106,9 @@ export default function SchedulePage() {
 		router.push(`/instructor-chat/${instructorId}`);
 	};
 
-	if (!isAuthenticated) return null;
-
 	return (
-		<PageWrapper>
+		<ProtectedRoute>
+			<PageWrapper>
 			<div className="container mx-auto py-10 px-4">
 				<h1 className="text-3xl font-bold mb-6">Your Scheduled Sessions</h1>
 
@@ -330,6 +337,7 @@ export default function SchedulePage() {
 					</TabsContent>
 				</Tabs>
 			</div>
-		</PageWrapper>
+			</PageWrapper>
+		</ProtectedRoute>
 	);
 }

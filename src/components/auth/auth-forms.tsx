@@ -5,6 +5,7 @@ import type React from "react";
 import { useState } from "react";
 import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -117,12 +118,12 @@ export function LoginForm() {
 			<div className="space-y-2">
 				<div className="flex items-center justify-between">
 					<Label htmlFor="password">Password</Label>
-					<a
-						href="#"
+					<Link
+						href="/forgot-password"
 						className="text-sm text-primary hover:text-primary/90"
 					>
 						Forgot password?
-					</a>
+					</Link>
 				</div>
 				<Input
 					id="password"

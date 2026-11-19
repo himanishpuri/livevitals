@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { MotionProvider } from "@/components/motion-provider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/context/auth-context";
+import { HealthDataProvider } from "@/context/health-data-context";
 import { NotificationProvider } from "@/context/notification-context";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -31,18 +32,20 @@ export default function RootLayout({
 			<body className="font-sans antialiased">
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<AuthProvider>
-						<NotificationProvider>
-							<MotionProvider>
-								<div className="flex min-h-screen flex-col">
-									<Navbar />
-									<div className="flex-1">
-										<ViewTransition>{children}</ViewTransition>
+						<HealthDataProvider>
+							<NotificationProvider>
+								<MotionProvider>
+									<div className="flex min-h-screen flex-col">
+										<Navbar />
+										<div className="flex-1">
+											<ViewTransition>{children}</ViewTransition>
+										</div>
+										<Footer />
 									</div>
-									<Footer />
-								</div>
-							</MotionProvider>
-							<Toaster richColors />
-						</NotificationProvider>
+								</MotionProvider>
+								<Toaster richColors />
+							</NotificationProvider>
+						</HealthDataProvider>
 					</AuthProvider>
 				</ThemeProvider>
 			</body>
