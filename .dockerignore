@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+realtime
+e2e
+test-results
+playwright-report
+coverage
+scripts
+docs
+*.pdf
+.env*
+!.env.example
+Dockerfile
+compose.yaml
+README.md
+*.tsbuildinfo
