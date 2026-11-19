@@ -348,7 +348,7 @@ const InstructorVideoChat = () => {
 										{[1, 2, 3, 4, 5].map((star) => (
 											<Star
 												key={star}
-												className="h-4 w-4 fill-yellow-400 text-yellow-400"
+												className="h-4 w-4 fill-primary text-primary"
 											/>
 										))}
 									</div>
@@ -435,7 +435,7 @@ const InstructorVideoChat = () => {
 								>
 									<Card className="mb-6">
 										<CardContent className="p-0 overflow-hidden">
-											<div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+											<div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
 												{isConnected ? (
 													<>
 														{/* Instructor video (large) */}
@@ -556,7 +556,7 @@ const InstructorVideoChat = () => {
 											</CardDescription>
 										</CardHeader>
 										<CardContent>
-											<div className="rounded-lg overflow-hidden bg-black aspect-video">
+											<div className="rounded-lg overflow-hidden bg-muted aspect-video">
 												<video
 													className="w-full h-full object-cover scale-x-[-1]"
 													playsInline

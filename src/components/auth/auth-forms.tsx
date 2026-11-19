@@ -9,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+	Alert,
+	AlertDescription,
+} from "@/components/ui/alert";
+import {
 	Select,
 	SelectContent,
 	SelectItem,
@@ -82,18 +86,15 @@ export function LoginForm() {
 						initial={{ opacity: 0, y: -10 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0 }}
-						className={`p-4 rounded-lg ${
-							formStatus.type === "success"
-								? "bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400"
-								: "bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400"
-						} flex items-start`}
 					>
-						{formStatus.type === "success" ? (
-							<CheckCircle2 className="h-5 w-5 mr-2 flex-shrink-0" />
-						) : (
-							<AlertCircle className="h-5 w-5 mr-2 flex-shrink-0" />
-						)}
-						<span>{formStatus.message}</span>
+						<Alert variant={formStatus.type === "success" ? "default" : "destructive"}>
+							{formStatus.type === "success" ? (
+								<CheckCircle2 className="h-5 w-5" />
+							) : (
+								<AlertCircle className="h-5 w-5" />
+							)}
+							<AlertDescription>{formStatus.message}</AlertDescription>
+						</Alert>
 					</motion.div>
 				)}
 			</AnimatePresence>
@@ -248,18 +249,15 @@ export function RegisterForm() {
 						initial={{ opacity: 0, y: -10 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0 }}
-						className={`p-4 rounded-lg ${
-							formStatus.type === "success"
-								? "bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400"
-								: "bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400"
-						} flex items-start`}
 					>
-						{formStatus.type === "success" ? (
-							<CheckCircle2 className="h-5 w-5 mr-2 flex-shrink-0" />
-						) : (
-							<AlertCircle className="h-5 w-5 mr-2 flex-shrink-0" />
-						)}
-						<span>{formStatus.message}</span>
+						<Alert variant={formStatus.type === "success" ? "default" : "destructive"}>
+							{formStatus.type === "success" ? (
+								<CheckCircle2 className="h-5 w-5" />
+							) : (
+								<AlertCircle className="h-5 w-5" />
+							)}
+							<AlertDescription>{formStatus.message}</AlertDescription>
+						</Alert>
 					</motion.div>
 				)}
 			</AnimatePresence>

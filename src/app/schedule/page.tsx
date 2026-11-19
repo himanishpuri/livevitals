@@ -7,6 +7,7 @@ import { format, addDays, isPast, parseISO, differenceInDays } from "date-fns";
 import Image from "next/image";
 import PageWrapper from "@/components/PageWrapper";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { instructors } from "@/data/instructors";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -155,9 +156,7 @@ export default function SchedulePage() {
 													</div>
 													<div className="flex items-center">
 														{isToday && (
-															<div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">
-																Today
-															</div>
+															<Badge variant="secondary">Today</Badge>
 														)}
 													</div>
 												</div>

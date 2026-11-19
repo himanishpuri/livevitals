@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { motion } from "motion/react";
 import { Video, Star, Clock, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
 	Avatar,
 	AvatarFallback,
@@ -46,9 +47,7 @@ const InstructorCard = ({ instructor }: InstructorCardProps) => {
 			transition={{ duration: 0.3 }}
 			whileHover={{ y: -5 }}
 			className={`rounded-xl overflow-hidden transition-all ${
-				isAvailable
-					? "bg-white dark:bg-card shadow-lg"
-					: "bg-muted/50 dark:bg-muted/20"
+				isAvailable ? "bg-card shadow-lg" : "bg-muted/50"
 			}`}
 		>
 			<div className="p-6">
@@ -70,8 +69,8 @@ const InstructorCard = ({ instructor }: InstructorCardProps) => {
 
 						{/* Status indicator */}
 						<div
-							className={`absolute bottom-1 right-1 w-5 h-5 rounded-full border-2 border-background 
-								${isAvailable ? "bg-green-500" : "bg-gray-400"}`}
+							className={`absolute bottom-1 right-1 w-5 h-5 rounded-full border-2 border-background
+								${isAvailable ? "bg-primary" : "bg-muted-foreground"}`}
 						/>
 					</div>
 
@@ -84,7 +83,7 @@ const InstructorCard = ({ instructor }: InstructorCardProps) => {
 						{[1, 2, 3, 4, 5].map((star) => (
 							<Star
 								key={star}
-								className="h-4 w-4 fill-yellow-400 text-yellow-400"
+								className="h-4 w-4 fill-primary text-primary"
 							/>
 						))}
 					</div>
@@ -94,20 +93,13 @@ const InstructorCard = ({ instructor }: InstructorCardProps) => {
 					</p>
 
 					<div className="flex items-center gap-2 mb-5">
-						<span
-							className={`px-3 py-1 rounded-full text-xs font-medium ${
-								isAvailable
-									? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-									: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400"
-							}`}
-						>
+						<Badge variant={isAvailable ? "default" : "secondary"}>
 							{isAvailable ? "Available Now" : "Offline"}
-						</span>
-
-						<span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-							<Clock className="inline-block h-3 w-3 mr-1" />
+						</Badge>
+						<Badge variant="secondary">
+							<Clock className="h-3 w-3 mr-1" />
 							30 min
-						</span>
+						</Badge>
 					</div>
 
 					<Button

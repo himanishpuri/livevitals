@@ -52,7 +52,7 @@ export function NotificationDropdown() {
 				>
 					<Bell className="h-5 w-5" />
 					{unreadCount > 0 && (
-						<span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+						<span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground">
 							{unreadCount > 9 ? "9+" : unreadCount}
 						</span>
 					)}
@@ -84,7 +84,7 @@ export function NotificationDropdown() {
 									key={notification.id}
 									className={`p-4 hover:bg-muted/50 cursor-pointer transition-colors ${
 										!notification.read
-											? "bg-blue-50/50 dark:bg-blue-900/10"
+											? "bg-accent"
 											: ""
 									}`}
 									onClick={() => handleNotificationClick(notification)}
