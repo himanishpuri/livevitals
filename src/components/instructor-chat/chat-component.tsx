@@ -387,6 +387,7 @@ export function ChatComponent({
 						size="icon"
 						disabled={isSending || !newMessage.trim()}
 						className="flex-shrink-0"
+						aria-label="Send message"
 					>
 						<Send className="h-5 w-5" />
 					</Button>

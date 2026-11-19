@@ -477,6 +477,11 @@ const VideoRoom = () => {
 													variant="outline"
 													size="icon"
 													className="h-12 w-12 rounded-full"
+													aria-label={
+														audioEnabled
+															? "Mute microphone"
+															: "Unmute microphone"
+													}
 													onClick={toggleAudio}
 												>
 													{audioEnabled ? (
@@ -491,6 +496,7 @@ const VideoRoom = () => {
 														variant="destructive"
 														size="icon"
 														className="h-14 w-14 rounded-full"
+														aria-label="End call"
 														onClick={endCall}
 													>
 														<Phone className="h-6 w-6 rotate-135" />
@@ -500,6 +506,7 @@ const VideoRoom = () => {
 														variant="default"
 														size="icon"
 														className="h-14 w-14 rounded-full"
+														aria-label="Start call"
 														onClick={initializeCall}
 														disabled={
 															isCalling ||
@@ -514,6 +521,11 @@ const VideoRoom = () => {
 													variant="outline"
 													size="icon"
 													className="h-12 w-12 rounded-full"
+													aria-label={
+														videoEnabled
+															? "Turn off camera"
+															: "Turn on camera"
+													}
 													onClick={toggleVideo}
 												>
 													{videoEnabled ? (
