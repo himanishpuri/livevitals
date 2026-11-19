@@ -59,23 +59,26 @@ npm --prefix realtime test
 - Commit body explains why the change is needed.
 - One issue per pull request. Issues fixed by the same change share one PR whose
   title lists every key, e.g. `LV-31 LV-33: Fix ...`.
-- Merge with squash, then delete the branch. Do not merge your own PR; the
-  maintainer merges it.
+- The maintainer squash-merges after CI passes, then deletes the branch.
 
 ## Publishing
 
-`main` is protected by the repository's no-mistakes gate. Do not push straight
-to `origin/main` and do not run `git push origin` for a feature branch. Push to
-the gate remote instead:
+Maintainers publish branches through the no-mistakes gate installed on their
+machine:
 
 ```bash
+no-mistakes init                 # once per clone
 git fetch -q origin && git rebase origin/main
 git push no-mistakes LV-<n>-<kebab-summary>
 ```
 
-The gate reviews the diff, runs lint and tests, pushes, and opens the pull
-request with the supplied title and body. Answer any review question in the
-gate, then fix only findings that keep behaviour unchanged.
+Configuration lives in `.no-mistakes.yaml`. The gate reviews the diff, runs
+lint and tests, pushes the branch and opens the pull request with the supplied
+title and body. Answer any review question in the gate, then fix only findings
+that keep behaviour unchanged.
+
+External contributors fork the repository and open a normal pull request
+against `main`; CI runs the same checks on it.
 
 ## Code style
 
