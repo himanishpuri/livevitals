@@ -1,7 +1,7 @@
 import { io, type Socket } from "socket.io-client";
 import type { PeerOptions } from "peerjs";
 
-const REALTIME_URL =
+export const REALTIME_URL =
 	process.env.NEXT_PUBLIC_REALTIME_URL ?? "http://localhost:9000";
 
 let socket: Socket | null = null;
