@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/avatar";
 import { motion, AnimatePresence } from "motion/react";
 import { format } from "date-fns";
+import { toast } from "sonner";
 
 interface Message {
 	id: string;
@@ -43,18 +44,13 @@ export function ChatComponent({
 	const [newMessage, setNewMessage] = useState("");
 	const [isSending, setIsSending] = useState(false);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
-	const [chatRoomId, setChatRoomId] = useState<string>("");
+	// Deterministic room id: sorted so both sides agree on the room name
+	const chatRoomId =
+		user?.id && instructorId
+			? `chat_${[user.id, instructorId].sort().join("_")}`
+			: "";
 	const [isTyping, setIsTyping] = useState(false);
 	const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-	// Generate a deterministic chat room ID from user and instructor IDs
-	useEffect(() => {
-		if (user?.id && instructorId) {
-			// Sort the IDs to ensure the same room ID regardless of who initiates
-			const sortedIds = [user.id, instructorId].sort();
-			setChatRoomId(`chat_${sortedIds[0]}_${sortedIds[1]}`);
-		}
-	}, [user?.id, instructorId]);
 
 	// Scroll to bottom when messages change
 	useEffect(() => {
@@ -69,13 +65,14 @@ export function ChatComponent({
 		socket.emit("join_chat", chatRoomId);
 
 		// Listen for incoming messages
-		socket.on("chat_message", (message: Message) => {
+		const onMessage = (message: Message) => {
 			setMessages((prev) => [...prev, message]);
 			setIsTyping(false);
-		});
+		};
+		socket.on("chat_message", onMessage);
 
 		// Listen for typing events
-		socket.on("typing", ({ sender }) => {
+		const onTyping = ({ sender }: { sender: string }) => {
 			if (sender !== user?.id) {
 				setIsTyping(true);
 
@@ -89,7 +86,8 @@ export function ChatComponent({
 					setIsTyping(false);
 				}, 3000);
 			}
-		});
+		};
+		socket.on("typing", onTyping);
 
 		// Fetch message history
 		socket.emit("get_chat_history", chatRoomId, (history: Message[]) => {
@@ -99,8 +97,10 @@ export function ChatComponent({
 		});
 
 		return () => {
-			socket.off("chat_message");
-			socket.off("typing");
+			// Only this component's handlers: the socket is shared (the
+			// notification bell listens on the same events).
+			socket.off("chat_message", onMessage);
+			socket.off("typing", onTyping);
 			socket.emit("leave_chat", chatRoomId);
 
 			if (typingTimeoutRef.current) {
@@ -131,6 +131,8 @@ export function ChatComponent({
 			(success: boolean) => {
 				if (success) {
 					setNewMessage("");
+				} else {
+					toast.error("Message could not be sent");
 				}
 				setIsSending(false);
 			},

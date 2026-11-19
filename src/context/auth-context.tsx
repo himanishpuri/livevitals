@@ -69,6 +69,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		isLoading: true,
 	});
 
+	// Tell the server who this socket belongs to, once the user is known and on
+	// every reconnect.
+	useEffect(() => {
+		const identify = () => {
+			if (authState.user) {
+				socket.emit("identify", {
+					userId: authState.user.id,
+					role: authState.user.role,
+				});
+			}
+		};
+
+		identify();
+		socket.on("connect", identify);
+		return () => {
+			socket.off("connect", identify);
+		};
+	}, [socket, authState.user]);
+
 	// Check for saved user data on load
 	useEffect(() => {
 		const checkAuth = () => {
@@ -82,9 +101,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 						isLoading: false,
 					});
 
-					// If it's an instructor, notify the server
+					// If it's an instructor, identify first so the server can
+					// already route calls to this user room, then sign in
 					if (user.role === "instructor") {
-						socket?.emit("instructor_signin", user.id);
+						socket.emit("identify", {
+							userId: user.id,
+							role: user.role,
+						});
+						socket.emit("instructor_signin", user.id);
 					}
 				} else {
 					setAuthState({
@@ -156,9 +180,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				JSON.stringify(authenticatedUser),
 			);
 
-			// If it's an instructor, notify the server
+			// If it's an instructor, identify first so the server can already
+			// route calls to this user room, then sign in
 			if (authenticatedUser.role === "instructor") {
-				socket?.emit("instructor_signin", authenticatedUser.id);
+				socket.emit("identify", {
+					userId: authenticatedUser.id,
+					role: authenticatedUser.role,
+				});
+				socket.emit("instructor_signin", authenticatedUser.id);
 			}
 
 			toast.success(`Welcome back, ${authenticatedUser.name}!`);
@@ -221,9 +250,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			// Save to local storage
 			localStorage.setItem("livevitals_user", JSON.stringify(newUser));
 
-			// If it's an instructor, notify the server
+			// If it's an instructor, identify first so the server can already
+			// route calls to this user room, then sign in
 			if (newUser.role === "instructor") {
-				socket?.emit("instructor_signin", newUser.id);
+				socket.emit("identify", {
+					userId: newUser.id,
+					role: newUser.role,
+				});
+				socket.emit("instructor_signin", newUser.id);
 			}
 
 			toast.success(`Welcome, ${newUser.name}!`);
@@ -239,9 +273,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	};
 
 	const logout = () => {
+		// Leave the user room before telling the server about a signout
+		socket.emit("identify", null);
+
 		// If it's an instructor, notify the server about signout
 		if (authState.user?.role === "instructor") {
-			socket?.emit("instructor_signout", authState.user.id);
+			socket.emit("instructor_signout", authState.user.id);
 		}
 
 		// Clear local storage

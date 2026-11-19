@@ -1,10 +1,12 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, Suspense } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import useSocket from "@/hooks/useSocket";
+import { useAuth } from "@/context/auth-context";
+import { peerOptions } from "@/lib/realtime";
 import Peer, { type MediaConnection } from "peerjs";
-import { instructors } from "@/data/instructors";
+import { type Instructor } from "@/data/instructors";
 import {
 	Avatar,
 	AvatarFallback,
@@ -36,26 +38,44 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "motion/react";
 
-const InstructorVideoChat = () => {
+const VideoRoom = () => {
 	const router = useRouter();
 	const params = useParams();
-	const { socket } = useSocket();
+	const searchParams = useSearchParams();
+	const { socket, instructors: liveInstructors } = useSocket();
+	const { user } = useAuth();
 
-	// Check if this is an instructor answering a call
-
-	// Instructor ID from URL
-	const instructorId = params?.id as string;
-	const instructor = instructors.find((ins) => ins.id === instructorId);
+	const instructorId = (params?.id as string) ?? "";
+	// An instructor answers a call from ?caller=, so show their own profile
+	// instead of looking up the instructors list.
+	const callerPeerId = searchParams.get("caller");
+	const answering = callerPeerId !== null && user?.role === "instructor";
+	const instructor = useMemo<Instructor | undefined>(
+		() =>
+			answering && user
+				? {
+						id: user.id,
+						name: user.name,
+						specialty: user.specialty ?? "",
+						biography: user.biography ?? "",
+						profileImage: user.profileImage ?? "",
+						availability: true,
+					}
+				: liveInstructors.find((ins) => ins.id === instructorId),
+		[answering, user, liveInstructors, instructorId],
+	);
+	const instructorName = instructor?.name ?? "instructor";
 
 	// Video chat refs
 	const myVideoRef = useRef<HTMLVideoElement>(null);
 	const instructorVideoRef = useRef<HTMLVideoElement>(null);
 	const currentCallRef = useRef<MediaConnection | null>(null);
 	const localStreamRef = useRef<MediaStream | null>(null);
+	const remoteStreamRef = useRef<MediaStream | null>(null);
+	const peerRef = useRef<Peer | null>(null);
 
 	// States
 	const [myPeerId, setMyPeerId] = useState<string>("");
-	const [peerInstance, setPeerInstance] = useState<Peer | null>(null);
 	const [isCalling, setIsCalling] = useState(false);
 	const [isConnected, setIsConnected] = useState(false);
 	const [copySuccess, setCopySuccess] = useState(false);
@@ -63,9 +83,16 @@ const InstructorVideoChat = () => {
 	const [audioEnabled, setAudioEnabled] = useState(true);
 	const [videoEnabled, setVideoEnabled] = useState(true);
 
-	const generateId = () => crypto.randomUUID();
-
 	const initializeCall = () => {
+		const peer = peerRef.current;
+		if (!peer?.open) {
+			toast.error("Still connecting. Try again in a moment.");
+			return;
+		}
+		if (!localStreamRef.current) {
+			toast.error("Could not access camera or microphone");
+			return;
+		}
 		if (!instructor?.availability) {
 			toast.error(
 				`${instructor?.name ?? "Instructor"} is currently offline`,
@@ -75,28 +102,9 @@ const InstructorVideoChat = () => {
 
 		setIsCalling(true);
 
-		navigator.mediaDevices
-			.getUserMedia({
-				video: true,
-				audio: true,
-			})
-			.then((stream) => {
-				localStreamRef.current = stream;
-
-				// Notify server about call intent
-				socket?.emit("initiate_call", {
-					from: myPeerId,
-					to: instructorId,
-				});
-
-				// Wait for instructor to connect
-				toast.info(`Calling ${instructor.name}...`);
-			})
-			.catch((err) => {
-				console.error("Error accessing media devices:", err);
-				setIsCalling(false);
-				toast.error("Could not access camera or microphone");
-			});
+		// The answering instructor dials back with peer.call once it sees this.
+		socket.emit("initiate_call", { from: peer.id, to: instructorId });
+		toast.info(`Calling ${instructor.name}...`);
 	};
 
 	const endCall = () => {
@@ -141,73 +149,81 @@ const InstructorVideoChat = () => {
 		setTimeout(() => setCopySuccess(false), 2000);
 	};
 
-	// Initialize peer connection
+	// Initialize peer connection. A fresh id per mount: the route id is the
+	// instructor, not a peer id.
 	useEffect(() => {
-		const newPeerId = generateId();
-		setMyPeerId(newPeerId);
+		const peer = new Peer(crypto.randomUUID(), peerOptions());
+		peerRef.current = peer;
 
-		if (typeof window !== "undefined") {
-			const peer = new Peer(newPeerId, {
-				host: "localhost",
-				port: 9000,
-				path: "/myapp",
-			});
-
-			setPeerInstance(peer);
-
-			// Get local video feed
-			navigator.mediaDevices
-				.getUserMedia({
-					video: true,
-					audio: true,
-				})
-				.then((stream) => {
-					localStreamRef.current = stream;
-					if (myVideoRef.current) {
-						myVideoRef.current.srcObject = stream;
-					}
-
-					// Handle incoming calls
-					peer.on("call", (call) => {
-						currentCallRef.current = call;
-						call.answer(stream);
-						setIsCalling(true);
-
-						call.on("stream", (instructorStream) => {
-							if (instructorVideoRef.current) {
-								instructorVideoRef.current.srcObject = instructorStream;
-								setIsConnected(true);
-								toast.success(
-									`Connected with ${instructor?.name || "instructor"}`,
-								);
-							}
-						});
-
-						call.on("close", () => {
-							endCall();
-							toast.info("Call ended");
-						});
-					});
-				});
-
-			// Handle connection errors
-			peer.on("error", (err) => {
-				console.error("PeerJS error:", err);
-				toast.error("Connection error. Please try again.");
-				endCall();
-			});
-
-			// Clean up on unmount
-			return () => {
-				if (localStreamRef.current) {
-					localStreamRef.current
-						.getTracks()
-						.forEach((track) => track.stop());
+		const streamPromise = navigator.mediaDevices
+			.getUserMedia({
+				video: true,
+				audio: true,
+			})
+			.then((stream) => {
+				localStreamRef.current = stream;
+				if (myVideoRef.current) {
+					myVideoRef.current.srcObject = stream;
 				}
-				peer.destroy();
-			};
+				return stream;
+			});
+
+		// The remote <video> mounts only after the first stream, so keep the
+		// stream here and attach it when connected.
+		const showRemoteStream = (call: MediaConnection) => {
+			call.on("stream", (remoteStream) => {
+				remoteStreamRef.current = remoteStream;
+				setIsConnected(true);
+				toast.success(`Connected with ${instructorName}`);
+			});
+
+			call.on("close", () => {
+				endCall();
+				toast.info("Call ended");
+			});
+		};
+
+		// Caller side: answer the instructor's peer.call.
+		peer.on("call", (call) => {
+			currentCallRef.current = call;
+			void streamPromise.then((stream) => call.answer(stream));
+			setIsCalling(true);
+			showRemoteStream(call);
+		});
+
+		// Answering instructor: dial the caller once this peer is registered.
+		peer.on("open", (id) => {
+			setMyPeerId(id);
+			if (!answering || !callerPeerId) return;
+			void streamPromise.then((stream) => {
+				const call = peer.call(callerPeerId, stream);
+				if (!call) return;
+				currentCallRef.current = call;
+				setIsCalling(true);
+				showRemoteStream(call);
+			});
+		});
+
+		// Handle connection errors
+		peer.on("error", (err) => {
+			console.error("PeerJS error:", err);
+			toast.error("Connection error. Please try again.");
+			endCall();
+		});
+
+		// Clean up on unmount
+		return () => {
+			localStreamRef.current?.getTracks().forEach((track) => track.stop());
+			peer.destroy();
+			peerRef.current = null;
+		};
+	}, [answering, callerPeerId, instructorName]);
+
+	useEffect(() => {
+		if (isConnected && instructorVideoRef.current) {
+			instructorVideoRef.current.srcObject = remoteStreamRef.current;
 		}
-	}, [instructorId]);
+	}, [isConnected]);
 
 	// Handle call_failed event from server
 	useEffect(() => {
@@ -251,7 +267,6 @@ const InstructorVideoChat = () => {
 	}
 
 	return (
-		<ProtectedRoute>
 			<div className="min-h-screen bg-gradient-to-b from-background to-background/80 p-6">
 				<div className="max-w-6xl mx-auto">
 				<div className="flex items-center gap-4 mb-8">
@@ -553,8 +568,15 @@ const InstructorVideoChat = () => {
 				</div>
 			</div>
 			</div>
-		</ProtectedRoute>
 	);
 };
 
-export default InstructorVideoChat;
+const InstructorChatPage = () => (
+	<Suspense fallback={<div className="min-h-screen" />}>
+		<ProtectedRoute>
+			<VideoRoom />
+		</ProtectedRoute>
+	</Suspense>
+);
+
+export default InstructorChatPage;

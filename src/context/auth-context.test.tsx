@@ -3,8 +3,12 @@ import { useEffect } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { AuthProvider, useAuth, type AuthContextType } from "./auth-context";
 
+const { socket } = vi.hoisted(() => ({
+	socket: { emit: vi.fn(), on: vi.fn(), off: vi.fn() },
+}));
+
 vi.mock("@/hooks/useSocket", () => ({
-	default: () => ({ socket: null, isConnected: false, instructors: [] }),
+	default: () => ({ socket, isConnected: false, instructors: [] }),
 }));
 
 const authRef: { current?: AuthContextType } = {};

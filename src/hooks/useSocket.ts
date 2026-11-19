@@ -1,71 +1,49 @@
-import { useEffect, useRef, useState } from "react";
-import { io, Socket } from "socket.io-client";
+import { useEffect, useState } from "react";
+import type { Socket } from "socket.io-client";
 import { Instructor, instructors } from "@/data/instructors";
+import { getSocket } from "@/lib/realtime";
 
 interface UseSocketReturn {
 	instructors: Instructor[];
 	isConnected: boolean;
-	socket: Socket | null;
+	socket: Socket;
 }
 
 const useSocket = (): UseSocketReturn => {
-	const [isConnected, setIsConnected] = useState(false);
+	const socket = getSocket();
+	const [isConnected, setIsConnected] = useState(socket.connected);
 	const [instructorsList, setInstructorsList] =
 		useState<Instructor[]>(instructors);
-	const socket = useRef<Socket | null>(null);
-	const [socketInstance, setSocketInstance] = useState<Socket | null>(null);
-
-	const socketInitializer = async () => {
-		if (!socket.current) {
-			// Connect to WebSocket server
-			socket.current = io("http://localhost:9000");
-
-			// Handle connection events
-			socket.current.on("connect", () => {
-				console.log("Socket connected");
-				setIsConnected(true);
-			});
-
-			socket.current.on("disconnect", () => {
-				console.log("Socket disconnected");
-				setIsConnected(false);
-			});
-
-			// Update instructor availability when received from server
-			socket.current.on(
-				"instructor_status",
-				(data: { id: string; available: boolean }) => {
-					setInstructorsList((prev) =>
-						prev.map((instructor) =>
-							instructor.id === data.id
-								? { ...instructor, availability: data.available }
-								: instructor,
-						),
-					);
-				},
-			);
-
-			// Get initial instructor statuses
-			socket.current.emit("get_instructor_status");
-			setSocketInstance(socket.current);
-		}
-	};
 
 	useEffect(() => {
-		socketInitializer();
+		const onConnect = () => setIsConnected(true);
+		const onDisconnect = () => setIsConnected(false);
+
+		// Update instructor availability when received from server
+		const onInstructorStatus = (data: { id: string; available: boolean }) => {
+			setInstructorsList((prev) =>
+				prev.map((instructor) =>
+					instructor.id === data.id
+						? { ...instructor, availability: data.available }
+						: instructor,
+				),
+			);
+		};
+
+		socket.on("connect", onConnect);
+		socket.on("disconnect", onDisconnect);
+		socket.on("instructor_status", onInstructorStatus);
+		socket.emit("get_instructor_status");
 
 		return () => {
-			if (socket.current) {
-				socket.current.disconnect();
-			}
+			// Only drop this hook's listeners: the socket is a shared singleton.
+			socket.off("connect", onConnect);
+			socket.off("disconnect", onDisconnect);
+			socket.off("instructor_status", onInstructorStatus);
 		};
-	}, []);
+	}, [socket]);
 
-	return {
-		instructors: instructorsList,
-		isConnected,
-		socket: socketInstance,
-	};
+	return { instructors: instructorsList, isConnected, socket };
 };
 
 export default useSocket;
