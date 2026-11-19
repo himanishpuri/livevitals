@@ -1,0 +1,21 @@
+services:
+  realtime:
+    build: ./realtime
+    ports:
+      - "9000:9000"
+    environment:
+      PORT: "9000"
+      CORS_ORIGIN: "http://localhost:3000"
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_REALTIME_URL: "${NEXT_PUBLIC_REALTIME_URL:-http://localhost:9000}"
+    ports:
+      - "3000:3000"
+    depends_on:
+      realtime:
+        condition: service_healthy
+    restart: unless-stopped
