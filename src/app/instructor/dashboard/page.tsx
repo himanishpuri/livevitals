@@ -3,7 +3,11 @@
 import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+} from "@/components/ui/avatar";
 import { toast } from "sonner";
 import useSocket from "@/hooks/useSocket";
 
@@ -104,21 +108,18 @@ export default function InstructorDashboard() {
 					{/* Instructor Profile */}
 					<div className="lg:w-1/3 bg-white rounded-xl shadow-md p-6">
 						<div className="flex items-center mb-6">
-							<div className="w-20 h-20 rounded-full overflow-hidden mr-4">
-								<Image
-									src={user.profileImage || "/instructors/male.jpg"}
+							<Avatar className="mr-4 h-20 w-20">
+								<AvatarImage
+									src={user.profileImage || "/placeholder.svg"}
 									alt={user.name}
-									width={80}
-									height={80}
-									className="object-cover"
-									onError={(e) => {
-										const target = e.target as HTMLImageElement;
-										target.src =
-											"https://via.placeholder.com/100?text=" +
-											user.name.charAt(0);
-									}}
 								/>
-							</div>
+								<AvatarFallback>
+									{user.name
+										.split(" ")
+										.map((part) => part.charAt(0))
+										.join("")}
+								</AvatarFallback>
+							</Avatar>
 							<div>
 								<h2 className="text-xl font-semibold">{user.name}</h2>
 								<p className="text-green-600 font-medium">

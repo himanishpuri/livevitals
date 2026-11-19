@@ -23,7 +23,7 @@ const DEMO_USERS = [
 		specialty: "Nutrition & Weight Management",
 		biography:
 			"John is a certified nutrition coach with 10+ years of experience helping clients achieve their health goals through balanced diet and lifestyle changes.",
-		profileImage: "/instructors/male.jpg",
+		profileImage: "/instructors/john-smith.svg",
 	},
 	{
 		id: "sarah-johnson",
@@ -34,7 +34,7 @@ const DEMO_USERS = [
 		specialty: "Strength Training",
 		biography:
 			"Sarah specializes in strength training and functional fitness, helping clients build muscle and improve overall body composition.",
-		profileImage: "/instructors/female.webp",
+		profileImage: "/instructors/sarah-johnson.svg",
 	},
 ];
 
@@ -169,8 +169,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 					data.role === "instructor"
 						? data.name.toLowerCase().includes("sarah") ||
 						  data.name.toLowerCase().includes("lisa")
-							? "/instructors/female.webp"
-							: "/instructors/male.jpg"
+							? "/instructors/sarah-johnson.svg"
+							: "/instructors/john-smith.svg"
 						: undefined,
 				specialty: data.specialty,
 				biography: data.biography,

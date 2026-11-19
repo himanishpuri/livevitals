@@ -5,7 +5,11 @@ import { toast } from "sonner";
 import useSocket from "@/hooks/useSocket";
 import Peer, { type MediaConnection } from "peerjs";
 import { instructors } from "@/data/instructors";
-import Image from "next/image";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+} from "@/components/ui/avatar";
 import { useAuth } from "@/context/auth-context";
 import { ScheduleSessionDialog } from "@/components/instructor-chat/schedule-session-dialog";
 import { ChatComponent } from "@/components/instructor-chat/chat-component";
@@ -317,25 +321,21 @@ const InstructorVideoChat = () => {
 							</CardHeader>
 							<CardContent>
 								<div className="flex flex-col items-center text-center mb-4">
-									<div className="w-24 h-24 rounded-full overflow-hidden relative border-2 border-background shadow-sm mb-4">
-										<Image
+									<Avatar className="mb-4 h-24 w-24 border-2 border-background shadow-sm">
+										<AvatarImage
 											src={
 												instructor.profileImage ||
 												"/placeholder.svg"
 											}
 											alt={instructor.name}
-											width={96}
-											height={96}
-											className="object-cover"
-											onError={(e) => {
-												// Fallback for image loading errors
-												const target = e.target as HTMLImageElement;
-												target.src =
-													"https://via.placeholder.com/100?text=" +
-													instructor.name.charAt(0);
-											}}
 										/>
-									</div>
+										<AvatarFallback>
+											{instructor.name
+												.split(" ")
+												.map((part) => part.charAt(0))
+												.join("")}
+										</AvatarFallback>
+									</Avatar>
 
 									<h2 className="text-xl font-semibold">
 										{instructor.name}
@@ -460,27 +460,21 @@ const InstructorVideoChat = () => {
 												) : (
 													<div className="absolute inset-0 flex items-center justify-center">
 														<div className="text-center">
-															<div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-2 border-background shadow-lg">
-																<Image
+															<Avatar className="mx-auto mb-4 h-24 w-24 border-2 border-background shadow-lg">
+																<AvatarImage
 																	src={
 																		instructor.profileImage ||
 																		"/placeholder.svg"
 																	}
 																	alt={instructor.name}
-																	width={96}
-																	height={96}
-																	className="object-cover"
-																	onError={(e) => {
-																		const target =
-																			e.target as HTMLImageElement;
-																		target.src =
-																			"https://via.placeholder.com/100?text=" +
-																			instructor.name.charAt(
-																				0,
-																			);
-																	}}
 																/>
-															</div>
+																<AvatarFallback>
+																	{instructor.name
+																		.split(" ")
+																		.map((part) => part.charAt(0))
+																		.join("")}
+																</AvatarFallback>
+															</Avatar>
 															{!isCalling ? (
 																<p className="text-xl font-medium mb-2">
 																	{instructor.name}

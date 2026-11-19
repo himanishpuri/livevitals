@@ -3,13 +3,17 @@ import type { Instructor } from "@/data/instructors";
 import type React from "react";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { motion } from "motion/react";
 import { Video, Star, Clock, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+} from "@/components/ui/avatar";
 
 interface InstructorCardProps {
 	instructor: Instructor;
@@ -51,22 +55,18 @@ const InstructorCard = ({ instructor }: InstructorCardProps) => {
 				<div className="flex flex-col items-center text-center">
 					{/* Avatar with availability indicator */}
 					<div className="relative mb-4">
-						<div className="w-28 h-28 rounded-full overflow-hidden relative border-4 border-background shadow-sm">
-							<Image
+						<Avatar className="h-28 w-28 border-4 border-background shadow-sm">
+							<AvatarImage
 								src={instructor.profileImage || "/placeholder.svg"}
 								alt={instructor.name}
-								width={112}
-								height={112}
-								className="object-cover"
-								onError={(e) => {
-									// Fallback for image loading errors
-									const target = e.target as HTMLImageElement;
-									target.src =
-										"https://via.placeholder.com/112?text=" +
-										instructor.name.charAt(0);
-								}}
 							/>
-						</div>
+							<AvatarFallback>
+								{instructor.name
+									.split(" ")
+									.map((part) => part.charAt(0))
+									.join("")}
+							</AvatarFallback>
+						</Avatar>
 
 						{/* Status indicator */}
 						<div
