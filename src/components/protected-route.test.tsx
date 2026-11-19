@@ -1,16 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { AuthState } from "@/types/user";
+import { authState } from "@/test-utils/auth";
 import ProtectedRoute from "./protected-route";
 
 const replace = vi.hoisted(() => vi.fn());
-const authState = vi.hoisted(() => ({
-	current: {
-		user: null,
-		isAuthenticated: false,
-		isLoading: false,
-	} as AuthState,
-}));
 
 vi.mock("next/navigation", () => ({
 	useRouter: () => ({ push: vi.fn(), replace }),

@@ -1,15 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { AuthState } from "@/types/user";
+import { authState } from "@/test-utils/auth";
 import Navbar from "./navbar";
-
-const authState = vi.hoisted(() => ({
-	current: {
-		user: null,
-		isAuthenticated: false,
-		isLoading: false,
-	} as AuthState,
-}));
 
 vi.mock("next/navigation", () => ({
 	useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
