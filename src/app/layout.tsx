@@ -29,7 +29,7 @@ export default function RootLayout({
 			>
 				<body className={inter.className}>
 					{" "}
-					<ThemeProvider>
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 						<AuthProvider>
 							<NotificationProvider>
 								<div className="flex min-h-screen flex-col">
