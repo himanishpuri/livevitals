@@ -19,3 +19,16 @@ services:
       realtime:
         condition: service_healthy
     restart: unless-stopped
+
+  e2e:
+    profiles: ["test"]
+    image: mcr.microsoft.com/playwright:v1.65.1-noble
+    network_mode: host
+    working_dir: /work
+    volumes:
+      - .:/work
+      - /work/node_modules
+    environment:
+      E2E_BASE_URL: "http://localhost:3000"
+      CI: "true"
+    command: ["sh", "-c", "npm ci && npx playwright test"]
