@@ -17,14 +17,22 @@ type NotificationType =
 	| "session_reminder"
 	| "instructor_online";
 
-interface Notification {
+export interface Notification {
 	id: string;
 	type: NotificationType;
 	title: string;
 	message: string;
 	timestamp: number;
 	read: boolean;
-	data?: Record<string, any>;
+	data?: { senderId?: string; instructorId?: string; roomId?: string };
+}
+
+interface ChatMessage {
+	id: string;
+	text: string;
+	sender: string;
+	senderName: string;
+	roomId?: string;
 }
 
 interface NotificationContextType {
@@ -76,7 +84,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 		});
 
 		// Listen for chat messages directed to the user
-		socket.on("chat_message", (message: any) => {
+		socket.on("chat_message", (message: ChatMessage) => {
 			// Only create notifications for messages from others, not our own
 			if (message.sender !== user.id) {
 				const notification: Notification = {

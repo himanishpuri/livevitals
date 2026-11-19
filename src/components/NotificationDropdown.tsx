@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useNotifications } from "@/context/notification-context";
+import { useNotifications, type Notification } from "@/context/notification-context";
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +19,7 @@ export function NotificationDropdown() {
 		useNotifications();
 	const [open, setOpen] = useState(false);
 
-	const handleNotificationClick = (notification: any) => {
+	const handleNotificationClick = (notification: Notification) => {
 		markAsRead(notification.id);
 		setOpen(false);
 

@@ -46,13 +46,13 @@ import { Instructor } from "@/data/instructors";
 // Form schema for scheduling a session
 const scheduleFormSchema = z.object({
 	date: z.date({
-		required_error: "Please select a date",
+		error: "Please select a date",
 	}),
 	timeSlot: z.string({
-		required_error: "Please select a time slot",
+		error: "Please select a time slot",
 	}),
 	sessionType: z.string({
-		required_error: "Please select a session type",
+		error: "Please select a session type",
 	}),
 	notes: z.string().optional(),
 });
@@ -193,7 +193,6 @@ export function ScheduleSessionDialog({
 													date < new Date() ||
 													date > addDays(new Date(), 30)
 												}
-												initialFocus
 											/>
 										</PopoverContent>
 									</Popover>
