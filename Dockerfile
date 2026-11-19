@@ -24,8 +24,7 @@ ENV NODE_ENV=production \
     HOSTNAME=0.0.0.0
 LABEL org.opencontainers.image.title="livevitals" \
       org.opencontainers.image.description="LiveVitals health and fitness web app" \
-      org.opencontainers.image.source="https://github.com/himanishpuri/livevitals" \
-      org.opencontainers.image.licenses="MIT"
+      org.opencontainers.image.source="https://github.com/himanishpuri/livevitals"
 # Next.js writes to .next/cache at runtime (image optimization); the node user must own it.
 RUN mkdir .next && chown node:node .next
 COPY --from=builder --chown=node:node /app/public ./public
