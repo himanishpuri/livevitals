@@ -7,12 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-07-20
+
+Codebase hardening. No changes to routes, socket events or stored data.
+
 ### Added
 
 - Repository hygiene files: license, contributor and security policies,
   changelog, editor and git attributes, Dependabot, CODEOWNERS, pull request and
   issue templates.
 - no-mistakes push gate configuration.
+- Prettier formatting and a jscpd duplicate-code check, both enforced in CI.
+
+### Changed
+
+- CI runs with least-privilege permissions, concurrency groups, timeouts and
+  SHA-pinned actions; container images carry OCI labels.
+- File names follow kebab-case, and duplicated auth layouts, form fields and
+  test helpers are shared.
+- Removed stray console logging and unused dependencies; README credits and
+  stats refreshed.
+
+### Fixed
+
+- Exercise checkboxes and "Mark Day as Complete" on the workout plan now work
+  and persist.
+- The workout plan is no longer empty on Sundays.
+
 
 ## [1.0.0] - 2025-07-13
 
@@ -58,5 +79,6 @@ Original course build: landing site, authentication with roles, health tracking
 dashboard and data entry, diet plans, profile and goals, instructor listing,
 chat, video consultation and session scheduling.
 
-[Unreleased]: https://github.com/himanishpuri/livevitals/compare/v1.0.0...main
+[Unreleased]: https://github.com/himanishpuri/livevitals/compare/v1.0.1...main
+[1.0.1]: https://github.com/himanishpuri/livevitals/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/himanishpuri/livevitals/releases/tag/v1.0.0
