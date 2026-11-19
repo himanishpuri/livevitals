@@ -125,7 +125,7 @@ You can also register a new account (user or instructor); it persists locally.
 │   ├── components/       # feature components + shadcn ui kit
 │   ├── context/          # auth, health data, notification providers
 │   ├── data/             # mock data (instructors, diet, workout plan)
-│   ├── hooks/            # useSocket
+│   ├── hooks/            # use-socket, use-workout-progress
 │   ├── lib/              # utils, realtime client
 │   └── types/
 ├── compose.yaml
@@ -134,17 +134,16 @@ You can also register a new account (user or instructor); it persists locally.
 
 ## Project management
 
-The project is managed as Scrum in the Jira Cloud project [`LV`](https://thapar-team-mv9022gd.atlassian.net/browse/LV): **9 sprints** (3 history sprints for the original course build, 6 overhaul sprints), **15 epics** and **116 issues**, backed by a committed idempotent REST tooling script in `scripts/jira/`. Every commit and pull request references a `LV-` issue key.
+The project is managed as Scrum in the Jira Cloud project [`LV`](https://thapar-team-mv9022gd.atlassian.net/browse/LV): **10 sprints** (3 history sprints for the original course build, 6 overhaul sprints and 1 hardening sprint), **16 epics** and **127 issues**, backed by a committed idempotent REST tooling script in `scripts/jira/`. Every commit and pull request references a `LV-` issue key.
 
-## Team
+## Contributing
 
-| Member | Roll number |
-| --- | --- |
-| Himanish Puri | 102318076 |
-| Kush Khandpur | 102318044 |
-| Vansh Chauhan | 102318057 |
-| Aarushi | 102318078 |
+See [CONTRIBUTING.md](CONTRIBUTING.md). Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+---
+
+Made by Himanish · May 2025

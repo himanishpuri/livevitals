@@ -5,6 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
+  addendumIds,
   buildCsv,
   csvLine,
   epicCostInr,
@@ -173,7 +174,7 @@ test("sub-tasks are the only rows with an issue parent", () => {
 test("sprint table matches the backlog sums", () => {
   const expected = {
     S1: [22, 48], S2: [10, 26], S3: [14, 32], S4: [7, 16], S5: [14, 24],
-    S6: [15, 29], S7: [9, 27], S8: [5, 15], S9: [3, 5], S10: [8, 15],
+    S6: [15, 29], S7: [9, 27], S8: [5, 15], S9: [3, 5], S10: [9, 17],
   };
   const totals = sprintTotals(backlog);
   assert.equal(totals.length, 10);
@@ -185,7 +186,7 @@ test("sprint table matches the backlog sums", () => {
     .filter((issue) => issue.sprint && issue.type !== "Sub-task" && issue.status === "Done")
     .reduce((sum, issue) => sum + issue.storyPoints, 0);
   assert.equal(sprintsPoints, manual);
-  assert.equal(backlog.issues.length, 126);
+  assert.equal(backlog.issues.length, 127);
 });
 
 test("csv repeats multi-value headers and keeps columns aligned", () => {
@@ -252,4 +253,10 @@ test("addendum children point at a parent epic imported in the same file", () =>
   const child = planRows(backlog, state, overrides).find((row) => row.issue.ref === "O32");
   assert.equal(child.issueId, 2001);
   assert.equal(child.parentId, 2000);
+});
+
+test("a later addendum never reuses ids handed out by an earlier one", () => {
+  const first = addendumIds(backlog, ["E16", "O32"]);
+  const second = addendumIds(backlog, ["O40"], Math.max(...first.values()));
+  assert.ok(second.get("O40") > Math.max(...first.values()));
 });

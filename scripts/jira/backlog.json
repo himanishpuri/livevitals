@@ -2668,6 +2668,26 @@
       "commits": []
     },
     {
+      "ref": "O40",
+      "type": "Bug",
+      "summary": "Workout exercise checkboxes and Mark Day as Complete do nothing",
+      "description": "On the weekly workout plan, ticking an exercise or pressing Mark Day as Complete had no effect, so progress could not be tracked.\n\nAcceptance: Ticking an exercise toggles its completion, Mark Day as Complete marks every exercise of that day, a fully completed day shows Day complete, and progress survives a reload for the signed-in user.",
+      "status": "Done",
+      "created": "2025-07-14 09:30",
+      "resolved": "2025-07-17 17:30",
+      "due": null,
+      "parent": "E12",
+      "sprint": "S10",
+      "storyPoints": 2,
+      "estimateH": 3,
+      "spentH": 3,
+      "components": [
+        "Health Tracking"
+      ],
+      "fixVersion": "v1.0.1",
+      "commits": []
+    },
+    {
       "ref": "F1",
       "type": "Story",
       "summary": "Real authentication backend with server sessions",
