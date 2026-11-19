@@ -1,0 +1,40 @@
+# no-mistakes push gate: `git push no-mistakes <branch>` reviews, lints and
+# tests the change in a disposable worktree before it reaches origin.
+# Docs: https://kunchenguid.github.io/no-mistakes/reference/repo-config/
+agent: claude
+
+commands:
+  prepare: "npm ci && npm --prefix realtime ci"
+  lint: "npm run lint && npm run typecheck"
+  # Fast local checks only; CI runs build, e2e and Docker.
+  test: "npm test && npm --prefix realtime test && npm run test:jira"
+
+ignore_patterns:
+  - "package-lock.json"
+  - "realtime/package-lock.json"
+  - "docs/screenshots/**"
+
+protected_paths:
+  - "package-lock.json"
+  - "realtime/package-lock.json"
+
+review:
+  path_instructions:
+    - path: "**"
+      instructions: |
+        Flag duplicated logic: blocks of ~8+ similar lines, or code that
+        reimplements an existing helper in src/lib, src/hooks, src/context or
+        src/components. Ask for a shared helper or component instead.
+        Refactor and cleanup changes must not alter behaviour, routes, socket
+        event names or accessible names used by e2e/ specs.
+    - path: "src/components/ui/**"
+      instructions: |
+        shadcn/ui generated components. Do not request refactors or style changes.
+
+commit:
+  branch_pattern: '(LV-[0-9]+)'
+  fix_message: "{{.Branch}}: {{.Summary}}"
+  trailers: []
+
+pr:
+  title_format: "{{.Branch}}: {{.Title}}"

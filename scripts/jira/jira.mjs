@@ -86,7 +86,7 @@ export function planRows(backlog, state = {}, issueIdOverrides = null) {
   return issues.map((issue) => ({
     issue,
     issueId: issueIdOverrides?.get(issue.ref) ?? idByRef.get(issue.ref),
-    parentId: issue.parent ? idByRef.get(issue.parent) ?? "" : "",
+    parentId: issue.parent ? issueIdOverrides?.get(issue.parent) ?? idByRef.get(issue.parent) ?? "" : "",
     sprintId: issue.sprint ? sprintIds[issue.sprint] ?? "" : "",
     accountId,
     cost: issue.type === "Epic"
@@ -448,7 +448,8 @@ function cmdAddendum(refs) {
 }
 
 // The importer skips rows whose Issue Id already exists, so addenda use fresh
-// ids. Parent cells still resolve to rows from the previous import.
+// ids. Parent cells point at the fresh id when the parent is in the same
+// addendum, otherwise at its row from the previous import.
 function addendumIds(backlog, refs) {
   const base = 1000 + backlog.issues.length;
   return new Map(refs.map((ref, index) => [ref, base + index]));

@@ -173,10 +173,10 @@ test("sub-tasks are the only rows with an issue parent", () => {
 test("sprint table matches the backlog sums", () => {
   const expected = {
     S1: [22, 48], S2: [10, 26], S3: [14, 32], S4: [7, 16], S5: [14, 24],
-    S6: [15, 29], S7: [9, 27], S8: [5, 15], S9: [3, 5],
+    S6: [15, 29], S7: [9, 27], S8: [5, 15], S9: [3, 5], S10: [8, 15],
   };
   const totals = sprintTotals(backlog);
-  assert.equal(totals.length, 9);
+  assert.equal(totals.length, 10);
   for (const row of totals) {
     assert.deepEqual([row.issues, row.storyPoints], expected[row.sprint], row.sprint);
   }
@@ -185,7 +185,7 @@ test("sprint table matches the backlog sums", () => {
     .filter((issue) => issue.sprint && issue.type !== "Sub-task" && issue.status === "Done")
     .reduce((sum, issue) => sum + issue.storyPoints, 0);
   assert.equal(sprintsPoints, manual);
-  assert.equal(backlog.issues.length, 117);
+  assert.equal(backlog.issues.length, 126);
 });
 
 test("csv repeats multi-value headers and keeps columns aligned", () => {
@@ -245,4 +245,11 @@ test("addendum rows get fresh issue ids but keep parent ids from the backlog", (
   assert.equal(rows.length, 1);
   assert.equal(rows[0].issueId, 1000);
   assert.equal(rows[0].parentId, 13); // E13 keeps its original row id
+});
+
+test("addendum children point at a parent epic imported in the same file", () => {
+  const overrides = new Map([["E16", 2000], ["O32", 2001]]);
+  const child = planRows(backlog, state, overrides).find((row) => row.issue.ref === "O32");
+  assert.equal(child.issueId, 2001);
+  assert.equal(child.parentId, 2000);
 });
