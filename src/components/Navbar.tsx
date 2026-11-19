@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useTransitionRouter } from "next-view-transitions";
 import { Activity, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -21,7 +20,6 @@ import {
 
 export default function Navbar() {
 	const pathname = usePathname();
-	const router = useTransitionRouter();
 
 	// Replace the navLinks array with this dynamic function that returns links based on auth status
 	const getNavLinks = (isAuth: boolean, userRole?: string) => {
@@ -77,12 +75,6 @@ export default function Navbar() {
 							<Link
 								key={link.href}
 								href={link.href}
-								onClick={(e) => {
-									e.preventDefault();
-									router.push(link.href, {
-										onTransitionReady: pageAnimation,
-									});
-								}}
 								className={cn(
 									"text-sm font-medium transition-colors hover:text-primary",
 									pathname === link.href
@@ -130,12 +122,6 @@ export default function Navbar() {
 								>
 									<Link
 										href={link.href}
-										onClick={(e) => {
-											e.preventDefault();
-											router.push(link.href, {
-												onTransitionReady: pageAnimation,
-											});
-										}}
 										className={cn(
 											"text-lg font-medium transition-colors hover:text-primary",
 											pathname === link.href
@@ -164,42 +150,3 @@ export default function Navbar() {
 	);
 }
 
-const pageAnimation = () => {
-	document.documentElement.animate(
-		[
-			{
-				opacity: 1,
-				scale: 1,
-				transform: "translateY(0)",
-			},
-			{
-				opacity: 0,
-				scale: 0.9,
-				transform: "translateY(-100px)",
-			},
-		],
-		{
-			duration: 1000,
-			easing: "cubic-bezier(0.76, 0, 0.24, 1)",
-			fill: "forwards",
-			pseudoElement: "::view-transition-old(root)",
-		},
-	);
-
-	document.documentElement.animate(
-		[
-			{
-				transform: "translateY(100%)",
-			},
-			{
-				transform: "translateY(0)",
-			},
-		],
-		{
-			duration: 1000,
-			easing: "cubic-bezier(0.76, 0, 0.24, 1)",
-			fill: "forwards",
-			pseudoElement: "::view-transition-new(root)",
-		},
-	);
-};

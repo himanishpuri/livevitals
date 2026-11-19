@@ -120,3 +120,32 @@
     @apply bg-background text-foreground;
   }
 }
+@keyframes vt-out {
+  from {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    scale: 0.9;
+    transform: translateY(-100px);
+  }
+}
+
+@keyframes vt-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+::view-transition-old(root) {
+  animation: 1000ms cubic-bezier(0.76, 0, 0.24, 1) both vt-out;
+}
+
+::view-transition-new(root) {
+  animation: 1000ms cubic-bezier(0.76, 0, 0.24, 1) both vt-in;
+}
