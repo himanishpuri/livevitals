@@ -60,11 +60,10 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
+	function onSubmit() {
 		setIsSaving(true);
 
 		// Simulate API call
-		console.log(values);
 		setTimeout(() => {
 			setIsSaving(false);
 			toast.success("Profile updated successfully");
