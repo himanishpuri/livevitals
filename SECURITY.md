@@ -2,10 +2,7 @@
 
 ## Supported versions
 
-| Version | Supported |
-| ------- | --------- |
-| 1.0.x   | Yes       |
-| < 1.0   | No        |
+Only the latest `main` is supported. No releases are tagged yet.
 
 ## Reporting a vulnerability
 
