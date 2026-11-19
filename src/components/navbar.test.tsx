@@ -4,7 +4,11 @@ import type { AuthState } from "@/types/user";
 import Navbar from "./navbar";
 
 const authState = vi.hoisted(() => ({
-	current: { user: null, isAuthenticated: false, isLoading: false } as AuthState,
+	current: {
+		user: null,
+		isAuthenticated: false,
+		isLoading: false,
+	} as AuthState,
 }));
 
 vi.mock("next/navigation", () => ({
@@ -20,15 +24,26 @@ vi.mock("@/components/notification-dropdown", () => ({
 	NotificationDropdown: () => <div data-testid="bell" />,
 }));
 
-const user = { id: "user-1", name: "Demo User", email: "user@example.com", role: "user" as const };
+const user = {
+	id: "user-1",
+	name: "Demo User",
+	email: "user@example.com",
+	role: "user" as const,
+};
 
 describe("Navbar", () => {
 	it("hides app links and the bell from anonymous visitors", () => {
-		authState.current = { user: null, isAuthenticated: false, isLoading: false };
+		authState.current = {
+			user: null,
+			isAuthenticated: false,
+			isLoading: false,
+		};
 
 		render(<Navbar />);
 
-		expect(screen.queryByRole("link", { name: "Dashboard" })).not.toBeInTheDocument();
+		expect(
+			screen.queryByRole("link", { name: "Dashboard" }),
+		).not.toBeInTheDocument();
 		expect(screen.queryByTestId("bell")).not.toBeInTheDocument();
 	});
 
@@ -37,15 +52,19 @@ describe("Navbar", () => {
 
 		render(<Navbar />);
 
-		expect(screen.getAllByRole("link", { name: "Workout Plan" })[0]).toHaveAttribute(
-			"href",
-			"/my-workout-plan",
-		);
+		expect(
+			screen.getAllByRole("link", { name: "Workout Plan" })[0],
+		).toHaveAttribute("href", "/my-workout-plan");
 	});
 
 	it("shows the instructor dashboard link to an instructor", () => {
 		authState.current = {
-			user: { id: "john-smith", name: "John Smith", email: "john@example.com", role: "instructor" as const },
+			user: {
+				id: "john-smith",
+				name: "John Smith",
+				email: "john@example.com",
+				role: "instructor" as const,
+			},
 			isAuthenticated: true,
 			isLoading: false,
 		};

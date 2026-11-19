@@ -19,9 +19,9 @@ export default function AboutSection({
 							Why Choose LiveVitals
 						</h2>
 						<p className="max-w-[900px] text-muted-foreground md:text-xl">
-							We&apos;re transforming fitness coaching through secure
-							video consultations with expert instructors and innovative
-							digital health tracking.
+							We&apos;re transforming fitness coaching through secure video
+							consultations with expert instructors and innovative digital
+							health tracking.
 						</p>
 					</div>
 				</div>
@@ -32,8 +32,8 @@ export default function AboutSection({
 						</div>
 						<h3 className="text-xl font-bold">High-Quality Video</h3>
 						<p className="text-muted-foreground">
-							Crystal clear video and audio for the best possible virtual
-							care experience.
+							Crystal clear video and audio for the best possible virtual care
+							experience.
 						</p>
 					</div>
 					<div className="flex flex-col items-center space-y-4 text-center">
@@ -43,8 +43,8 @@ export default function AboutSection({
 						</div>
 						<h3 className="text-xl font-bold">Secure & Private</h3>
 						<p className="text-muted-foreground">
-							End-to-end encryption protects your video calls and
-							personal fitness information.
+							End-to-end encryption protects your video calls and personal
+							fitness information.
 						</p>
 					</div>
 					<div className="flex flex-col items-center space-y-4 text-center">
@@ -65,38 +65,35 @@ export default function AboutSection({
 							{" "}
 							<h3 className="text-2xl font-bold">Our Mission</h3>
 							<p className="text-muted-foreground">
-								At LiveVitals, we believe that quality fitness
-								instruction should be accessible to everyone, regardless
-								of location or schedule. Our mission is to connect
-								fitness enthusiasts with expert instructors through
-								innovative technology, making fitness guidance more
-								convenient, effective, and personalized.
+								At LiveVitals, we believe that quality fitness instruction
+								should be accessible to everyone, regardless of location or
+								schedule. Our mission is to connect fitness enthusiasts with
+								expert instructors through innovative technology, making fitness
+								guidance more convenient, effective, and personalized.
 							</p>
 						</div>
 
 						<div className="space-y-4">
 							<h3 className="text-2xl font-bold">Our Team</h3>
 							<p className="text-muted-foreground">
-								Our team consists of healthcare professionals,
-								technology experts, and customer service specialists who
-								are passionate about transforming the healthcare
-								experience. With decades of combined experience in both
-								healthcare and technology sectors, we&apos;re uniquely
-								positioned to understand and address the challenges of
-								modern healthcare delivery.
+								Our team consists of healthcare professionals, technology
+								experts, and customer service specialists who are passionate
+								about transforming the healthcare experience. With decades of
+								combined experience in both healthcare and technology sectors,
+								we&apos;re uniquely positioned to understand and address the
+								challenges of modern healthcare delivery.
 							</p>
 						</div>
 
 						<div className="space-y-4">
 							<h3 className="text-2xl font-bold">Our Technology</h3>
 							<p className="text-muted-foreground">
-								We&apos;ve developed a proprietary video calling
-								platform specifically optimized for healthcare
-								consultations. Our technology ensures high-definition
-								video quality even with limited bandwidth, provides
-								tools for healthcare professionals to conduct thorough
-								virtual examinations, and integrates seamlessly with
-								electronic health records for comprehensive care
+								We&apos;ve developed a proprietary video calling platform
+								specifically optimized for healthcare consultations. Our
+								technology ensures high-definition video quality even with
+								limited bandwidth, provides tools for healthcare professionals
+								to conduct thorough virtual examinations, and integrates
+								seamlessly with electronic health records for comprehensive care
 								management.
 							</p>
 						</div>

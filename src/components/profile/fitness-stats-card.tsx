@@ -107,10 +107,7 @@ export function FitnessStatsCard({
 			<CardContent>
 				{isEditing ? (
 					<Form {...form}>
-						<form
-							onSubmit={form.handleSubmit(onSubmit)}
-							className="space-y-4"
-						>
+						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 								<FormField
 									control={form.control}
@@ -136,10 +133,7 @@ export function FitnessStatsCard({
 										<FormItem>
 											<FormLabel>Weight</FormLabel>
 											<FormControl>
-												<Input
-													placeholder="e.g., 160lbs or 73kg"
-													{...field}
-												/>
+												<Input placeholder="e.g., 160lbs or 73kg" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -155,10 +149,7 @@ export function FitnessStatsCard({
 										<FormItem>
 											<FormLabel>Resting Heart Rate (BPM)</FormLabel>
 											<FormControl>
-												<Input
-													type="number"
-													{...field}
-												/>
+												<Input type="number" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -172,10 +163,7 @@ export function FitnessStatsCard({
 										<FormItem>
 											<FormLabel>Workouts Per Week</FormLabel>
 											<FormControl>
-												<Input
-													type="number"
-													{...field}
-												/>
+												<Input type="number" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -200,18 +188,12 @@ export function FitnessStatsCard({
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
-													<SelectItem value="beginner">
-														Beginner
-													</SelectItem>
+													<SelectItem value="beginner">Beginner</SelectItem>
 													<SelectItem value="intermediate">
 														Intermediate
 													</SelectItem>
-													<SelectItem value="advanced">
-														Advanced
-													</SelectItem>
-													<SelectItem value="elite">
-														Elite
-													</SelectItem>
+													<SelectItem value="advanced">Advanced</SelectItem>
+													<SelectItem value="elite">Elite</SelectItem>
 												</SelectContent>
 											</Select>
 											<FormMessage />
@@ -247,9 +229,7 @@ export function FitnessStatsCard({
 													<SelectItem value="evening">
 														Evening (4-8pm)
 													</SelectItem>
-													<SelectItem value="night">
-														Night (8pm+)
-													</SelectItem>
+													<SelectItem value="night">Night (8pm+)</SelectItem>
 												</SelectContent>
 											</Select>
 											<FormMessage />

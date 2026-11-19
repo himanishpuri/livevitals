@@ -1,10 +1,7 @@
 export type Role = "user" | "instructor";
 
 export type NotificationType =
-	| "message"
-	| "session_scheduled"
-	| "session_reminder"
-	| "instructor_online";
+	"message" | "session_scheduled" | "session_reminder" | "instructor_online";
 
 export interface Message {
 	id: string;

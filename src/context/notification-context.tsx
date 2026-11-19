@@ -12,10 +12,7 @@ import { useAuth } from "@/context/auth-context";
 import { toast } from "sonner";
 
 type NotificationType =
-	| "message"
-	| "session_scheduled"
-	| "session_reminder"
-	| "instructor_online";
+	"message" | "session_scheduled" | "session_reminder" | "instructor_online";
 
 export interface Notification {
 	id: string;
@@ -114,9 +111,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 	const markAsRead = (id: string) => {
 		setNotifications((prev) =>
 			prev.map((notification) =>
-				notification.id === id
-					? { ...notification, read: true }
-					: notification,
+				notification.id === id ? { ...notification, read: true } : notification,
 			),
 		);
 	};

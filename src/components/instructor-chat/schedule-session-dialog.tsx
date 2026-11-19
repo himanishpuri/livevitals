@@ -130,30 +130,22 @@ export function ScheduleSessionDialog({
 	}
 
 	return (
-		<Dialog
-			open={open}
-			onOpenChange={setOpen}
-		>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button variant="outline">Schedule a Session</Button>
 			</DialogTrigger>
 
 			<DialogContent className="sm:max-w-[500px]">
 				<DialogHeader>
-					<DialogTitle>
-						Schedule a Session with {instructor.name}
-					</DialogTitle>
+					<DialogTitle>Schedule a Session with {instructor.name}</DialogTitle>
 					<DialogDescription>
-						Choose a date and time that works for you. Your session will
-						be confirmed upon submission.
+						Choose a date and time that works for you. Your session will be
+						confirmed upon submission.
 					</DialogDescription>
 				</DialogHeader>
 
 				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(onSubmit)}
-						className="space-y-4"
-					>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 						<FormField
 							control={form.control}
 							name="date"
@@ -167,8 +159,7 @@ export function ScheduleSessionDialog({
 													variant={"outline"}
 													className={cn(
 														"pl-3 text-left font-normal",
-														!field.value &&
-															"text-muted-foreground",
+														!field.value && "text-muted-foreground",
 													)}
 												>
 													{field.value ? (
@@ -180,18 +171,14 @@ export function ScheduleSessionDialog({
 												</Button>
 											</FormControl>
 										</PopoverTrigger>
-										<PopoverContent
-											className="w-auto p-0"
-											align="start"
-										>
+										<PopoverContent className="w-auto p-0" align="start">
 											<Calendar
 												mode="single"
 												selected={field.value}
 												onSelect={field.onChange}
 												disabled={(date) =>
 													// Disable dates in the past and more than 30 days in the future
-													date < new Date() ||
-													date > addDays(new Date(), 30)
+													date < new Date() || date > addDays(new Date(), 30)
 												}
 											/>
 										</PopoverContent>
@@ -221,10 +208,7 @@ export function ScheduleSessionDialog({
 										</FormControl>
 										<SelectContent>
 											{timeSlots.map((slot) => (
-												<SelectItem
-													key={slot}
-													value={slot}
-												>
+												<SelectItem key={slot} value={slot}>
 													<div className="flex items-center">
 														<Clock className="mr-2 h-4 w-4" />
 														<span>{slot}</span>
@@ -258,10 +242,7 @@ export function ScheduleSessionDialog({
 										</FormControl>
 										<SelectContent>
 											{sessionTypes.map((type) => (
-												<SelectItem
-													key={type}
-													value={type}
-												>
+												<SelectItem key={type} value={type}>
 													{type}
 												</SelectItem>
 											))}
@@ -291,11 +272,7 @@ export function ScheduleSessionDialog({
 						/>
 
 						<DialogFooter>
-							<Button
-								type="submit"
-								className="w-full"
-								disabled={isSubmitting}
-							>
+							<Button type="submit" className="w-full" disabled={isSubmitting}>
 								{isSubmitting ? "Scheduling..." : "Schedule Session"}
 							</Button>
 						</DialogFooter>

@@ -50,7 +50,7 @@ review:
         shadcn/ui generated components. Do not request refactors or style changes.
 
 commit:
-  branch_pattern: '(LV-[0-9]+)'
+  branch_pattern: "(LV-[0-9]+)"
   fix_message: "{{.Branch}}: {{.Summary}}"
   trailers: []
 

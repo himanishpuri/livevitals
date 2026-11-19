@@ -27,7 +27,8 @@ function readStoredHealthData(): HealthData {
 }
 
 export function HealthDataProvider({ children }: { children: ReactNode }) {
-	const [healthData, setHealthData] = useState<HealthData>(readStoredHealthData);
+	const [healthData, setHealthData] =
+		useState<HealthData>(readStoredHealthData);
 
 	// Save data to localStorage when it changes
 	useEffect(() => {

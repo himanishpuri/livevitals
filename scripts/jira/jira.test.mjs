@@ -21,7 +21,9 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const backlog = JSON.parse(readFileSync(join(HERE, "backlog.json"), "utf8"));
 const state = {
   accountId: "acc-1",
-  sprints: Object.fromEntries(backlog.sprints.map((sprint, index) => [sprint.ref, 900 + index])),
+  sprints: Object.fromEntries(
+    backlog.sprints.map((sprint, index) => [sprint.ref, 900 + index]),
+  ),
 };
 
 function parseCsv(text) {
@@ -126,12 +128,17 @@ test("parent cell is the issue id of the parent row", () => {
 test("epics come first and parents precede children", () => {
   const ordered = orderedIssues(backlog);
   const epicCount = ordered.filter((issue) => issue.type === "Epic").length;
-  assert.ok(ordered.slice(0, epicCount).every((issue) => issue.type === "Epic"));
+  assert.ok(
+    ordered.slice(0, epicCount).every((issue) => issue.type === "Epic"),
+  );
   assert.ok(ordered.slice(epicCount).every((issue) => issue.type !== "Epic"));
   const position = new Map(ordered.map((issue, index) => [issue.ref, index]));
   for (const issue of ordered) {
     if (!issue.parent) continue;
-    assert.ok(position.get(issue.parent) < position.get(issue.ref), `${issue.ref} after its parent`);
+    assert.ok(
+      position.get(issue.parent) < position.get(issue.ref),
+      `${issue.ref} after its parent`,
+    );
   }
   assert.equal(body.length, backlog.issues.length);
   assert.equal(body[0][0], "1");
@@ -151,13 +158,19 @@ test("every parent and sprint ref exists", () => {
     if (issue.parent) {
       assert.ok(refs.has(issue.parent), `${issue.ref} parent ${issue.parent}`);
       if (issue.type === "Sub-task") {
-        assert.notEqual(backlog.issues.find((item) => item.ref === issue.parent).type, "Epic",
-          `${issue.ref} must not hang off an epic`);
+        assert.notEqual(
+          backlog.issues.find((item) => item.ref === issue.parent).type,
+          "Epic",
+          `${issue.ref} must not hang off an epic`,
+        );
       }
     }
-    if (issue.sprint) assert.ok(sprintRefs.has(issue.sprint), `${issue.ref} sprint`);
-    if (issue.fixVersion) assert.ok(versionRefs.has(issue.fixVersion), `${issue.ref} fixVersion`);
-    for (const component of issue.components) assert.ok(components.has(component), `${issue.ref} component`);
+    if (issue.sprint)
+      assert.ok(sprintRefs.has(issue.sprint), `${issue.ref} sprint`);
+    if (issue.fixVersion)
+      assert.ok(versionRefs.has(issue.fixVersion), `${issue.ref} fixVersion`);
+    for (const component of issue.components)
+      assert.ok(components.has(component), `${issue.ref} component`);
   }
 });
 
@@ -173,17 +186,32 @@ test("sub-tasks are the only rows with an issue parent", () => {
 
 test("sprint table matches the backlog sums", () => {
   const expected = {
-    S1: [22, 48], S2: [10, 26], S3: [14, 32], S4: [7, 16], S5: [14, 24],
-    S6: [15, 29], S7: [9, 27], S8: [5, 15], S9: [3, 5], S10: [10, 18],
+    S1: [22, 48],
+    S2: [10, 26],
+    S3: [14, 32],
+    S4: [7, 16],
+    S5: [14, 24],
+    S6: [15, 29],
+    S7: [9, 27],
+    S8: [5, 15],
+    S9: [3, 5],
+    S10: [10, 18],
   };
   const totals = sprintTotals(backlog);
   assert.equal(totals.length, 10);
   for (const row of totals) {
-    assert.deepEqual([row.issues, row.storyPoints], expected[row.sprint], row.sprint);
+    assert.deepEqual(
+      [row.issues, row.storyPoints],
+      expected[row.sprint],
+      row.sprint,
+    );
   }
   const sprintsPoints = totals.reduce((sum, row) => sum + row.storyPoints, 0);
   const manual = backlog.issues
-    .filter((issue) => issue.sprint && issue.type !== "Sub-task" && issue.status === "Done")
+    .filter(
+      (issue) =>
+        issue.sprint && issue.type !== "Sub-task" && issue.status === "Done",
+    )
     .reduce((sum, issue) => sum + issue.storyPoints, 0);
   assert.equal(sprintsPoints, manual);
   assert.equal(backlog.issues.length, 128);
@@ -197,8 +225,14 @@ test("csv repeats multi-value headers and keeps columns aligned", () => {
 });
 
 test("history rows carry worklog and commit comment cells", () => {
-  assert.equal(cell("H1", "Worklog"), "Work on Set up Next.js 15 + Tailwind v4 + ESLint project scaffold;2025-05-01 11:00;acc-1;36000");
-  assert.equal(cell("H1", "Comment"), "2025-05-01 18:00;acc-1;Implemented in https://github.com/himanishpuri/livevitals/commit/f35c147");
+  assert.equal(
+    cell("H1", "Worklog"),
+    "Work on Set up Next.js 15 + Tailwind v4 + ESLint project scaffold;2025-05-01 11:00;acc-1;36000",
+  );
+  assert.equal(
+    cell("H1", "Comment"),
+    "2025-05-01 18:00;acc-1;Implemented in https://github.com/himanishpuri/livevitals/commit/f35c147",
+  );
   assert.equal(cell("H10", "Time Spent"), "1800");
   assert.equal(cell("H1", "Sprint"), String(state.sprints.S1));
   assert.equal(cell("H1", "Updated"), "2025-05-01 18:00");
@@ -229,7 +263,12 @@ test("promoted history bugs take the overhaul sprint", () => {
 test("expected keys follow row order", () => {
   const keys = expectedKeys(backlog);
   assert.equal(keys.length, backlog.issues.length);
-  assert.deepEqual(keys[0], { issueId: 1, ref: "E1", expectedKey: "LV-1", summary: backlog.issues[0].summary });
+  assert.deepEqual(keys[0], {
+    issueId: 1,
+    ref: "E1",
+    expectedKey: "LV-1",
+    summary: backlog.issues[0].summary,
+  });
   assert.equal(keys.at(-1).expectedKey, `LV-${keys.length}`);
 });
 
@@ -242,15 +281,22 @@ test("addendum keeps ids and limits the rows", () => {
 
 test("addendum rows get fresh issue ids but keep parent ids from the backlog", () => {
   const overrides = new Map([["O31", 1000]]);
-  const rows = planRows(backlog, state, overrides).filter((row) => row.issue.ref === "O31");
+  const rows = planRows(backlog, state, overrides).filter(
+    (row) => row.issue.ref === "O31",
+  );
   assert.equal(rows.length, 1);
   assert.equal(rows[0].issueId, 1000);
   assert.equal(rows[0].parentId, 13); // E13 keeps its original row id
 });
 
 test("addendum children point at a parent epic imported in the same file", () => {
-  const overrides = new Map([["E16", 2000], ["O32", 2001]]);
-  const child = planRows(backlog, state, overrides).find((row) => row.issue.ref === "O32");
+  const overrides = new Map([
+    ["E16", 2000],
+    ["O32", 2001],
+  ]);
+  const child = planRows(backlog, state, overrides).find(
+    (row) => row.issue.ref === "O32",
+  );
   assert.equal(child.issueId, 2001);
   assert.equal(child.parentId, 2000);
 });

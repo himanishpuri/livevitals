@@ -10,11 +10,7 @@ import { motion } from "motion/react";
 import { Video, Star, Clock, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface InstructorCardProps {
 	instructor: Instructor;
@@ -81,10 +77,7 @@ const InstructorCard = ({ instructor }: InstructorCardProps) => {
 
 					<div className="flex items-center gap-1 mb-4">
 						{[1, 2, 3, 4, 5].map((star) => (
-							<Star
-								key={star}
-								className="h-4 w-4 fill-primary text-primary"
-							/>
+							<Star key={star} className="h-4 w-4 fill-primary text-primary" />
 						))}
 					</div>
 
@@ -118,8 +111,7 @@ const InstructorCard = ({ instructor }: InstructorCardProps) => {
 								</>
 							) : (
 								<>
-									<Calendar className="h-4 w-4 mr-2" /> Schedule
-									Session
+									<Calendar className="h-4 w-4 mr-2" /> Schedule Session
 								</>
 							)}
 						</Link>
@@ -138,10 +130,7 @@ export const InstructorList = ({ instructors }: InstructorListProps) => {
 	return (
 		<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 			{instructors.map((instructor) => (
-				<InstructorCard
-					key={instructor.id}
-					instructor={instructor}
-				/>
+				<InstructorCard key={instructor.id} instructor={instructor} />
 			))}
 		</div>
 	);

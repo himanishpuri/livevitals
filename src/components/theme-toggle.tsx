@@ -5,12 +5,16 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 
-const subscribe = () => () => { };
+const subscribe = () => () => {};
 
 export function ThemeToggle() {
 	const { resolvedTheme, setTheme } = useTheme();
 	// The theme is unknown during SSR; derive the label from it only after hydration.
-	const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+	const mounted = useSyncExternalStore(
+		subscribe,
+		() => true,
+		() => false,
+	);
 	const next = mounted && resolvedTheme === "dark" ? "light" : "dark";
 
 	return (

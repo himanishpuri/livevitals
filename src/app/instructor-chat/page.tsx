@@ -44,8 +44,8 @@ const InstructorChatPage = () => {
 					</div>
 					<h1 className="text-4xl font-bold mb-2">Instructor Chat</h1>
 					<p className="text-muted-foreground text-lg max-w-xl mx-auto">
-						Connect with fitness experts through secure video
-						consultations for personalized guidance
+						Connect with fitness experts through secure video consultations for
+						personalized guidance
 					</p>
 				</div>
 
@@ -53,9 +53,7 @@ const InstructorChatPage = () => {
 					<div className="flex items-center justify-between mb-6">
 						<div className="flex items-center gap-2">
 							<Users className="h-5 w-5 text-primary" />
-							<h2 className="text-2xl font-semibold">
-								Available Instructors
-							</h2>
+							<h2 className="text-2xl font-semibold">Available Instructors</h2>
 						</div>
 						<div className="flex items-center gap-2 px-4 py-2 rounded-full bg-background border">
 							<span
@@ -70,15 +68,11 @@ const InstructorChatPage = () => {
 					</div>
 
 					{!isAuthenticated ? (
-						<Alert
-							variant="destructive"
-							className="mb-6"
-						>
+						<Alert variant="destructive" className="mb-6">
 							<AlertCircle className="h-4 w-4" />
 							<AlertTitle>Authentication Required</AlertTitle>
 							<AlertDescription>
-								Please sign in to start a consultation with an
-								instructor.
+								Please sign in to start a consultation with an instructor.
 							</AlertDescription>
 						</Alert>
 					) : !isConnected ? (
@@ -86,8 +80,7 @@ const InstructorChatPage = () => {
 							<Info className="h-4 w-4" />
 							<AlertTitle>Connecting to network</AlertTitle>
 							<AlertDescription>
-								Please wait while we connect you to our instructor
-								network.
+								Please wait while we connect you to our instructor network.
 							</AlertDescription>
 						</Alert>
 					) : null}
@@ -111,8 +104,8 @@ const InstructorChatPage = () => {
 								<li className="flex items-start gap-2">
 									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
-										Ensure your camera and microphone are working
-										properly before starting
+										Ensure your camera and microphone are working properly
+										before starting
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
@@ -125,15 +118,14 @@ const InstructorChatPage = () => {
 								<li className="flex items-start gap-2">
 									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
-										Prepare any questions or topics you&apos;d like to
-										discuss in advance
+										Prepare any questions or topics you&apos;d like to discuss
+										in advance
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
 									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
-										Consultations are limited to 30 minutes per
-										session
+										Consultations are limited to 30 minutes per session
 									</span>
 								</li>
 							</ul>
@@ -155,29 +147,25 @@ const InstructorChatPage = () => {
 								<li className="flex items-start gap-2">
 									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
-										Get personalized advice tailored to your specific
-										needs
+										Get personalized advice tailored to your specific needs
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
 									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
-										Save time with convenient consultations from
-										anywhere
+										Save time with convenient consultations from anywhere
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
 									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
-										Access to expert instructors with specialized
-										knowledge
+										Access to expert instructors with specialized knowledge
 									</span>
 								</li>
 								<li className="flex items-start gap-2">
 									<CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
 									<span>
-										Follow-up sessions to track your progress over
-										time
+										Follow-up sessions to track your progress over time
 									</span>
 								</li>
 							</ul>

@@ -53,7 +53,9 @@ const USERS_KEY = "livevitals_users";
 
 function readAccounts(): StoredAccount[] {
 	try {
-		return JSON.parse(localStorage.getItem(USERS_KEY) ?? "[]") as StoredAccount[];
+		return JSON.parse(
+			localStorage.getItem(USERS_KEY) ?? "[]",
+		) as StoredAccount[];
 	} catch {
 		return [];
 	}
@@ -219,14 +221,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 			// No "_" in ids: chat room ids are chat_<a>_<b>
 			const newUser: User = {
-				id: data.email.split("@")[0].toLowerCase().replace(/[^a-z0-9-]/g, "-"),
+				id: data.email
+					.split("@")[0]
+					.toLowerCase()
+					.replace(/[^a-z0-9-]/g, "-"),
 				name: data.name,
 				email: data.email,
 				role: data.role,
 				profileImage:
 					data.role === "instructor"
 						? data.name.toLowerCase().includes("sarah") ||
-						  data.name.toLowerCase().includes("lisa")
+							data.name.toLowerCase().includes("lisa")
 							? "/instructors/sarah-johnson.svg"
 							: "/instructors/john-smith.svg"
 						: undefined,
@@ -237,7 +242,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			// Persist the account so the user can log in again later
 			localStorage.setItem(
 				USERS_KEY,
-				JSON.stringify([...accounts, { user: newUser, password: data.password }]),
+				JSON.stringify([
+					...accounts,
+					{ user: newUser, password: data.password },
+				]),
 			);
 
 			// Update state

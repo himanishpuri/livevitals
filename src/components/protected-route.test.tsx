@@ -5,7 +5,11 @@ import ProtectedRoute from "./protected-route";
 
 const replace = vi.hoisted(() => vi.fn());
 const authState = vi.hoisted(() => ({
-	current: { user: null, isAuthenticated: false, isLoading: false } as AuthState,
+	current: {
+		user: null,
+		isAuthenticated: false,
+		isLoading: false,
+	} as AuthState,
 }));
 
 vi.mock("next/navigation", () => ({
@@ -16,13 +20,26 @@ vi.mock("@/context/auth-context", () => ({
 	useAuth: () => authState.current,
 }));
 
-const user = { id: "john-smith", name: "John", email: "j@example.com", role: "instructor" as const };
+const user = {
+	id: "john-smith",
+	name: "John",
+	email: "j@example.com",
+	role: "instructor" as const,
+};
 
 describe("ProtectedRoute", () => {
 	it("sends anonymous visitors to login without rendering children", async () => {
-		authState.current = { user: null, isAuthenticated: false, isLoading: false };
+		authState.current = {
+			user: null,
+			isAuthenticated: false,
+			isLoading: false,
+		};
 
-		render(<ProtectedRoute><p>secret</p></ProtectedRoute>);
+		render(
+			<ProtectedRoute>
+				<p>secret</p>
+			</ProtectedRoute>,
+		);
 
 		await waitFor(() => expect(replace).toHaveBeenCalledWith("/login"));
 		expect(screen.queryByText("secret")).not.toBeInTheDocument();
@@ -35,7 +52,11 @@ describe("ProtectedRoute", () => {
 			isLoading: false,
 		};
 
-		render(<ProtectedRoute requireRole="instructor"><p>secret</p></ProtectedRoute>);
+		render(
+			<ProtectedRoute requireRole="instructor">
+				<p>secret</p>
+			</ProtectedRoute>,
+		);
 
 		await waitFor(() => expect(replace).toHaveBeenCalledWith("/"));
 		expect(screen.queryByText("secret")).not.toBeInTheDocument();
@@ -44,7 +65,11 @@ describe("ProtectedRoute", () => {
 	it("renders children for an authenticated user with the right role", () => {
 		authState.current = { user, isAuthenticated: true, isLoading: false };
 
-		render(<ProtectedRoute requireRole="instructor"><p>secret</p></ProtectedRoute>);
+		render(
+			<ProtectedRoute requireRole="instructor">
+				<p>secret</p>
+			</ProtectedRoute>,
+		);
 
 		expect(screen.getByText("secret")).toBeInTheDocument();
 	});

@@ -31,25 +31,15 @@ interface HealthMetricsChartProps {
 
 export function HealthMetricsChart({ data }: HealthMetricsChartProps) {
 	return (
-		<ChartContainer
-			config={chartConfig}
-			className="h-[300px] w-full"
-		>
-			<LineChart
-				data={data}
-				accessibilityLayer
-			>
+		<ChartContainer config={chartConfig} className="h-[300px] w-full">
+			<LineChart data={data} accessibilityLayer>
 				<XAxis
 					dataKey="date"
 					tickLine={false}
 					axisLine={false}
 					tickMargin={8}
 				/>
-				<YAxis
-					tickLine={false}
-					axisLine={false}
-					tickMargin={8}
-				/>
+				<YAxis tickLine={false} axisLine={false} tickMargin={8} />
 				<ChartTooltip content={<ChartTooltipContent />} />
 				<Line
 					type="monotone"

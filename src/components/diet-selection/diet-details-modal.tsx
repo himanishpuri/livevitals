@@ -24,10 +24,7 @@ export function DietDetailsModal({ diet }: DietDetailsModalProps) {
 			</DialogHeader>
 			<div className="flex flex-wrap gap-2 mb-4">
 				{diet.tags.map((tag) => (
-					<Badge
-						key={tag}
-						variant="outline"
-					>
+					<Badge key={tag} variant="outline">
 						{tag}
 					</Badge>
 				))}
@@ -45,9 +42,7 @@ export function DietDetailsModal({ diet }: DietDetailsModalProps) {
 							<p>{diet.description}</p>
 
 							<div>
-								<h4 className="font-semibold mb-2">
-									Nutrition Profile:
-								</h4>
+								<h4 className="font-semibold mb-2">Nutrition Profile:</h4>
 								<div className="grid grid-cols-2 gap-2">
 									<div className="flex justify-between">
 										<span>Daily Calories:</span>
@@ -69,9 +64,7 @@ export function DietDetailsModal({ diet }: DietDetailsModalProps) {
 									</div>
 									<div className="flex justify-between">
 										<span>Fat:</span>
-										<span className="font-medium">
-											{diet.macroRatio.fat}%
-										</span>
+										<span className="font-medium">{diet.macroRatio.fat}%</span>
 									</div>
 								</div>
 							</div>
@@ -80,10 +73,7 @@ export function DietDetailsModal({ diet }: DietDetailsModalProps) {
 								<h4 className="font-semibold mb-2">Benefits:</h4>
 								<ul className="space-y-1">
 									{diet.benefits.map((benefit, idx) => (
-										<li
-											key={idx * 23}
-											className="flex items-start gap-2"
-										>
+										<li key={idx * 23} className="flex items-start gap-2">
 											<Check className="h-4 w-4 text-primary mt-1" />
 											<span>{benefit}</span>
 										</li>
@@ -118,10 +108,7 @@ export function DietDetailsModal({ diet }: DietDetailsModalProps) {
 									</p>
 									<ul className="space-y-1">
 										{meal.items.map((item, itemIdx) => (
-											<li
-												key={itemIdx * 23}
-												className="flex items-start gap-2"
-											>
+											<li key={itemIdx * 23} className="flex items-start gap-2">
 												<span>•</span>
 												<span>{item}</span>
 											</li>
@@ -142,10 +129,7 @@ export function DietDetailsModal({ diet }: DietDetailsModalProps) {
 							<p>{diet.tipsSummary}</p>
 							<ul className="space-y-2">
 								{diet.tips.map((tip, idx) => (
-									<li
-										key={idx * 23}
-										className="flex items-start gap-2"
-									>
+									<li key={idx * 23} className="flex items-start gap-2">
 										<Check className="h-4 w-4 text-primary mt-1" />
 										<span>{tip}</span>
 									</li>

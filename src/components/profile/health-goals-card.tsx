@@ -74,9 +74,7 @@ export function HealthGoalsCard({ goals, currentStats }: HealthGoalsCardProps) {
 									<div className="text-sm text-muted-foreground">
 										Starting Weight
 									</div>
-									<div className="font-medium">
-										{goals.startingWeight} kg
-									</div>
+									<div className="font-medium">{goals.startingWeight} kg</div>
 								</div>
 								<div>
 									<div className="text-sm text-muted-foreground">
@@ -90,21 +88,15 @@ export function HealthGoalsCard({ goals, currentStats }: HealthGoalsCardProps) {
 									<div className="text-sm text-muted-foreground">
 										Target Weight
 									</div>
-									<div className="font-medium">
-										{goals.targetWeight} kg
-									</div>
+									<div className="font-medium">{goals.targetWeight} kg</div>
 								</div>
 							</div>
 							<div className="mt-2">
-								<div className="text-sm text-muted-foreground">
-									Progress
-								</div>
+								<div className="text-sm text-muted-foreground">Progress</div>
 								<div>{calculateWeightProgress()}</div>
 							</div>
 							<div className="mt-2">
-								<div className="text-sm text-muted-foreground">
-									Target Date
-								</div>
+								<div className="text-sm text-muted-foreground">Target Date</div>
 								<div>{goals.targetDate}</div>
 							</div>
 						</div>

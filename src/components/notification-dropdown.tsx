@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useNotifications, type Notification } from "@/context/notification-context";
+import {
+	useNotifications,
+	type Notification,
+} from "@/context/notification-context";
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,10 +43,7 @@ export function NotificationDropdown() {
 	};
 
 	return (
-		<Popover
-			open={open}
-			onOpenChange={setOpen}
-		>
+		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
 				<Button
 					variant="ghost"
@@ -59,10 +59,7 @@ export function NotificationDropdown() {
 					)}
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent
-				className="w-80 p-0"
-				align="end"
-			>
+			<PopoverContent className="w-80 p-0" align="end">
 				<div className="flex items-center justify-between p-4 border-b">
 					<h4 className="font-medium text-sm">Notifications</h4>
 					{unreadCount > 0 && (
@@ -84,9 +81,7 @@ export function NotificationDropdown() {
 								<div
 									key={notification.id}
 									className={`p-4 hover:bg-muted/50 cursor-pointer transition-colors ${
-										!notification.read
-											? "bg-accent"
-											: ""
+										!notification.read ? "bg-accent" : ""
 									}`}
 									onClick={() => handleNotificationClick(notification)}
 								>
@@ -112,9 +107,7 @@ export function NotificationDropdown() {
 						</div>
 					) : (
 						<div className="p-8 text-center">
-							<p className="text-sm text-muted-foreground">
-								No notifications
-							</p>
+							<p className="text-sm text-muted-foreground">No notifications</p>
 						</div>
 					)}
 				</ScrollArea>

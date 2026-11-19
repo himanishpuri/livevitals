@@ -24,13 +24,14 @@ export default function RootLayout({
 	readonly children: React.ReactNode;
 }) {
 	return (
-		<html
-			lang="en"
-			suppressHydrationWarning
-			className={inter.variable}
-		>
+		<html lang="en" suppressHydrationWarning className={inter.variable}>
 			<body className="font-sans antialiased">
-				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
 					<AuthProvider>
 						<HealthDataProvider>
 							<NotificationProvider>

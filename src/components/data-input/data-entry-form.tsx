@@ -15,10 +15,7 @@ export function DataEntryForm<T extends FieldValues>({
 }) {
 	return (
 		<Form {...form}>
-			<form
-				onSubmit={form.handleSubmit(onSubmit)}
-				className="space-y-6"
-			>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 				{children}
 			</form>
 		</Form>

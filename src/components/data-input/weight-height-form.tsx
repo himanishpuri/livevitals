@@ -69,10 +69,7 @@ export function WeightHeightForm({
 	});
 
 	return (
-		<DataEntryForm
-			form={form}
-			onSubmit={onSave}
-		>
+		<DataEntryForm form={form} onSubmit={onSave}>
 			{measurementSliders.map(
 				({ name, label, description, min, max, step, format }) => (
 					<FormField
@@ -113,11 +110,7 @@ export function WeightHeightForm({
 				),
 			)}
 
-			<Button
-				type="submit"
-				className="w-full"
-				disabled={isSaving}
-			>
+			<Button type="submit" className="w-full" disabled={isSaving}>
 				{isSaving ? "Saving..." : "Save Measurements"}
 			</Button>
 		</DataEntryForm>

@@ -31,20 +31,9 @@ interface CalorieGoalChartProps {
 
 export function CalorieGoalChart({ data }: CalorieGoalChartProps) {
 	return (
-		<ChartContainer
-			config={chartConfig}
-			className="h-[300px] w-full"
-		>
-			<BarChart
-				data={data}
-				accessibilityLayer
-			>
-				<XAxis
-					dataKey="day"
-					tickLine={false}
-					axisLine={false}
-					tickMargin={8}
-				/>
+		<ChartContainer config={chartConfig} className="h-[300px] w-full">
+			<BarChart data={data} accessibilityLayer>
+				<XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} />
 				<YAxis
 					tickLine={false}
 					axisLine={false}

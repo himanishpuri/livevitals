@@ -19,9 +19,7 @@ async function expectLiveRemoteVideo(page: Page) {
 				return (
 					!video.muted &&
 					!!stream &&
-					stream
-						.getVideoTracks()
-						.some((track) => track.readyState === "live")
+					stream.getVideoTracks().some((track) => track.readyState === "live")
 				);
 			}),
 		undefined,
@@ -66,9 +64,7 @@ test("user chats with the instructor and their video call connects", async ({
 	await expect(startCall).toBeEnabled({ timeout: 15_000 });
 	await startCall.click();
 	await instructor.getByRole("button", { name: "Answer" }).click();
-	await expect(instructor).toHaveURL(
-		/\/instructor-chat\/john-smith\?caller=/,
-	);
+	await expect(instructor).toHaveURL(/\/instructor-chat\/john-smith\?caller=/);
 
 	await expectLiveRemoteVideo(user);
 	await expectLiveRemoteVideo(instructor);

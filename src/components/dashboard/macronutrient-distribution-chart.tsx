@@ -43,10 +43,7 @@ export function MacronutrientDistributionChart({
 	];
 
 	return (
-		<ChartContainer
-			config={chartConfig}
-			className="h-[300px] w-full"
-		>
+		<ChartContainer config={chartConfig} className="h-[300px] w-full">
 			<PieChart accessibilityLayer>
 				<Pie
 					data={chartData}

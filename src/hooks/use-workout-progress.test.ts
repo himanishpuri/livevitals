@@ -107,9 +107,7 @@ describe("useWorkoutProgress", () => {
 	});
 
 	it("keeps progress of two users separate", async () => {
-		const { result, rerender } = renderHook(() =>
-			useWorkoutProgress(plan),
-		);
+		const { result, rerender } = renderHook(() => useWorkoutProgress(plan));
 		await hydrate();
 		act(() => result.current.toggleExercise("ex2"));
 
@@ -118,9 +116,7 @@ describe("useWorkoutProgress", () => {
 		await hydrate();
 
 		await waitFor(() =>
-			expect(
-				result.current.isCompleted(exercise("ex2", false)),
-			).toBe(false),
+			expect(result.current.isCompleted(exercise("ex2", false))).toBe(false),
 		);
 		expect(localStorage.getItem(keyOf("instructor-1"))).toBeNull();
 		expect(stored("user-1").ex2).toBe(true);

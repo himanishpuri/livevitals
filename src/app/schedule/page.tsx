@@ -202,14 +202,9 @@ export default function SchedulePage() {
 		<ProtectedRoute>
 			<PageWrapper>
 				<div className="container mx-auto py-10 px-4">
-					<h1 className="text-3xl font-bold mb-6">
-						Your Scheduled Sessions
-					</h1>
+					<h1 className="text-3xl font-bold mb-6">Your Scheduled Sessions</h1>
 
-					<Tabs
-						defaultValue="upcoming"
-						className="w-full"
-					>
+					<Tabs defaultValue="upcoming" className="w-full">
 						<TabsList className="mb-6">
 							<TabsTrigger value="upcoming">
 								<Calendar className="h-4 w-4 mr-2" />
@@ -225,16 +220,11 @@ export default function SchedulePage() {
 							{upcomingSessions.length > 0 ? (
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 									{upcomingSessions.map((session) => {
-										const instructor = getInstructorById(
-											session.instructorId,
-										);
+										const instructor = getInstructorById(session.instructorId);
 										if (!instructor) return null;
 
 										const sessionDate = parseISO(session.date);
-										const daysUntil = differenceInDays(
-											sessionDate,
-											new Date(),
-										);
+										const daysUntil = differenceInDays(sessionDate, new Date());
 										const isToday = daysUntil === 0;
 										const isSoon = daysUntil <= 1; // Today or tomorrow
 
@@ -260,14 +250,10 @@ export default function SchedulePage() {
 															<Button
 																size="sm"
 																onClick={() =>
-																	joinSession(
-																		session.id,
-																		session.instructorId,
-																	)
+																	joinSession(session.id, session.instructorId)
 																}
 															>
-																<Video className="h-4 w-4 mr-1" />{" "}
-																Join Now
+																<Video className="h-4 w-4 mr-1" /> Join Now
 															</Button>
 														)}
 													</>
@@ -299,9 +285,7 @@ export default function SchedulePage() {
 							{pastSessions.length > 0 ? (
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 									{pastSessions.map((session) => {
-										const instructor = getInstructorById(
-											session.instructorId,
-										);
+										const instructor = getInstructorById(session.instructorId);
 										if (!instructor) return null;
 
 										return (
@@ -332,9 +316,7 @@ export default function SchedulePage() {
 							) : (
 								<div className="text-center py-12 bg-muted/20 rounded-lg">
 									<Clock className="h-12 w-12 mx-auto text-muted-foreground" />
-									<h3 className="mt-4 text-xl font-medium">
-										No past sessions
-									</h3>
+									<h3 className="mt-4 text-xl font-medium">No past sessions</h3>
 									<p className="text-muted-foreground mt-2">
 										Your completed sessions will appear here
 									</p>
