@@ -443,15 +443,19 @@ function cmdAddendum(refs) {
   for (const ref of refs) {
     if (!backlog.issues.some((issue) => issue.ref === ref)) die(`unknown ref ${ref}`);
   }
-  const path = writeCsvFile("livevitals-addendum.csv", buildCsv(backlog, state, refs, addendumIds(backlog, refs)));
+  const ids = addendumIds(backlog, refs, state.lastAddendumId);
+  const path = writeCsvFile("livevitals-addendum.csv", buildCsv(backlog, state, refs, ids));
+  // Each addendum must use ids no earlier import used, so remember the last one.
+  saveState({ ...state, lastAddendumId: Math.max(...ids.values()) });
   console.log(`wrote ${path} (${refs.length} rows)`);
 }
 
-// The importer skips rows whose Issue Id already exists, so addenda use fresh
-// ids. Parent cells point at the fresh id when the parent is in the same
-// addendum, otherwise at its row from the previous import.
-function addendumIds(backlog, refs) {
-  const base = 1000 + backlog.issues.length;
+// The importer skips rows whose Issue Id already exists in Jira, so every
+// addendum takes ids after the last one handed out. Parent cells point at the
+// fresh id when the parent is in the same addendum, otherwise at its row from
+// the original import.
+export function addendumIds(backlog, refs, lastAddendumId = 0) {
+  const base = Math.max(1000 + backlog.issues.length, lastAddendumId + 1);
   return new Map(refs.map((ref, index) => [ref, base + index]));
 }
 
