@@ -1,13 +1,25 @@
 "use client";
 
+import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import {
-	Bar,
-	BarChart,
-	ResponsiveContainer,
-	XAxis,
-	YAxis,
-	Tooltip,
-} from "recharts";
+	ChartContainer,
+	ChartLegend,
+	ChartLegendContent,
+	ChartTooltip,
+	ChartTooltipContent,
+	type ChartConfig,
+} from "@/components/ui/chart";
+
+const chartConfig = {
+	consumed: {
+		label: "Consumed",
+		color: "var(--chart-1)",
+	},
+	target: {
+		label: "Target",
+		color: "var(--chart-2)",
+	},
+} satisfies ChartConfig;
 
 interface CalorieGoalChartProps {
 	data: Array<{
@@ -19,65 +31,39 @@ interface CalorieGoalChartProps {
 
 export function CalorieGoalChart({ data }: CalorieGoalChartProps) {
 	return (
-		<ResponsiveContainer
-			width="100%"
-			height={350}
+		<ChartContainer
+			config={chartConfig}
+			className="h-[300px] w-full"
 		>
-			<BarChart data={data}>
+			<BarChart
+				data={data}
+				accessibilityLayer
+			>
 				<XAxis
 					dataKey="day"
-					stroke="#888888"
-					fontSize={12}
 					tickLine={false}
 					axisLine={false}
+					tickMargin={8}
 				/>
 				<YAxis
-					stroke="#888888"
-					fontSize={12}
 					tickLine={false}
 					axisLine={false}
+					tickMargin={8}
 					tickFormatter={(value) => `${value} kcal`}
 				/>
-				<Tooltip
-					content={({ active, payload }) => {
-						if (active && payload && payload.length) {
-							return (
-								<div className="rounded-lg border bg-background p-2 shadow-sm">
-									<div className="grid grid-cols-2 gap-2">
-										<div className="flex flex-col">
-											<span className="text-[0.70rem] uppercase text-muted-foreground">
-												Consumed
-											</span>
-											<span className="font-bold text-muted-foreground">
-												{payload[0].value} kcal
-											</span>
-										</div>
-										<div className="flex flex-col">
-											<span className="text-[0.70rem] uppercase text-muted-foreground">
-												Target
-											</span>
-											<span className="font-bold text-muted-foreground">
-												{payload[1].value} kcal
-											</span>
-										</div>
-									</div>
-								</div>
-							);
-						}
-						return null;
-					}}
-				/>
+				<ChartTooltip content={<ChartTooltipContent />} />
 				<Bar
 					dataKey="consumed"
-					fill="#8884d8"
+					fill="var(--color-consumed)"
 					radius={[4, 4, 0, 0]}
 				/>
 				<Bar
 					dataKey="target"
-					fill="#82ca9d"
+					fill="var(--color-target)"
 					radius={[4, 4, 0, 0]}
 				/>
+				<ChartLegend content={<ChartLegendContent />} />
 			</BarChart>
-		</ResponsiveContainer>
+		</ChartContainer>
 	);
 }

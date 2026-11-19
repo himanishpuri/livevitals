@@ -1,6 +1,29 @@
 "use client";
 
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Cell, Pie, PieChart } from "recharts";
+import {
+	ChartContainer,
+	ChartLegend,
+	ChartLegendContent,
+	ChartTooltip,
+	ChartTooltipContent,
+	type ChartConfig,
+} from "@/components/ui/chart";
+
+const chartConfig = {
+	Protein: {
+		label: "Protein",
+		color: "var(--chart-1)",
+	},
+	Carbs: {
+		label: "Carbs",
+		color: "var(--chart-2)",
+	},
+	Fat: {
+		label: "Fat",
+		color: "var(--chart-3)",
+	},
+} satisfies ChartConfig;
 
 interface MacronutrientDistributionChartProps {
 	data: {
@@ -19,59 +42,34 @@ export function MacronutrientDistributionChart({
 		{ name: "Fat", value: data.fat },
 	];
 
-	const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
-
 	return (
-		<ResponsiveContainer
-			width="100%"
-			height={350}
+		<ChartContainer
+			config={chartConfig}
+			className="h-[300px] w-full"
 		>
-			<PieChart>
+			<PieChart accessibilityLayer>
 				<Pie
 					data={chartData}
 					cx="50%"
 					cy="50%"
 					labelLine={false}
 					outerRadius={100}
-					fill="#8884d8"
 					dataKey="value"
+					nameKey="name"
 					label={({ name, percent }) =>
 						`${name} ${((percent ?? 0) * 100).toFixed(0)}%`
 					}
 				>
-					{chartData.map((entry, index) => (
+					{chartData.map((entry) => (
 						<Cell
-							key={`cell-${index}`}
-							fill={COLORS[index % COLORS.length]}
+							key={`cell-${entry.name}`}
+							fill={`var(--color-${entry.name})`}
 						/>
 					))}
 				</Pie>
-				<Tooltip
-					content={({ active, payload }) => {
-						if (active && payload && payload.length) {
-							return (
-								<div className="rounded-lg border bg-background p-2 shadow-sm">
-									<div className="flex flex-col">
-										<span className="text-[0.70rem] uppercase text-muted-foreground">
-											{payload[0].name}
-										</span>
-										<span className="font-bold text-muted-foreground">
-											{payload[0].value}g (
-											{(
-												(Number(payload[0].value) /
-													(data.protein + data.carbs + data.fat)) *
-												100
-											).toFixed(1)}
-											%)
-										</span>
-									</div>
-								</div>
-							);
-						}
-						return null;
-					}}
-				/>
+				<ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
+				<ChartLegend content={<ChartLegendContent nameKey="name" />} />
 			</PieChart>
-		</ResponsiveContainer>
+		</ChartContainer>
 	);
 }
