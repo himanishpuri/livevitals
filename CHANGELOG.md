@@ -13,6 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   changelog, editor and git attributes, Dependabot, CODEOWNERS, pull request and
   issue templates.
 - no-mistakes push gate configuration.
+
+## [1.0.0] - 2025-07-13
+
+Platform overhaul. The app moves to the current Next.js and React, every screen
+is rebuilt on shadcn/ui, realtime features live in a dedicated service, and the
+project gains tests, containers and CI.
+
+### Added
+
 - Standalone `realtime/` Node service (socket.io + PeerJS) for presence, chat
   history and WebRTC signalling, with its own Docker image and compose service.
 - Weekly workout plan, privacy and terms pages, and a forgot-password page.
@@ -49,4 +58,5 @@ Original course build: landing site, authentication with roles, health tracking
 dashboard and data entry, diet plans, profile and goals, instructor listing,
 chat, video consultation and session scheduling.
 
-[Unreleased]: https://github.com/himanishpuri/livevitals/commits/main
+[Unreleased]: https://github.com/himanishpuri/livevitals/compare/v1.0.0...main
+[1.0.0]: https://github.com/himanishpuri/livevitals/releases/tag/v1.0.0
